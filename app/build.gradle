@@ -1,13 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    //Google-Services
+    //id 'com.google.gms.google-services'
+    //firebase-crashlytics
+    //id 'com.google.firebase.crashlytics'
 }
 
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.bitsboy.imaganize"
+        applicationId "com.bitsboy.imaganize"//"com.mankirat.approck"
         minSdk 23
         targetSdk 32
         versionCode 1
@@ -24,6 +28,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            //firebase
+            //firebaseCrashlytics { mappingFileUploadEnabled false }
         }
     }
     compileOptions {
@@ -45,4 +53,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation project(':lib')
+    //firebase  When using the BoM, you don't specify versions in Firebase library dependencies
+//    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+//    implementation 'com.google.firebase:firebase-crashlytics'
+//    implementation 'com.google.firebase:firebase-analytics-ktx'
+//    implementation 'com.google.firebase:firebase-config'
+//    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
+    //ad-mob used for (banner ad size)
+//    implementation 'com.google.android.gms:play-services-ads:20.6.0'
 }

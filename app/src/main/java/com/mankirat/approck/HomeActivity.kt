@@ -1,10 +1,14 @@
 package com.mankirat.approck
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.android.gms.ads.AdSize
 import com.mankirat.approck.databinding.ActivityHomeBinding
 import com.mankirat.approck.lib.AdMobUtil
+import com.mankirat.approck.lib.adMobBanner
+import com.mankirat.approck.lib.adMobNative
 
 class HomeActivity : AppCompatActivity() {
 
@@ -18,20 +22,22 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        AdMobUtil.adMobIds.interstitialId = Constants.AdMob.INTERSTITIAL
-        AdMobUtil.adMobIds.interstitialIdSplash = Constants.AdMob.INTERSTITIAL_SPLASH
-        AdMobUtil.adMobIds.bannerId = Constants.AdMob.BANNER
-        AdMobUtil.adMobIds.nativeId = Constants.AdMob.NATIVE
-        AdMobUtil.adMobIds.rewardId = Constants.AdMob.REWARD
-        AdMobUtil.adMobIds.appOpenId = Constants.AdMob.APP_OPEN
+        AdMobUtil.adMobIds.apply {
+            interstitialId = Constants.AdMob.INTERSTITIAL
+            interstitialIdSplash = Constants.AdMob.INTERSTITIAL_SPLASH
+            bannerId = Constants.AdMob.BANNER
+            nativeId = Constants.AdMob.NATIVE
+            rewardId = Constants.AdMob.REWARD
+            appOpenId = Constants.AdMob.APP_OPEN
+        }
+        AdMobUtil.setUp(this, 4, Color.RED)
 
-        AdMobUtil.setUp(this)
-        //MobileAds.initialize(context)
 
         binding.btnShowInterstitial.setOnClickListener {
             AdMobUtil.showInterstitial(this)
         }
-
+        binding.flBannerAd.adMobBanner()
+        binding.flNativeAd.adMobNative()
     }
 
 }

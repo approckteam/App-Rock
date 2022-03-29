@@ -1,6 +1,6 @@
 package com.mankirat.approck.lib
 
-enum class AdMobEnum(val firebaseEvent: String) {
+enum class AdType(val firebaseEvent: String) {
     APP_OPEN("app_open"),
     INTERSTITIAL("interstitial"),
     INTERSTITIAL_SPLASH("interstitial_splash"),
