@@ -453,6 +453,14 @@ object AdMobUtil {
 
 }
 
+fun Activity.adMobInter(callback: ((success: Boolean) -> Unit)? = null) {
+    AdMobUtil.showInterstitial(this, callback)
+}
+
+fun Activity.adMobInterSplash(callback: ((success: Boolean) -> Unit)? = null) {
+    AdMobUtil.showInterstitialSplash(this, callback)
+}
+
 fun FrameLayout.adMobBanner() {//(adSize: AdSize = AdSize.BANNER): AdView? {
     AdMobUtil.loadBanner(this, AdSize.BANNER)
 }

@@ -7,6 +7,7 @@ import android.util.Log
 import com.mankirat.approck.databinding.ActivityHomeBinding
 import com.mankirat.approck.lib.AdMobUtil
 import com.mankirat.approck.lib.adMobBanner
+import com.mankirat.approck.lib.adMobInter
 import com.mankirat.approck.lib.adMobNative
 
 class HomeActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
         AdMobUtil.setUp(this, 4, Color.RED)
 
         binding.btnShowInterstitial.setOnClickListener {
-            AdMobUtil.showInterstitial(this)
+            adMobInter()
         }
         binding.flBannerAd.adMobBanner()
         binding.flNativeAd.adMobNative()
