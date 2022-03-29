@@ -4,7 +4,6 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.google.android.gms.ads.AdSize
 import com.mankirat.approck.databinding.ActivityHomeBinding
 import com.mankirat.approck.lib.AdMobUtil
 import com.mankirat.approck.lib.adMobBanner

@@ -453,8 +453,8 @@ object AdMobUtil {
 
 }
 
-fun FrameLayout.adMobBanner(adSize: AdSize = AdSize.BANNER): AdView? {
-    return AdMobUtil.loadBanner(this, adSize)
+fun FrameLayout.adMobBanner() {//(adSize: AdSize = AdSize.BANNER): AdView? {
+    AdMobUtil.loadBanner(this, AdSize.BANNER)
 }
 
 fun FrameLayout.adMobNative(nativeAdStyle: NativeAdStyle? = null, callback: ((nativeAd: NativeAd) -> Unit)? = null) {
