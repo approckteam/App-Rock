@@ -31,7 +31,6 @@ class HomeActivity : AppCompatActivity() {
         }
         AdMobUtil.setUp(this, 4, Color.RED)
 
-
         binding.btnShowInterstitial.setOnClickListener {
             AdMobUtil.showInterstitial(this)
         }
