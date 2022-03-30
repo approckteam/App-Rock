@@ -1,4 +1,4 @@
-package com.mankirat.approck.lib
+package com.mankirat.approck.lib.admob
 
 class AdMobIds {
 

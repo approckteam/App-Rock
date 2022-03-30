@@ -1,4 +1,4 @@
-package com.mankirat.approck.lib
+package com.mankirat.approck.lib.admob
 
 import android.app.Activity
 import android.content.Context
@@ -25,6 +25,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.MediaView
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.mankirat.approck.lib.AdType
+import com.mankirat.approck.lib.BuildConfig
+import com.mankirat.approck.lib.R
 
 object AdMobUtil {
 
@@ -73,8 +76,8 @@ object AdMobUtil {
 
     /*___________________________ click count ___________________________*/
 
-    var currentClickCount = 0
-    var targetClickCount = 4L
+    private var currentClickCount = 0
+    private var targetClickCount = 4L
 
     fun buttonClickCount(context: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         currentClickCount += 1
@@ -105,7 +108,7 @@ object AdMobUtil {
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
                 super.onAdLoaded(interstitialAd)
                 log("loadInterstitial : onAdLoaded")
-                firebaseEvent(AdType.INTERSTITIAL, true, true)
+                firebaseEvent(AdType.INTERSTITIAL, isLoad = true, isSuccess = true)
 
                 mInterstitialAd = interstitialAd
                 isInterstitialLoading = false
@@ -114,7 +117,7 @@ object AdMobUtil {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
                 log("loadInterstitial : onAdFailedToLoad : loadAdError = $loadAdError")
-                firebaseEvent(AdType.INTERSTITIAL, true, false)
+                firebaseEvent(AdType.INTERSTITIAL, isLoad = true, isSuccess = false)
 
                 mInterstitialAd = null
                 isInterstitialLoading = false
@@ -316,7 +319,7 @@ object AdMobUtil {
 
     /*______________________________ Native ______________________________*/
 
-    val defaultNativeAdStyle = NativeAdStyle()
+    private val defaultNativeAdStyle = NativeAdStyle()
 
     fun showNativeAd(adContainer: FrameLayout, nativeAdStyle: NativeAdStyle? = null, callback: ((nativeAd: NativeAd) -> Unit)? = null) {
         log("showNativeAd")
@@ -453,18 +456,27 @@ object AdMobUtil {
 
 }
 
+@Suppress("unused")
+fun Activity.adMobClickCount(callback: ((success: Boolean) -> Unit)? = null) {
+    AdMobUtil.buttonClickCount(this, callback)
+}
+
+@Suppress("unused")
 fun Activity.adMobInter(callback: ((success: Boolean) -> Unit)? = null) {
     AdMobUtil.showInterstitial(this, callback)
 }
 
+@Suppress("unused")
 fun Activity.adMobInterSplash(callback: ((success: Boolean) -> Unit)? = null) {
     AdMobUtil.showInterstitialSplash(this, callback)
 }
 
-fun FrameLayout.adMobBanner() {//(adSize: AdSize = AdSize.BANNER): AdView? {
-    AdMobUtil.loadBanner(this, AdSize.BANNER)
+@Suppress("unused")
+fun FrameLayout.adMobBanner(adSize: AdSize = AdSize.BANNER): AdView? {
+    return AdMobUtil.loadBanner(this, adSize)
 }
 
+@Suppress("unused")
 fun FrameLayout.adMobNative(nativeAdStyle: NativeAdStyle? = null, callback: ((nativeAd: NativeAd) -> Unit)? = null) {
     AdMobUtil.showNativeAd(this, nativeAdStyle, callback)
 }

@@ -2,6 +2,7 @@ package com.mankirat.approck
 
 import android.app.Application
 import android.util.Log
+import com.mankirat.approck.lib.iap.InAppPurchase
 
 class ApplicationGlobal : Application() {
 
@@ -18,6 +19,8 @@ class ApplicationGlobal : Application() {
         log("onCreate")
 
         instance = this
+
+        InAppPurchase.setUp(this,"")
 
 
     }

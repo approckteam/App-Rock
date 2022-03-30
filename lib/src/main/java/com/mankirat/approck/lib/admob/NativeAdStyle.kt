@@ -1,4 +1,4 @@
-package com.mankirat.approck.lib
+package com.mankirat.approck.lib.admob
 
 import android.content.Context
 import android.graphics.Color
@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.TypedValue
 import androidx.core.content.ContextCompat
+import com.mankirat.approck.lib.R
 import kotlin.math.roundToInt
 
 class NativeAdStyle {
