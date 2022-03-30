@@ -1,4 +1,5 @@
-# multiple-text
+# app-rock common lib for all apps by
+# MANKIRAT SINGH IN MARCH 2022
 
 # In project level gradle
 
