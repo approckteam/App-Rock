@@ -17,6 +17,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
+import com.mankirat.approck.lib.MyConstants
 import java.io.IOException
 import java.security.InvalidKeyException
 import java.security.KeyFactory
@@ -27,14 +28,10 @@ import java.security.SignatureException
 import java.security.spec.InvalidKeySpecException
 import java.security.spec.X509EncodedKeySpec
 
-@Suppress("SpellCheckingInspection")
-const val BASE_64_KEY =
-    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiL3v2EPMPfhTQ6LrqdGvfo2riCeomIzyq4yZ8QBcsF1cRzaAU4G6f8/pGBXHjHJTud1+CGqdplyDxw/fzQqn5MDOCwrdaAbt4WeU/q5+9NoQFIdp08ZVjEuSl2vSozbM7U0F4AABZa/P6VkltE7aMlNsHuOcWp6oMveCHggZ9mucw3t2/AFsTwSVbRmYdDM5zhrtmWdTB6GyInoMQeR3HXRT9ti2IrF4R2qs88pPBWPfmnTWoGP0YWCF8p59pPzZITh1nr+RqiuEZcl6e7fItYB42MsNdluk+Ja99Kxu4JdC1kzqaWSI7Dyvfw/aQXBSwREKRWL/3O3sb1hV86LekQIDAQAB"
-
 class InAppPurchase(
     private val mContext: Context, private val premiumId: String, products: ArrayList<String>? = null,
-    private val defaultStatus: Boolean = true,
-    private val mAcknowledge: Boolean = true, private val base64Key: String = BASE_64_KEY
+    private val defaultStatus: Boolean = MyConstants.IAP_DEFAULT_STATUS,
+    private val mAcknowledge: Boolean = true, private val base64Key: String = MyConstants.BASE_64_KEY
 ) {
 
     private fun log(msg: String, e: Throwable? = null) {
@@ -73,7 +70,7 @@ class InAppPurchase(
 
     /*________________________ Shared Pref _______________________*/
 
-    private val sharedPreferences by lazy { mContext.getSharedPreferences("iap_app_rock", Context.MODE_PRIVATE) }
+    private val sharedPreferences by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
 
     private fun setProductStatus(productId: String, status: Boolean) {
         sharedPreferences.edit().putBoolean(productId + "_enabled", status).apply()
@@ -81,17 +78,17 @@ class InAppPurchase(
 
     @Suppress("unused")
     private fun getProductStatus(productId: String, default: Boolean = defaultStatus): Boolean {
-        return sharedPreferences.getBoolean(productId + "_enabled", default)
+        return sharedPreferences.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, default)
     }
 
     private fun isProductStatus(productId: String): Boolean {
-        return sharedPreferences.contains(productId + "_enabled")
+        return sharedPreferences.contains(productId + MyConstants.PURCHASE_STATUS_POSTFIX)
     }
 
     private fun setProductDetail(product: SkuDetails) {
         val productId = product.sku
 
-        sharedPreferences.edit().putString(productId + "_price", product.price).apply()
+        sharedPreferences.edit().putString(productId + MyConstants.PURCHASE_PRICE_POSTFIX, product.price).apply()
     }
 
     /*________________________ History and products detail _______________________*/
@@ -400,7 +397,7 @@ class InAppPurchase(
 
 }
 
-/*
+/* Use
 * purchase() for buy product
 * restore()
 * isProductPurchased() two function call from on Resume
@@ -412,4 +409,3 @@ class InAppPurchase(
 * Firebase Events on
 * Optimize Base64Key
 * */
-

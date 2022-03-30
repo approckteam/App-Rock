@@ -2,6 +2,7 @@ package com.mankirat.approck.lib.admob
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.mankirat.approck.lib.AdType
 import com.mankirat.approck.lib.BuildConfig
+import com.mankirat.approck.lib.MyConstants
 import com.mankirat.approck.lib.R
 
 object AdMobUtil {
@@ -44,6 +46,8 @@ object AdMobUtil {
 
 
     val adMobIds = AdMobIds()
+    private val iapIds = ArrayList<String>()
+    private var sharedPreferences: SharedPreferences? = null //by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
 
     private fun log(msg: String, e: Throwable? = null) {
         Log.e("AdMobUtil", msg, e)
@@ -59,11 +63,13 @@ object AdMobUtil {
         //}
     }
 
-
-    fun setUp(context: Activity, targetClick: Long, nativeColor: Int? = null, debugMode: Boolean = BuildConfig.DEBUG) {
+    fun setUp(context: Activity, targetClick: Long, iapIds: ArrayList<String>, nativeColor: Int? = null, debugMode: Boolean = BuildConfig.DEBUG) {
         log("setUp")
         adMobIds.debugIds = debugMode
         targetClickCount = targetClick
+        sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
+        this.iapIds.clear()
+        this.iapIds.addAll(iapIds)
         MobileAds.initialize(context)
 
         loadInterstitial(context.applicationContext)
@@ -72,6 +78,22 @@ object AdMobUtil {
 
         if (nativeColor != null) defaultNativeAdStyle.setColorTheme(nativeColor)
         //if (BuildConfig.DEBUG) MediationTestSuite.launch(context)
+    }
+
+
+    private fun isPremium(isLoad: Boolean = false): Boolean {
+        val defaultStatus = if (isLoad) false else MyConstants.IAP_DEFAULT_STATUS
+        var isPremium = true
+        iapIds.forEach { productId ->
+            val status = sharedPreferences?.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, defaultStatus) ?: false
+            if (!status) {
+                isPremium = false
+                return@forEach
+            }
+        }
+
+        log("isPremium : premium = $isPremium")
+        return isPremium
     }
 
     /*___________________________ click count ___________________________*/
@@ -94,12 +116,12 @@ object AdMobUtil {
 
     private var mInterstitialAd: InterstitialAd? = null
     private var mInterstitialAdSplash: InterstitialAd? = null
-    var isInterstitialLoading = false
-    var isInterstitialLoadingSplash = false
+    private var isInterstitialLoading = false
+    private var isInterstitialLoadingSplash = false
 
     private fun loadInterstitial(context: Context) {
         log("loadInterstitial : instance = $mInterstitialAd : isLoading = $isInterstitialLoading")
-        //if (isPremium(false)) return
+        if (isPremium(true)) return
 
         if (mInterstitialAd != null || isInterstitialLoading) return
 
@@ -127,10 +149,10 @@ object AdMobUtil {
 
     fun showInterstitial(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         log("showInterstitial : mInterstitialAd = $mInterstitialAd")
-        //if (isPremium()) {
-        //    callback?.invoke(false)
-        //    return
-        //}
+        if (isPremium()) {
+            callback?.invoke(false)
+            return
+        }
 
         if (mInterstitialAd == null) {
             loadInterstitial(activity.applicationContext)
@@ -178,7 +200,7 @@ object AdMobUtil {
 
     private fun loadInterstitialSplash(context: Context) {
         log("loadInterstitialSplash : instance = $mInterstitialAdSplash : isLoading = $isInterstitialLoadingSplash")
-        //if (isPremium(false)) return
+        if (isPremium(true)) return
 
         if (mInterstitialAdSplash != null || isInterstitialLoadingSplash) return
 
@@ -206,10 +228,10 @@ object AdMobUtil {
 
     fun showInterstitialSplash(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         log("showInterstitialSplash : mInterstitialAd = $mInterstitialAdSplash")
-//if (isPremium()) {
-        //    callback?.invoke(false)
-        //    return
-        //}
+        if (isPremium()) {
+            callback?.invoke(false)
+            return
+        }
 
 
         if (adMobIds.interstitialIdSplash.isEmpty()) {
@@ -265,10 +287,10 @@ object AdMobUtil {
 
     fun loadBanner(adContainer: FrameLayout, adSize: AdSize): AdView? {
         log("loadBanner")
-        //if (isPremium()) {
-        //    adContainer.visibility = View.GONE
-        //    return null
-        //}
+        if (isPremium()) {
+            adContainer.visibility = View.GONE
+            return null
+        }
 
         adContainer.visibility = View.VISIBLE
 
@@ -323,10 +345,10 @@ object AdMobUtil {
 
     fun showNativeAd(adContainer: FrameLayout, nativeAdStyle: NativeAdStyle? = null, callback: ((nativeAd: NativeAd) -> Unit)? = null) {
         log("showNativeAd")
-        //if (isPremium()) {
-        //    adContainer.visibility = View.GONE
-        //    return
-        //}
+        if (isPremium()) {
+            adContainer.visibility = View.GONE
+            return
+        }
 
         adContainer.visibility = View.VISIBLE
 
@@ -480,3 +502,11 @@ fun FrameLayout.adMobBanner(adSize: AdSize = AdSize.BANNER): AdView? {
 fun FrameLayout.adMobNative(nativeAdStyle: NativeAdStyle? = null, callback: ((nativeAd: NativeAd) -> Unit)? = null) {
     AdMobUtil.showNativeAd(this, nativeAdStyle, callback)
 }
+
+
+/*
+* Pending Tasks:
+* firebase event
+* reward ad missing
+* test suit
+* */
