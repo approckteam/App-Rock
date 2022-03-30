@@ -20,7 +20,12 @@ class ApplicationGlobal : Application() {
 
         instance = this
 
-        InAppPurchase.setUp(this,"")
+      /* val inAppPurchase = InAppPurchase(
+            this,
+            base64Key = Constants.IAP.BASE_64_KEY,
+            mainProductId = Constants.IAP.PREMIUM_ID,
+            products = arrayListOf(Constants.IAP.PREMIUM_ID, Constants.IAP.DONATE_2_ID, Constants.IAP.DONATE_5_ID)
+        )*/
 
 
     }

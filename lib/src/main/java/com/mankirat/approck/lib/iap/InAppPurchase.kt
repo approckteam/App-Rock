@@ -29,9 +29,9 @@ import java.security.spec.InvalidKeySpecException
 import java.security.spec.X509EncodedKeySpec
 
 class InAppPurchase(
-    private val mContext: Context, private val premiumId: String, products: ArrayList<String>? = null,
+    private val mContext: Context, private val base64Key: String, private val mainProductId: String, products: ArrayList<String>? = null,
     private val defaultStatus: Boolean = MyConstants.IAP_DEFAULT_STATUS,
-    private val mAcknowledge: Boolean = true, private val base64Key: String = MyConstants.BASE_64_KEY
+    private val mAcknowledge: Boolean = true
 ) {
 
     private fun log(msg: String, e: Throwable? = null) {
@@ -50,10 +50,10 @@ class InAppPurchase(
 
     init {
         mProductList.clear()
-        if (products == null) mProductList.add(premiumId)
+        if (products == null) mProductList.add(mainProductId)
         else mProductList.addAll(products)
 
-        setUpBillingClient()
+        setUpBillingClient(null)
     }
 
     private fun setUpBillingClient(restoreCallback: (() -> Unit)? = null) {
@@ -387,12 +387,12 @@ class InAppPurchase(
 
     @Suppress("unused")
     fun isProductPurchased(context: Fragment, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
-        isProductPurchasedCommon(context, productList ?: arrayListOf(premiumId), callback)
+        isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
     }
 
     @Suppress("unused")
     fun isProductPurchased(context: Activity, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
-        isProductPurchasedCommon(context, productList ?: arrayListOf(premiumId), callback)
+        isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
     }
 
 }

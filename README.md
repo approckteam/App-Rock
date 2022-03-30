@@ -6,7 +6,7 @@
 allprojects {<br />
     repositories {
     
-        //multiple-text
+        //app-rock
         maven { url 'https://jitpack.io' }
         
    }
@@ -17,7 +17,7 @@ allprojects {<br />
 
 dependencies {
 
-    //multiple-text
+    //app-rock
     implementation 'com.github.approckteam:app-rock:1.1.0'
 }
 

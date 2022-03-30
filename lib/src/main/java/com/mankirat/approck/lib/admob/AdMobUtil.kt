@@ -63,13 +63,13 @@ object AdMobUtil {
         //}
     }
 
-    fun setUp(context: Activity, targetClick: Long, iapIds: ArrayList<String>, nativeColor: Int? = null, debugMode: Boolean = BuildConfig.DEBUG) {
+    fun setUp(context: Activity, targetClick: Long, iapIds: ArrayList<String>? = null, nativeColor: Int, debugMode: Boolean = BuildConfig.DEBUG) {
         log("setUp")
         adMobIds.debugIds = debugMode
         targetClickCount = targetClick
         sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
         this.iapIds.clear()
-        this.iapIds.addAll(iapIds)
+        if (iapIds != null) this.iapIds.addAll(iapIds)
         MobileAds.initialize(context)
 
         loadInterstitial(context.applicationContext)
@@ -82,7 +82,7 @@ object AdMobUtil {
 
 
     private fun isPremium(isLoad: Boolean = false): Boolean {
-        if(iapIds.isEmpty()) return false
+        if (iapIds.isEmpty()) return false
 
         val defaultStatus = if (isLoad) false else MyConstants.IAP_DEFAULT_STATUS
         var isPremium = true
@@ -508,6 +508,7 @@ fun FrameLayout.adMobNative(nativeAdStyle: NativeAdStyle? = null, callback: ((na
 
 /*
 * Pending Tasks:
+* banner adview gravity center
 * firebase event
 * reward ad missing
 * test suit

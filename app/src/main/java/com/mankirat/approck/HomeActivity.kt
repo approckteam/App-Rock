@@ -30,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
             rewardId = Constants.AdMob.REWARD
             appOpenId = Constants.AdMob.APP_OPEN
         }
-        AdMobUtil.setUp(this, 4, Color.RED)
+        //AdMobUtil.setUp(this, 4, Color.RED)
 
 //        binding.btnShowInterstitial.setOnClickListener {
 //            adMobInter()
