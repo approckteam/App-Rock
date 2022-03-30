@@ -82,6 +82,8 @@ object AdMobUtil {
 
 
     private fun isPremium(isLoad: Boolean = false): Boolean {
+        if(iapIds.isEmpty()) return false
+
         val defaultStatus = if (isLoad) false else MyConstants.IAP_DEFAULT_STATUS
         var isPremium = true
         iapIds.forEach { productId ->
