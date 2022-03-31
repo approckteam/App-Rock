@@ -1,15 +1,9 @@
 package com.mankirat.approck
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.mankirat.approck.databinding.ActivityHomeBinding
-import com.mankirat.approck.lib.admob.AdMobUtil
-import com.mankirat.approck.lib.admob.adMobBanner
-import com.mankirat.approck.lib.admob.adMobInter
-import com.mankirat.approck.lib.admob.adMobNative
-import com.mankirat.approck.lib.iap.InAppPurchase
 
 class HomeActivity : AppCompatActivity() {
 
@@ -50,9 +44,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        ApplicationGlobal.instance.inAppPurchase.isProductPurchased(this) {
-            log("aaaaaa:status=$it")
-        }
+        /* ApplicationGlobal.instance.inAppPurchase.isProductPurchased(this) {
+             log("aaaaaa:status=$it")
+         }*/
     }
 
 }
