@@ -17,6 +17,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
+import com.applovin.sdk.AppLovinSdkUtils.runOnUiThread
 import com.mankirat.approck.lib.MyConstants
 import java.io.IOException
 import java.security.InvalidKeyException
@@ -39,9 +40,9 @@ class InAppPurchase(
     }
 
     private fun toast(msg: String) {
-        //runOnUiThread {
-        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
-        //}
+        runOnUiThread {
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private val mProductList = ArrayList<String>()
@@ -191,6 +192,7 @@ class InAppPurchase(
         billingClient?.querySkuDetailsAsync(skuDetailParams, responseCallback)
     }
 
+    //after completing work on google/play store activity
     private val productPurchaseCallback = PurchasesUpdatedListener { billingResult, purchaseList ->
         //This method starts when user buy a product
         log("purchasesCallback : onPurchasesUpdated : billingResult = $billingResult : purchaseList = $purchaseList")
@@ -323,15 +325,15 @@ class InAppPurchase(
     }
 
     private fun isProductPurchasedCommon(context: Any, productList: ArrayList<String>, callback: ((status: Boolean) -> Unit)) {
-        var isProductStatus = true
-        var status = true
+        var isProductStatus = false//check is value already exist in sharedPref
+        var status = false//is all list product purchased
         productList.forEach { productId ->
-            if (!isProductStatus(productId)) {
-                isProductStatus = false
+            if (isProductStatus(productId)) {
+                isProductStatus = true
                 return@forEach
             }
-            if (!getProductStatus(productId)) {
-                status = false
+            if (getProductStatus(productId)) {
+                status = true
                 return@forEach
             }
         }
@@ -360,20 +362,20 @@ class InAppPurchase(
     private fun updateUI() {
         log("updateUI")
 
-        var statusFragment = true
+        var statusFragment = false//is all list product purchased
         fragmentProducts?.forEach { productId ->
-            if (!getProductStatus(productId)) {
-                statusFragment = false
+            if (getProductStatus(productId)) {
+                statusFragment = true
                 return@forEach
             }
         }
         if (fragmentProducts == null) statusFragment = false
         invokePremiumCallbackFragment(statusFragment)
 
-        var statusActivity = true
+        var statusActivity = false
         activityProducts?.forEach { productId ->
-            if (!getProductStatus(productId)) {
-                statusActivity = false
+            if (getProductStatus(productId)) {
+                statusActivity = true
                 return@forEach
             }
         }
@@ -392,6 +394,7 @@ class InAppPurchase(
         isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
     }
 
+
 }
 
 /* Use
@@ -405,4 +408,5 @@ class InAppPurchase(
 * Strings Localisation
 * Firebase Events on
 * Optimize Base64Key
+* create getProductDetail(productIds:Array): Array<CustomModel>  fun and CustomModel Pojo class
 * */

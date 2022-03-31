@@ -2,6 +2,7 @@ package com.mankirat.approck
 
 import android.app.Application
 import android.util.Log
+import com.mankirat.approck.lib.admob.AdMobUtil
 
 class ApplicationGlobal : Application() {
 
@@ -35,6 +36,20 @@ class ApplicationGlobal : Application() {
              mainProductId = Constants.IAP.PREMIUM_ID,
              allProducts = arrayListOf(Constants.IAP.PREMIUM_ID, Constants.IAP.DONATE_2_ID, Constants.IAP.DONATE_5_ID)
          )*/
+
+
+      /*AdMobUtil.adMobIds.apply {
+            interstitialId = Constants.AdMob.INTERSTITIAL
+            interstitialIdSplash = Constants.AdMob.INTERSTITIAL_SPLASH
+            bannerId = Constants.AdMob.BANNER
+            nativeId = Constants.AdMob.NATIVE
+            rewardId = Constants.AdMob.REWARD
+            appOpenId = Constants.AdMob.APP_OPEN
+        }
+        AdMobUtil.firebaseEventCallback = { name, bundle ->
+            ApplicationGlobal.instance.firebaseAnalytics.logEvent(name, bundle)
+        }
+        AdMobUtil.setUp(this, 4, Color.RED)*/
 
 
     }

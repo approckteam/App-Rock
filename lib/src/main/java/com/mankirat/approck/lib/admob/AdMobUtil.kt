@@ -46,17 +46,18 @@ object AdMobUtil {
     }*/
 
 
+    @Suppress("MemberVisibilityCanBePrivate")
     val adMobIds = AdMobIds()
     private val iapIds = ArrayList<String>()
     private var sharedPreferences: SharedPreferences? = null //by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
 
 
     fun setUp(
-        context: Activity, targetClick: Long, nativeColor: Int,
+        context: Context, targetClick: Long, nativeColor: Int,
         iapIds: ArrayList<String>? = null, debugMode: Boolean = BuildConfig.DEBUG,
     ) {
         log("setUp")
-        adMobIds.debugIds = if (!BuildConfig.DEBUG) false else debugMode
+        adMobIds.debugIds = if (BuildConfig.DEBUG) debugMode else false
         targetClickCount = targetClick
         sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
         this.iapIds.clear()
@@ -525,7 +526,6 @@ fun FrameLayout.adMobNative(nativeAdStyle: NativeAdStyle? = null, callback: ((na
 /*
 * Pending Tasks:
 * banner adview gravity center
-* firebase event
 * reward ad missing
 * test suit
 * */

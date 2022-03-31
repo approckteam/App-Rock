@@ -17,23 +17,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        /*val inAppPurchase = InAppPurchase(
-            this,
-            base64Key = Constants.IAP.BASE_64_KEY,
-            mainProductId = Constants.IAP.PREMIUM_ID,
-            allProducts = arrayListOf(Constants.IAP.PREMIUM_ID, Constants.IAP.DONATE_2_ID, Constants.IAP.DONATE_5_ID)
-        )*/
-
-        /*AdMobUtil.adMobIds.apply {
-            interstitialId = Constants.AdMob.INTERSTITIAL
-            interstitialIdSplash = Constants.AdMob.INTERSTITIAL_SPLASH
-            bannerId = Constants.AdMob.BANNER
-            nativeId = Constants.AdMob.NATIVE
-            rewardId = Constants.AdMob.REWARD
-            appOpenId = Constants.AdMob.APP_OPEN
-        }*/
-        //AdMobUtil.setUp(this, 4, Color.RED)
-
 //        binding.btnShowInterstitial.setOnClickListener {
 //            adMobInter()
 //        }
