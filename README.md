@@ -18,7 +18,7 @@ allprojects {<br />
 dependencies {
 
     //app-rock
-    implementation 'com.github.approckteam:app-rock:1.1.1'
+    implementation 'com.github.approckteam:app-rock:1.1.3'
 }
 
 
