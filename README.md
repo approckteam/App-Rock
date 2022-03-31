@@ -1,5 +1,7 @@
-# app-rock common lib for all apps by
-# MANKIRAT SINGH IN MARCH 2022
+# app-rock common lib for all apps of Mariano (IN MARCH 2022)
+# Developers :
+# MANKIRAT SINGH
+# ANKIT
 
 # In project level gradle
 
