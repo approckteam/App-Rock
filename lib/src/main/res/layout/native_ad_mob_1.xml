@@ -60,7 +60,6 @@
             android:numStars="5"
             android:stepSize="0.5"
 
-            app:layout_constraintBottom_toTopOf="@+id/barrier"
             app:layout_constraintEnd_toEndOf="@+id/tv_headline"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/tv_headline"
@@ -76,11 +75,9 @@
             android:text="Ad"
             android:textSize="12sp"
 
-            app:layout_constraintBottom_toTopOf="@+id/barrier"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"
             tools:backgroundTint="#0088FF"
             tools:ignore="HardcodedText"
             tools:textColor="#FFFFFF" />
@@ -101,7 +98,6 @@
             android:layout_marginTop="5dp"
             android:textSize="13sp"
 
-            app:layout_constraintBottom_toTopOf="@+id/media_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/barrier"
@@ -137,10 +133,10 @@
             android:gravity="center"
             android:textSize="14sp"
 
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_action"
             app:layout_constraintEnd_toStartOf="@+id/btn_action"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/barrier_2"
+            app:layout_constraintTop_toTopOf="@id/btn_action"
             tools:text="FREE" />
 
         <Button
@@ -153,7 +149,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/barrier_2"
             tools:text="Install"
             tools:textColor="#FFFFFF" />
 
@@ -166,10 +161,10 @@
             android:gravity="center"
             android:textSize="14sp"
 
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_action"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_action"
-            app:layout_constraintTop_toBottomOf="@+id/barrier_2"
+            app:layout_constraintTop_toTopOf="@+id/btn_action"
             tools:text="Google Play" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,34 +50,25 @@ object AdMobUtil {
     private val iapIds = ArrayList<String>()
     private var sharedPreferences: SharedPreferences? = null //by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
 
-    private fun log(msg: String, e: Throwable? = null) {
-        Log.e("AdMobUtil", msg, e)
-    }
 
-    fun firebaseEvent(adMobEnum: AdType, isLoad: Boolean, isSuccess: Boolean) {
-        val eventName = adMobEnum.firebaseEvent + "_" +
-                (if (isLoad) "load" else "show") + "_" +
-                (if (isSuccess) "success" else "fail")
-
-        //if (ApplicationGlobal.instance != null) {
-        //    ApplicationGlobal.instance.firebaseAnalytics.logEvent(name, bundle)
-        //}
-    }
-
-    fun setUp(context: Activity, targetClick: Long, iapIds: ArrayList<String>? = null, nativeColor: Int, debugMode: Boolean = BuildConfig.DEBUG) {
+    fun setUp(
+        context: Activity, targetClick: Long, nativeColor: Int,
+        iapIds: ArrayList<String>? = null, debugMode: Boolean = BuildConfig.DEBUG,
+    ) {
         log("setUp")
-        adMobIds.debugIds = debugMode
+        adMobIds.debugIds = if (!BuildConfig.DEBUG) false else debugMode
         targetClickCount = targetClick
         sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
         this.iapIds.clear()
         if (iapIds != null) this.iapIds.addAll(iapIds)
+
         MobileAds.initialize(context)
 
         loadInterstitial(context.applicationContext)
         loadInterstitialSplash(context.applicationContext)
         //loadRewardedAd(activity)
 
-        if (nativeColor != null) defaultNativeAdStyle.setColorTheme(nativeColor)
+        defaultNativeAdStyle.setColorTheme(nativeColor)
         //if (BuildConfig.DEBUG) MediationTestSuite.launch(context)
     }
 
@@ -96,6 +88,30 @@ object AdMobUtil {
 
         log("isPremium : premium = $isPremium")
         return isPremium
+    }
+
+    /*___________________________ log and event ___________________________*/
+
+    private fun log(msg: String, e: Throwable? = null) {
+        Log.e("AdMobUtil", msg, e)
+    }
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    var firebaseEventCallback: ((eventName: String, bundle: Bundle) -> Unit)? = null
+
+    fun firebaseEvent(adMobEnum: AdType, isLoad: Boolean, isSuccess: Boolean) {
+//        val eventName = adMobEnum.firebaseEvent + "_" +
+//                (if (isLoad) "load" else "show") + "_" +
+//                (if (isSuccess) "success" else "fail")
+
+        val eventName = "AdMobStatus"
+        val bundle = Bundle().apply {
+            putString("ad_type", adMobEnum.name)
+            putBoolean("is_load", isLoad)
+            putBoolean("is_success", isSuccess)
+        }
+
+        firebaseEventCallback?.invoke(eventName, bundle)
     }
 
     /*___________________________ click count ___________________________*/

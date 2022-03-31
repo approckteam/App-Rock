@@ -14,18 +14,30 @@ class ApplicationGlobal : Application() {
         Log.e("ApplicationGlobal", msg, e)
     }
 
+    val inAppPurchase by lazy {
+        InAppPurchase(
+            this,
+            base64Key = Constants.IAP.BASE_64_KEY,
+            mainProductId = Constants.IAP.PREMIUM_ID,
+            allProducts = arrayListOf(Constants.IAP.PREMIUM_ID, Constants.IAP.DONATE_2_ID, Constants.IAP.DONATE_5_ID)
+        )
+    }
+
+
+
     override fun onCreate() {
         super.onCreate()
         log("onCreate")
 
         instance = this
 
-      /* val inAppPurchase = InAppPurchase(
+       /* val inAppPurchase = InAppPurchase(
             this,
             base64Key = Constants.IAP.BASE_64_KEY,
             mainProductId = Constants.IAP.PREMIUM_ID,
-            products = arrayListOf(Constants.IAP.PREMIUM_ID, Constants.IAP.DONATE_2_ID, Constants.IAP.DONATE_5_ID)
+            allProducts = arrayListOf(Constants.IAP.PREMIUM_ID, Constants.IAP.DONATE_2_ID, Constants.IAP.DONATE_5_ID)
         )*/
+
 
 
     }

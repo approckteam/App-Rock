@@ -50,7 +50,7 @@ dependencies {
     //implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
 
     //in-app-purchase
-    implementation 'com.android.billingclient:billing:4.1.0'
+    implementation 'com.android.billingclient:billing-ktx:4.1.0'
     //ad-mob
     implementation 'com.google.android.gms:play-services-ads:20.6.0'
     //ad-mob-mediation

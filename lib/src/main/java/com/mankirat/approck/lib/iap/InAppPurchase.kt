@@ -29,7 +29,7 @@ import java.security.spec.InvalidKeySpecException
 import java.security.spec.X509EncodedKeySpec
 
 class InAppPurchase(
-    private val mContext: Context, private val base64Key: String, private val mainProductId: String, products: ArrayList<String>? = null,
+    private val mContext: Context, private val base64Key: String, private val mainProductId: String, allProducts: ArrayList<String>? = null,
     private val defaultStatus: Boolean = MyConstants.IAP_DEFAULT_STATUS,
     private val mAcknowledge: Boolean = true
 ) {
@@ -50,18 +50,16 @@ class InAppPurchase(
 
     init {
         mProductList.clear()
-        if (products == null) mProductList.add(mainProductId)
-        else mProductList.addAll(products)
-
-        setUpBillingClient(null)
+        if (allProducts == null) mProductList.add(mainProductId)
+        else mProductList.addAll(allProducts)
     }
 
     private fun setUpBillingClient(restoreCallback: (() -> Unit)? = null) {
         log("setUpBillingClient : billingClient = $billingClient")
         if (billingClient == null) {
             billingClient = BillingClient.newBuilder(mContext)
-                .setListener(productPurchaseCallback)
                 .enablePendingPurchases()
+                .setListener(productPurchaseCallback)
                 .build()
         }
 
@@ -356,8 +354,7 @@ class InAppPurchase(
             }
         }
 
-        if (billingClient == null) setUpBillingClient()
-        else getHistoryAndProducts()
+        setUpBillingClient()
     }
 
     private fun updateUI() {
