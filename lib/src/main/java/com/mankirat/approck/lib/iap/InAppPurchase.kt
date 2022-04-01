@@ -96,20 +96,34 @@ class InAppPurchase(
             log("getHistory : onPurchaseHistoryResponse : billingResult = $billingResult : purchaseHistoryRecordList = $purchaseHistoryRecordList")
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 
-                mProductList.forEach {
-                    setProductStatus(it, false)
-                }
+                val allProduct = ArrayList<String>()
+                allProduct.addAll(mProductList)
 
                 purchaseHistoryRecordList?.forEach { purchase ->
                     purchase.skus.forEach { productId ->
                         setProductStatus(productId, true)
+                        allProduct.remove(productId)
                     }
+                }
+
+                allProduct.map {
+                    setProductStatus(it, false)
                 }
 
                 updateUI()
 
                 restoreCallback?.invoke()
                 if (restoreCallback != null) toast("Purchase Restored")
+            }
+        }
+
+        val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
+            log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
+
+                productList.forEach {
+                    setProductDetail(it)
+                }
             }
         }
 
@@ -139,16 +153,6 @@ class InAppPurchase(
         }
     }
 
-    private val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
-        log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
-        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
-
-            productList.forEach {
-                setProductDetail(it)
-            }
-        }
-    }
-
     /*________________________________ Restore ________________________________*/
     fun restorePurchase(callback: (() -> Unit)? = null) {
         log("restorePurchase")
@@ -170,7 +174,7 @@ class InAppPurchase(
         log("purchase : productId = $productId")
         purchaseCallback = callback
 
-        val responseCallback = SkuDetailsResponseListener { billingResult, productList ->
+        val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
             log("purchase : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null && productList.isNotEmpty()) {
 
@@ -186,7 +190,7 @@ class InAppPurchase(
             }
         }
 
-        billingClient?.querySkuDetailsAsync(skuDetailParams, responseCallback)
+        billingClient?.querySkuDetailsAsync(skuDetailParams, productsDetailCallback)
     }
 
     //after completing work on google/play store activity
@@ -322,35 +326,20 @@ class InAppPurchase(
     }
 
     private fun isProductPurchasedCommon(context: Any, productList: ArrayList<String>, callback: ((status: Boolean) -> Unit)) {
-        var isProductStatus = false//check is value already exist in sharedPref
-        var status = false//is all list product purchased
-        productList.forEach { productId ->
-            if (isProductStatus(productId)) {
-                isProductStatus = true
-                return@forEach
-            }
-            if (getProductStatus(productId)) {
-                status = true
-                return@forEach
-            }
-        }
+        val status = isAnyPurchased(productList)
 
         if (context is Fragment) {
             fragmentInstance = context
             fragmentProducts = productList
             fragmentCallback = callback
 
-            if (isProductStatus) {
-                invokePremiumCallbackFragment(status)
-            }
+            invokePremiumCallbackFragment(status)
         } else if (context is Activity) {
             activityInstance = context
             activityProducts = productList
             activityCallback = callback
 
-            if (isProductStatus) {
-                invokePremiumCallbackActivity(status)
-            }
+            invokePremiumCallbackActivity(status)
         }
 
         setUpBillingClient()
@@ -358,26 +347,23 @@ class InAppPurchase(
 
     private fun updateUI() {
         log("updateUI")
-
-        var statusFragment = false//is all list product purchased
-        fragmentProducts?.forEach { productId ->
-            if (getProductStatus(productId)) {
-                statusFragment = true
-                return@forEach
-            }
-        }
-        if (fragmentProducts == null) statusFragment = false
+        val statusFragment = isAnyPurchased(fragmentProducts)
         invokePremiumCallbackFragment(statusFragment)
 
-        var statusActivity = false
-        activityProducts?.forEach { productId ->
+        val statusActivity = isAnyPurchased(activityProducts)
+        invokePremiumCallbackActivity(statusActivity)
+    }
+
+    private fun isAnyPurchased(list: ArrayList<String>?): Boolean {
+        var status = false//is any product purchased from list
+        list?.forEach { productId ->
             if (getProductStatus(productId)) {
-                statusActivity = true
+                status = true
                 return@forEach
             }
         }
-        if (activityProducts == null) statusActivity = false
-        invokePremiumCallbackActivity(statusActivity)
+
+        return status
     }
 
 
