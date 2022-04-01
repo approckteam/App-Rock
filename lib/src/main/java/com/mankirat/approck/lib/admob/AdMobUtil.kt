@@ -78,11 +78,11 @@ object AdMobUtil {
         if (iapIds.isEmpty()) return false
 
         val defaultStatus = if (isLoad) false else MyConstants.IAP_DEFAULT_STATUS
-        var isPremium = true
+        var isPremium = false
         iapIds.forEach { productId ->
             val status = sharedPreferences?.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, defaultStatus) ?: false
-            if (!status) {
-                isPremium = false
+            if (status) {
+                isPremium = true
                 return@forEach
             }
         }
