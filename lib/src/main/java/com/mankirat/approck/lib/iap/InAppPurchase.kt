@@ -17,7 +17,6 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
-import com.applovin.sdk.AppLovinSdkUtils.runOnUiThread
 import com.mankirat.approck.lib.MyConstants
 import java.io.IOException
 import java.security.InvalidKeyException
@@ -40,9 +39,9 @@ class InAppPurchase(
     }
 
     private fun toast(msg: String) {
-        runOnUiThread {
-            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
-        }
+        //runOnUiThread {
+        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
+        //}
     }
 
     private val mProductList = ArrayList<String>()
@@ -72,15 +71,11 @@ class InAppPurchase(
     private val sharedPreferences by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
 
     private fun setProductStatus(productId: String, status: Boolean) {
-        sharedPreferences.edit().putBoolean(productId + "_enabled", status).apply()
+        sharedPreferences.edit().putBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, status).apply()
     }
 
     private fun getProductStatus(productId: String, default: Boolean = defaultStatus): Boolean {
         return sharedPreferences.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, default)
-    }
-
-    private fun isProductStatus(productId: String): Boolean {
-        return sharedPreferences.contains(productId + MyConstants.PURCHASE_STATUS_POSTFIX)
     }
 
     private fun setProductDetail(product: SkuDetails) {

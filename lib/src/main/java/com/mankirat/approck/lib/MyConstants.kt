@@ -3,8 +3,10 @@ package com.mankirat.approck.lib
 object MyConstants {
 
     const val SHARED_PREF_IAP = "iap_app_rock"
-    const val PURCHASE_STATUS_POSTFIX = "_enabled"
-    const val PURCHASE_PRICE_POSTFIX = "_price"
+    const val PURCHASE_STATUS_POSTFIX = "_iap_enabled"
+    const val PURCHASE_PRICE_POSTFIX = "_iap_price"
+    const val SUBSCRIPTION_STATUS_POSTFIX = "_sub_enabled"
+    const val SUBSCRIPTION_PRICE_POSTFIX = "_sub_price"
     const val IAP_DEFAULT_STATUS = true
 
     @Suppress("SpellCheckingInspection")
