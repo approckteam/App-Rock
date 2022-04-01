@@ -17,7 +17,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
-import com.applovin.sdk.AppLovinSdkUtils.runOnUiThread
+import com.applovin.sdk.AppLovinSdkUtils
 import com.mankirat.approck.lib.MyConstants
 import java.io.IOException
 import java.security.InvalidKeyException
@@ -29,10 +29,10 @@ import java.security.SignatureException
 import java.security.spec.InvalidKeySpecException
 import java.security.spec.X509EncodedKeySpec
 
-class InAppPurchase(
+class InAppSubscription(
     private val mContext: Context, private val base64Key: String, private val mainProductId: String, allProducts: ArrayList<String>? = null,
     private val defaultStatus: Boolean = MyConstants.IAP_DEFAULT_STATUS,
-    private val mAcknowledge: Boolean = true
+    private val mAcknowledge: Boolean = true,
 ) {
 
     private fun log(msg: String, e: Throwable? = null) {
@@ -40,20 +40,32 @@ class InAppPurchase(
     }
 
     private fun toast(msg: String) {
-        runOnUiThread {
+        AppLovinSdkUtils.runOnUiThread {
             Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
         }
     }
 
     private val mProductList = ArrayList<String>()
     private var billingClient: BillingClient? = null
-    private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(mProductList).setType(BillingClient.SkuType.INAPP).build() }
+    private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(mProductList).setType(BillingClient.SkuType.SUBS).build() }
+    private val sharedPreferences by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
+
+
+    private var fragmentInstance: Fragment? = null
+    private var fragmentProducts: ArrayList<String>? = null
+    private var fragmentCallback: ((status: Boolean) -> Unit)? = null
+
+
+    private var activityInstance: Activity? = null
+    private var activityProducts: ArrayList<String>? = null
+    private var activityCallback: ((status: Boolean) -> Unit)? = null
 
     init {
         mProductList.clear()
         if (allProducts == null) mProductList.add(mainProductId)
         else mProductList.addAll(allProducts)
     }
+
 
     private fun setUpBillingClient(restoreCallback: (() -> Unit)? = null) {
         log("setUpBillingClient : billingClient = $billingClient")
@@ -66,30 +78,6 @@ class InAppPurchase(
 
         getHistoryAndProducts(restoreCallback)
     }
-
-    /*________________________ Shared Pref _______________________*/
-
-    private val sharedPreferences by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
-
-    private fun setProductStatus(productId: String, status: Boolean) {
-        sharedPreferences.edit().putBoolean(productId + "_enabled", status).apply()
-    }
-
-    private fun getProductStatus(productId: String, default: Boolean = defaultStatus): Boolean {
-        return sharedPreferences.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, default)
-    }
-
-    private fun isProductStatus(productId: String): Boolean {
-        return sharedPreferences.contains(productId + MyConstants.PURCHASE_STATUS_POSTFIX)
-    }
-
-    private fun setProductDetail(product: SkuDetails) {
-        val productId = product.sku
-
-        sharedPreferences.edit().putString(productId + MyConstants.PURCHASE_PRICE_POSTFIX, product.price).apply()
-    }
-
-    /*________________________ History and products detail _______________________*/
 
     private fun getHistoryAndProducts(restoreCallback: (() -> Unit)? = null) {
         val historyCallback = PurchaseHistoryResponseListener { billingResult, purchaseHistoryRecordList ->
@@ -115,7 +103,7 @@ class InAppPurchase(
 
         if (billingClient?.connectionState == BillingClient.ConnectionState.CONNECTED) {
             //get History
-            billingClient?.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP, historyCallback)
+            billingClient?.queryPurchaseHistoryAsync(BillingClient.SkuType.SUBS, historyCallback)
             //get Product Details
             billingClient?.querySkuDetailsAsync(skuDetailParams, productsDetailCallback)
         } else {
@@ -139,32 +127,6 @@ class InAppPurchase(
         }
     }
 
-    private val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
-        log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
-        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
-
-            productList.forEach {
-                setProductDetail(it)
-            }
-        }
-    }
-
-    /*________________________________ Restore ________________________________*/
-    fun restorePurchase(callback: (() -> Unit)? = null) {
-        log("restorePurchase")
-        billingClient?.endConnection()
-        billingClient = null
-        setUpBillingClient(callback)
-    }
-
-    /*________________________ start purchasing _____________________________*/
-    private var purchaseCallback: ((status: Boolean) -> Unit)? = null
-    private fun invokePurchaseCallback(status: Boolean) {
-        purchaseCallback?.invoke(status)
-        purchaseCallback = null
-
-        if (status) updateUI()
-    }
 
     fun purchase(activity: Activity, productId: String, callback: ((status: Boolean) -> Unit)? = null) {
         log("purchase : productId = $productId")
@@ -189,7 +151,23 @@ class InAppPurchase(
         billingClient?.querySkuDetailsAsync(skuDetailParams, responseCallback)
     }
 
-    //after completing work on google/play store activity
+
+    private val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
+        log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
+
+            productList.forEach {
+                setProductDetail(it)
+            }
+        }
+    }
+
+    private fun setProductDetail(product: SkuDetails) {
+        val productId = product.sku
+
+        sharedPreferences.edit().putString(productId + MyConstants.PURCHASE_PRICE_POSTFIX, product.price).apply()
+    }
+
     private val productPurchaseCallback = PurchasesUpdatedListener { billingResult, purchaseList ->
         //This method starts when user buy a product
         log("purchasesCallback : onPurchasesUpdated : billingResult = $billingResult : purchaseList = $purchaseList")
@@ -208,6 +186,7 @@ class InAppPurchase(
             toast("${billingResult.debugMessage} ResponseCode ${billingResult.responseCode}")
         }
     }
+
 
     private fun handlePurchase(purchase: Purchase) {
         log("handlePurchase : purchase : $purchase")
@@ -238,7 +217,17 @@ class InAppPurchase(
         }
     }
 
-    /*________________________ check base 64 key _____________________________*/
+    private var purchaseCallback: ((status: Boolean) -> Unit)? = null
+    private fun invokePurchaseCallback(status: Boolean) {
+        purchaseCallback?.invoke(status)
+        purchaseCallback = null
+
+        if (status) updateUI()
+    }
+
+    private fun setProductStatus(productId: String, status: Boolean) {
+        sharedPreferences.edit().putBoolean(productId + "_enabled", status).apply()
+    }
 
     private fun isSignatureValid(purchase: Purchase): Boolean {
         log("isSignatureValid : purchase = $purchase")
@@ -283,7 +272,6 @@ class InAppPurchase(
         }
     }
 
-    @Suppress("SameParameterValue")
     private fun generatePublicKey(encodedPublicKey: String, keyFactoryAlgorithm: String): PublicKey {
         log("generatePublicKey : encodedPublicKey = $encodedPublicKey : keyFactoryAlgorithm = $keyFactoryAlgorithm")
         return try {
@@ -301,24 +289,61 @@ class InAppPurchase(
         }
     }
 
-    /*________________________ update ui _____________________________________*/
+    private fun updateUI() {
+        log("updateUI")
 
-    private var fragmentInstance: Fragment? = null
-    private var fragmentProducts: ArrayList<String>? = null
-    private var fragmentCallback: ((status: Boolean) -> Unit)? = null
+        var statusFragment = false//is all list product purchased
+        fragmentProducts?.forEach { productId ->
+            if (getProductStatus(productId)) {
+                statusFragment = true
+                return@forEach
+            }
+        }
+        if (fragmentProducts == null) statusFragment = false
+        invokePremiumCallbackFragment(statusFragment)
+
+        var statusActivity = false
+        activityProducts?.forEach { productId ->
+            if (getProductStatus(productId)) {
+                statusActivity = true
+                return@forEach
+            }
+        }
+        if (activityProducts == null) statusActivity = false
+        invokePremiumCallbackActivity(statusActivity)
+    }
+
+
+    fun restorePurchase(callback: (() -> Unit)? = null) {
+        log("restorePurchase")
+        billingClient?.endConnection()
+        billingClient = null
+        setUpBillingClient(callback)
+    }
+
+
+    private fun getProductStatus(productId: String, default: Boolean = defaultStatus): Boolean {
+        return sharedPreferences.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, default)
+    }
+
     private fun invokePremiumCallbackFragment(status: Boolean) {
         if (fragmentInstance?.isAdded == true) {
             fragmentCallback?.invoke(status)
         }
     }
 
-    private var activityInstance: Activity? = null
-    private var activityProducts: ArrayList<String>? = null
-    private var activityCallback: ((status: Boolean) -> Unit)? = null
     private fun invokePremiumCallbackActivity(status: Boolean) {
         if (activityInstance?.isDestroyed == false && activityInstance?.isFinishing == false) {
             activityCallback?.invoke(status)
         }
+    }
+
+    fun isProductPurchased(context: Fragment, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
+        isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
+    }
+
+    fun isProductPurchased(context: Activity, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
+        isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
     }
 
     private fun isProductPurchasedCommon(context: Any, productList: ArrayList<String>, callback: ((status: Boolean) -> Unit)) {
@@ -356,52 +381,9 @@ class InAppPurchase(
         setUpBillingClient()
     }
 
-    private fun updateUI() {
-        log("updateUI")
-
-        var statusFragment = false//is all list product purchased
-        fragmentProducts?.forEach { productId ->
-            if (getProductStatus(productId)) {
-                statusFragment = true
-                return@forEach
-            }
-        }
-        if (fragmentProducts == null) statusFragment = false
-        invokePremiumCallbackFragment(statusFragment)
-
-        var statusActivity = false
-        activityProducts?.forEach { productId ->
-            if (getProductStatus(productId)) {
-                statusActivity = true
-                return@forEach
-            }
-        }
-        if (activityProducts == null) statusActivity = false
-        invokePremiumCallbackActivity(statusActivity)
-    }
-
-
-    fun isProductPurchased(context: Fragment, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
-        isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
-    }
-
-    fun isProductPurchased(context: Activity, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
-        isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
+    private fun isProductStatus(productId: String): Boolean {
+        return sharedPreferences.contains(productId + MyConstants.PURCHASE_STATUS_POSTFIX)
     }
 
 
 }
-
-/* Use
-* purchase() for buy product
-* restore()
-* isProductPurchased() two function call from on Resume
-* */
-
-
-/*Pending Tasks in this class
-* Strings Localisation
-* Firebase Events on
-* Optimize Base64Key
-* create getProductDetail(productIds:Array): Array<CustomModel>  fun and CustomModel Pojo class
-* */
