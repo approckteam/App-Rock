@@ -136,6 +136,7 @@ object AdMobUtil {
     /*___________________________ click count ___________________________*/
 
     private var currentClickCount = 0
+    private var currentScreenCount = 0
     private var targetClickCount = 4L
     private var screenOpenCount = 2L
 
@@ -143,7 +144,18 @@ object AdMobUtil {
         currentClickCount += 1
         log("buttonClickCount : targetClick = $targetClickCount : currentClick = $currentClickCount")
         if (currentClickCount >= targetClickCount) {
-            currentClickCount = 0
+            //  currentClickCount = 0
+            showInterstitial(context, callback)
+        } else {
+            callback?.invoke(false)
+        }
+    }
+
+    fun screenOpenCount(context: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+        currentScreenCount += 1
+        log("screenOpenCount : targetClick = $screenOpenCount : currentClick = $currentScreenCount")
+        if (currentScreenCount >= screenOpenCount) {
+            // currentScreenCount = 0
             showInterstitial(context, callback)
         } else {
             callback?.invoke(false)
@@ -234,6 +246,7 @@ object AdMobUtil {
         mInterstitialAd?.show(activity)
 
         currentClickCount = 0
+        currentScreenCount = 0
     }
 
     private fun loadInterstitialSplash(context: Context) {
@@ -319,6 +332,7 @@ object AdMobUtil {
         mInterstitialAdSplash?.show(activity)
 
         currentClickCount = 0
+        currentScreenCount = 0
     }
 
     /*______________________________ Banner ______________________________*/
@@ -519,6 +533,11 @@ object AdMobUtil {
 @Suppress("unused")
 fun Activity.adMobClickCount(callback: ((success: Boolean) -> Unit)? = null) {
     AdMobUtil.buttonClickCount(this, callback)
+}
+
+@Suppress("unused")
+fun Activity.adMobScreenCount(callback: ((success: Boolean) -> Unit)? = null) {
+    AdMobUtil.screenOpenCount(this, callback)
 }
 
 @Suppress("unused")
