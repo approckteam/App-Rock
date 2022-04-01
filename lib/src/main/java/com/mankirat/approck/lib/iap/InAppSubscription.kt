@@ -81,7 +81,7 @@ class InAppSubscription(
     private fun setProductDetail(product: SkuDetails) {
         val productId = product.sku
 
-        sharedPreferences.edit().putString(productId + MyConstants.SUBSCRIPTION_STATUS_POSTFIX, product.price).apply()
+        sharedPreferences.edit().putString(productId + MyConstants.SUBSCRIPTION_PRICE_POSTFIX, product.price).apply()
     }
 
     /*________________________ History and products detail _______________________*/
