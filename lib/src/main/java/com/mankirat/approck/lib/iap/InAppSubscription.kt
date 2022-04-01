@@ -98,6 +98,7 @@ class InAppSubscription(
                 purchaseHistoryRecordList?.forEach { purchase ->
                     purchase.skus.forEach { productId ->
                         setProductStatus(productId, true)
+                        allProduct.remove(productId)
                     }
                 }
 

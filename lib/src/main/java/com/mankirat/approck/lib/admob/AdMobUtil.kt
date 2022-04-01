@@ -49,19 +49,23 @@ object AdMobUtil {
     @Suppress("MemberVisibilityCanBePrivate")
     val adMobIds = AdMobIds()
     private val iapIds = ArrayList<String>()
+    private val subsIds = ArrayList<String>()
     private var sharedPreferences: SharedPreferences? = null //by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
 
 
     fun setUp(
-        context: Context, targetClick: Long, nativeColor: Int,
-        iapIds: ArrayList<String>? = null, debugMode: Boolean = BuildConfig.DEBUG,
+        context: Context, targetClick: Long, targetScreenCount: Long? = null, nativeColor: Int,
+        iapIds: ArrayList<String>? = null, subsIds: ArrayList<String>? = null, debugMode: Boolean = BuildConfig.DEBUG,
     ) {
         log("setUp")
         adMobIds.debugIds = if (BuildConfig.DEBUG) debugMode else false
         targetClickCount = targetClick
+        if (targetScreenCount != null) screenOpenCount = targetScreenCount
         sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
         this.iapIds.clear()
         if (iapIds != null) this.iapIds.addAll(iapIds)
+        this.subsIds.clear()
+        if (subsIds != null) this.subsIds.addAll(subsIds)
 
         MobileAds.initialize(context)
 
@@ -75,20 +79,34 @@ object AdMobUtil {
 
 
     private fun isPremium(isLoad: Boolean = false): Boolean {
-        if (iapIds.isEmpty()) return false
-
+        //if (iapIds.isEmpty() && subsIds.isEmpty()) return false
         val defaultStatus = if (isLoad) false else MyConstants.IAP_DEFAULT_STATUS
-        var isPremium = false
-        iapIds.forEach { productId ->
-            val status = sharedPreferences?.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, defaultStatus) ?: false
-            if (status) {
-                isPremium = true
+
+        val productStatus = isAnyPurchased(iapIds, false, defaultStatus)
+        val subStatus = isAnyPurchased(subsIds, true, defaultStatus)
+        val isPremium = productStatus || subStatus
+
+        log("isPremium : premium = $isPremium")
+        return isPremium
+    }
+
+    private fun isAnyPurchased(list: ArrayList<String>?, sub: Boolean, default: Boolean): Boolean {
+        var status = false//is any product purchased from list
+        list?.forEach { productId ->
+            if (getProductStatus(productId, sub, default)) {
+                status = true
                 return@forEach
             }
         }
 
-        log("isPremium : premium = $isPremium")
-        return isPremium
+        return status
+    }
+
+    private fun getProductStatus(productId: String, sub: Boolean, default: Boolean): Boolean {
+        val status = if (sub) sharedPreferences?.getBoolean(productId + MyConstants.SUBSCRIPTION_STATUS_POSTFIX, default)
+        else sharedPreferences?.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, default)
+
+        return status ?: false
     }
 
     /*___________________________ log and event ___________________________*/
@@ -119,6 +137,7 @@ object AdMobUtil {
 
     private var currentClickCount = 0
     private var targetClickCount = 4L
+    private var screenOpenCount = 2L
 
     fun buttonClickCount(context: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         currentClickCount += 1
