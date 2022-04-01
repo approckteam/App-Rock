@@ -347,13 +347,13 @@ class InAppSubscription(
     }
 
     private fun isProductPurchasedCommon(context: Any, productList: ArrayList<String>, callback: ((status: Boolean) -> Unit)) {
-        var isProductStatus = false//check is value already exist in sharedPref
+//        var isProductStatus = false//check is value already exist in sharedPref
         var status = false//is all list product purchased
         productList.forEach { productId ->
-            if (isProductStatus(productId)) {
-                isProductStatus = true
-                return@forEach
-            }
+//            if (isProductStatus(productId)) {
+//                isProductStatus = true
+//                return@forEach
+//            }
             if (getProductStatus(productId)) {
                 status = true
                 return@forEach
@@ -365,25 +365,27 @@ class InAppSubscription(
             fragmentProducts = productList
             fragmentCallback = callback
 
-            if (isProductStatus) {
-                invokePremiumCallbackFragment(status)
-            }
+            invokePremiumCallbackFragment(status)
+           /* if (isProductStatus) {
+            }*/
         } else if (context is Activity) {
             activityInstance = context
             activityProducts = productList
             activityCallback = callback
 
+            invokePremiumCallbackActivity(status)
+/*
             if (isProductStatus) {
-                invokePremiumCallbackActivity(status)
             }
+*/
         }
 
         setUpBillingClient()
     }
 
-    private fun isProductStatus(productId: String): Boolean {
+    /*private fun isProductStatus(productId: String): Boolean {
         return sharedPreferences.contains(productId + MyConstants.PURCHASE_STATUS_POSTFIX)
-    }
+    }*/
 
 
 }
