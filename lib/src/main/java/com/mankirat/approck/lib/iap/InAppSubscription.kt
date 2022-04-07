@@ -19,7 +19,6 @@ import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
 import com.google.gson.Gson
 import com.mankirat.approck.lib.MyConstants
-import com.mankirat.approck.lib.model.PurchaseDetailModel
 import com.mankirat.approck.lib.model.PurchaseModel
 import java.io.IOException
 import java.security.InvalidKeyException
@@ -119,15 +118,15 @@ class InAppSubscription(
             }
         }
 
+        val data = PurchaseModel()
         val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
             log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
 
-                val data = PurchaseModel()
                 data.success = "1"
                 productList.forEach {
                     setProductDetail(it)
-                    val purchaseModel = PurchaseDetailModel()
+                    val purchaseModel = PurchaseModel.PurchaseDetailModel()
                     purchaseModel.description = it.description
                     purchaseModel.subscriptionPeriod = it.subscriptionPeriod
                     purchaseModel.introductoryPrice = it.subscriptionPeriod
@@ -141,6 +140,8 @@ class InAppSubscription(
                     data.productDetails?.add(purchaseModel)
                 }
                 putObject(MyConstants.ALLPRODUCTDETAILS, data)
+
+
             }
         }
 

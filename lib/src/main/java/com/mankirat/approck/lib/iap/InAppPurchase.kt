@@ -17,10 +17,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
-import com.google.gson.Gson
 import com.mankirat.approck.lib.MyConstants
-import com.mankirat.approck.lib.model.PurchaseDetailModel
-import com.mankirat.approck.lib.model.PurchaseModel
 import java.io.IOException
 import java.security.InvalidKeyException
 import java.security.KeyFactory
