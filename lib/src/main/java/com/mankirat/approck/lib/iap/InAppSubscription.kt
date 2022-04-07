@@ -90,6 +90,15 @@ class InAppSubscription(
         val gson = Gson()
         sharedPreferences.edit().putString(key, gson.toJson(obj)).apply()
     }
+
+    fun <T> getObject(key: String, classOfT: Class<T>): T {
+        val json: String = sharedPreferences.getString(key, "") ?: ""
+        return Gson().fromJson(json, classOfT) ?: throw NullPointerException()
+    }
+
+    fun getAllProductList(): PurchaseModel {
+        return getObject(MyConstants.ALLPRODUCTDETAILS, PurchaseModel::class.java)
+    }
     /*________________________ History and products detail _______________________*/
 
     private fun getHistoryAndProducts(restoreCallback: (() -> Unit)? = null) {
