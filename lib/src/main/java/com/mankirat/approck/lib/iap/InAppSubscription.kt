@@ -85,6 +85,7 @@ class InAppSubscription(
 
         sharedPreferences.edit().putString(productId + MyConstants.SUBSCRIPTION_PRICE_POSTFIX, product.price).apply()
     }
+
     fun putObject(key: String, obj: Any) {
         val gson = Gson()
         sharedPreferences.edit().putString(key, gson.toJson(obj)).apply()
@@ -124,6 +125,7 @@ class InAppSubscription(
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
 
                 data.success = "1"
+                data.productDetails = ArrayList()
                 productList.forEach {
                     setProductDetail(it)
                     val purchaseModel = PurchaseModel.PurchaseDetailModel()
