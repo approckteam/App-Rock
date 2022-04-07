@@ -51,6 +51,10 @@ dependencies {
 
     //in-app-purchase
     implementation 'com.android.billingclient:billing-ktx:4.1.0'
+
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+
     //ad-mob
     implementation 'com.google.android.gms:play-services-ads:20.6.0'
     //ad-mob-mediation

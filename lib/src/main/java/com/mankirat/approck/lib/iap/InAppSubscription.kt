@@ -17,7 +17,10 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
+import com.google.gson.Gson
 import com.mankirat.approck.lib.MyConstants
+import com.mankirat.approck.lib.model.PurchaseDetailModel
+import com.mankirat.approck.lib.model.PurchaseModel
 import java.io.IOException
 import java.security.InvalidKeyException
 import java.security.KeyFactory
@@ -83,7 +86,10 @@ class InAppSubscription(
 
         sharedPreferences.edit().putString(productId + MyConstants.SUBSCRIPTION_PRICE_POSTFIX, product.price).apply()
     }
-
+    fun putObject(key: String, obj: Any) {
+        val gson = Gson()
+        sharedPreferences.edit().putString(key, gson.toJson(obj)).apply()
+    }
     /*________________________ History and products detail _______________________*/
 
     private fun getHistoryAndProducts(restoreCallback: (() -> Unit)? = null) {
@@ -117,9 +123,24 @@ class InAppSubscription(
             log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
 
+                val data = PurchaseModel()
+                data.success = "1"
                 productList.forEach {
                     setProductDetail(it)
+                    val purchaseModel = PurchaseDetailModel()
+                    purchaseModel.description = it.description
+                    purchaseModel.subscriptionPeriod = it.subscriptionPeriod
+                    purchaseModel.introductoryPrice = it.subscriptionPeriod
+                    purchaseModel.originalPrice = it.originalPrice
+                    purchaseModel.freeTrialPeriod = it.freeTrialPeriod
+                    purchaseModel.price = it.price
+                    purchaseModel.priceCurrencyCode = it.priceCurrencyCode
+                    purchaseModel.productId = it.sku
+                    purchaseModel.title = it.title
+                    purchaseModel.type = it.type
+                    data.productDetails?.add(purchaseModel)
                 }
+                putObject(MyConstants.ALLPRODUCTDETAILS, data)
             }
         }
 

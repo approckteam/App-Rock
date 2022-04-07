@@ -8,6 +8,7 @@ object MyConstants {
     const val SUBSCRIPTION_STATUS_POSTFIX = "_sub_enabled"
     const val SUBSCRIPTION_PRICE_POSTFIX = "_sub_price"
     const val IAP_DEFAULT_STATUS = true
+    const val ALLPRODUCTDETAILS = "allProductDetails"
 
     @Suppress("SpellCheckingInspection")
     const val BASE_64_KEY =
