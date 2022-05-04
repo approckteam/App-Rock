@@ -415,7 +415,7 @@ object AdMobUtil {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
                 log("showNativeAd : onAdFailedToLoad : loadAdError = $loadAdError")
-                firebaseEvent(AdType.NATIVE, isLoad = true, isSuccess = false,, error = "error code: ${loadAdError.code} response info: ${loadAdError.message} ")
+                firebaseEvent(AdType.NATIVE, isLoad = true, isSuccess = false, error = "error code: ${loadAdError.code} response info: ${loadAdError.message} ")
             }
 
             override fun onAdOpened() {
