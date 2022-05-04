@@ -50,7 +50,8 @@ object AdMobUtil {
     val adMobIds = AdMobIds()
     private val iapIds = ArrayList<String>()
     private val subsIds = ArrayList<String>()
-    private var sharedPreferences: SharedPreferences? = null //by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
+    private var sharedPreferences: SharedPreferences? =
+        null //by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
 
 
     fun setUp(
@@ -118,7 +119,7 @@ object AdMobUtil {
     @Suppress("MemberVisibilityCanBePrivate")
     var firebaseEventCallback: ((eventName: String, bundle: Bundle) -> Unit)? = null
 
-    fun firebaseEvent(adMobEnum: AdType, isLoad: Boolean, isSuccess: Boolean) {
+    fun firebaseEvent(adMobEnum: AdType, isLoad: Boolean, isSuccess: Boolean, error: String? = null) {
 //        val eventName = adMobEnum.firebaseEvent + "_" +
 //                (if (isLoad) "load" else "show") + "_" +
 //                (if (isSuccess) "success" else "fail")
@@ -128,6 +129,7 @@ object AdMobUtil {
             putString("ad_type", adMobEnum.name)
             putBoolean("is_load", isLoad)
             putBoolean("is_success", isSuccess)
+            putString("error", error)
         }
 
         firebaseEventCallback?.invoke(eventName, bundle)
@@ -189,7 +191,7 @@ object AdMobUtil {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
                 log("loadInterstitial : onAdFailedToLoad : loadAdError = $loadAdError")
-                firebaseEvent(AdType.INTERSTITIAL, isLoad = true, isSuccess = false)
+                firebaseEvent(AdType.INTERSTITIAL, isLoad = true, isSuccess = false, error = "error code: ${loadAdError.code} response info: ${loadAdError.message} ")
 
                 mInterstitialAd = null
                 isInterstitialLoading = false
@@ -269,7 +271,7 @@ object AdMobUtil {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
                 log("loadInterstitialSplash : onAdFailedToLoad : loadAdError = $loadAdError")
-                firebaseEvent(AdType.INTERSTITIAL_SPLASH, isLoad = true, isSuccess = false)
+                firebaseEvent(AdType.INTERSTITIAL_SPLASH, isLoad = true, isSuccess = false, error = "error code: ${loadAdError.code} response info: ${loadAdError.message} ")
 
                 mInterstitialAdSplash = null
                 isInterstitialLoadingSplash = false
@@ -355,7 +357,7 @@ object AdMobUtil {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
                 log("loadBanner : onAdFailedToLoad : code =" + loadAdError.code.toString() + " : message =" + loadAdError.message)
-                firebaseEvent(AdType.BANNER, isLoad = true, isSuccess = false)
+                firebaseEvent(AdType.BANNER, isLoad = true, isSuccess = false, error = "error code: ${loadAdError.code} response info: ${loadAdError.message} ")
             }
 
             override fun onAdOpened() {
@@ -413,7 +415,7 @@ object AdMobUtil {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
                 log("showNativeAd : onAdFailedToLoad : loadAdError = $loadAdError")
-                firebaseEvent(AdType.NATIVE, isLoad = true, isSuccess = false)
+                firebaseEvent(AdType.NATIVE, isLoad = true, isSuccess = false,, error = "error code: ${loadAdError.code} response info: ${loadAdError.message} ")
             }
 
             override fun onAdOpened() {
