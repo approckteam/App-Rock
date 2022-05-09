@@ -43,7 +43,7 @@ class InAppManager(private val mContext: Context, private val base64Key: String,
         private var billingClient: BillingClient? = null
     }
 
-    private fun setUpBillingClient() {
+    fun setUpBillingClient() {
         log("setUpBillingClient : billingClient = $billingClient")
         if (billingClient == null) {
             billingClient = BillingClient.newBuilder(mContext).setListener(productPurchaseCallback).enablePendingPurchases().build()

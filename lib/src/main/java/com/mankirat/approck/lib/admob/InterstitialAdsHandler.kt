@@ -80,7 +80,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
         })
     }
 
-    private fun showInterstitial(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+    fun showInterstitial(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         log("showInterstitial : mInterstitialAd = $mInterstitialAd")
         if (isPremium(activity)) {
             callback?.invoke(false)

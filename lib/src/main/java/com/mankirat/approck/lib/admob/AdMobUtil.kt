@@ -31,7 +31,7 @@ object AdMobUtil {
     private var sharedPreferences: SharedPreferences? = null
 
     // Click Count
-    private var interstitialAdsHandler: InterstitialAdsHandler? = null
+    var interstitialAdsHandler: InterstitialAdsHandler? = null
 
     private fun log(msg: String, e: Throwable? = null) = Log.e("AdMobUtil", msg, e)
 
