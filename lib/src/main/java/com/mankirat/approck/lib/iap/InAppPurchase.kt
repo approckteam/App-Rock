@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
@@ -14,10 +13,12 @@ import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchaseHistoryResponseListener
 import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
+import com.google.gson.Gson
 import com.mankirat.approck.lib.MyConstants
+import com.mankirat.approck.lib.Utils
+import com.mankirat.approck.lib.model.PurchaseModel
 import java.io.IOException
 import java.security.InvalidKeyException
 import java.security.KeyFactory
@@ -28,116 +29,31 @@ import java.security.SignatureException
 import java.security.spec.InvalidKeySpecException
 import java.security.spec.X509EncodedKeySpec
 
-class InAppPurchase(
-    private val mContext: Context, private val base64Key: String, private val mainProductId: String, allProducts: ArrayList<String>? = null,
-    private val defaultStatus: Boolean = MyConstants.IAP_DEFAULT_STATUS,
-    private val mAcknowledge: Boolean = true
-) {
-
-    private fun log(msg: String, e: Throwable? = null) {
-        Log.e("InAppPurchase", msg, e)
-    }
-
-    private fun toast(msg: String) {
-        //runOnUiThread {
-        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
-        //}
-    }
-
-    private val mProductList = ArrayList<String>()
-    private var billingClient: BillingClient? = null
-    private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(mProductList).setType(BillingClient.SkuType.INAPP).build() }
-
-    init {
-        mProductList.clear()
-        if (allProducts == null) mProductList.add(mainProductId)
-        else mProductList.addAll(allProducts)
-    }
-
-    private fun setUpBillingClient(restoreCallback: (() -> Unit)? = null) {
-        log("setUpBillingClient : billingClient = $billingClient")
-        if (billingClient == null) {
-            billingClient = BillingClient.newBuilder(mContext)
-                .enablePendingPurchases()
-                .setListener(productPurchaseCallback)
-                .build()
-        }
-
-        getHistoryAndProducts(restoreCallback)
-    }
-
-    /*________________________ Shared Pref _______________________*/
+class InAppPurchase(private val mContext: Context, private val base64Key: String, private val productIds: ArrayList<String>, private val type: String) {
 
     private val sharedPreferences by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
+    var purchaseCallback: ((status: Boolean) -> Unit)? = null
 
-    private fun setProductStatus(productId: String, status: Boolean) {
-        sharedPreferences.edit().putBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, status).apply()
+    private fun log(msg: String, e: Throwable? = null) = Log.e("InAppPurchase", msg, e)
+    private fun toast(msg: String) = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
+
+    private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(productIds).setType(type).build() }
+
+    companion object {
+        private var billingClient: BillingClient? = null
     }
 
+    private fun setUpBillingClient() {
+        log("setUpBillingClient : billingClient = $billingClient")
+        if (billingClient == null) {
+            billingClient = BillingClient.newBuilder(mContext).setListener(productPurchaseCallback).enablePendingPurchases().build()
 
-    private fun getProductStatus(productId: String, default: Boolean = defaultStatus): Boolean {
-        return sharedPreferences.getBoolean(productId + MyConstants.PURCHASE_STATUS_POSTFIX, default)
-    }
-
-    private fun setProductDetail(product: SkuDetails) {
-        val productId = product.sku
-
-        sharedPreferences.edit().putString(productId + MyConstants.PURCHASE_PRICE_POSTFIX, product.price).apply()
-    }
-
-    /*________________________ History and products detail _______________________*/
-
-    private fun getHistoryAndProducts(restoreCallback: (() -> Unit)? = null) {
-        val historyCallback = PurchaseHistoryResponseListener { billingResult, purchaseHistoryRecordList ->
-            log("getHistory : onPurchaseHistoryResponse : billingResult = $billingResult : purchaseHistoryRecordList = $purchaseHistoryRecordList")
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-
-                val allProduct = ArrayList<String>()
-                allProduct.addAll(mProductList)
-
-                purchaseHistoryRecordList?.forEach { purchase ->
-                    purchase.skus.forEach { productId ->
-                        setProductStatus(productId, true)
-                        allProduct.remove(productId)
-                    }
-                }
-
-                allProduct.map {
-                    setProductStatus(it, false)
-                }
-
-                updateUI()
-
-                restoreCallback?.invoke()
-                if (restoreCallback != null) toast("Purchase Restored")
-            }
-        }
-
-        val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
-            log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
-                productList.forEach {
-                    setProductDetail(it)
-                }
-            }
-        }
-
-        if (billingClient?.connectionState == BillingClient.ConnectionState.CONNECTED) {
-            //get History
-            billingClient?.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP, historyCallback)
-            //get Product Details
-            billingClient?.querySkuDetailsAsync(skuDetailParams, productsDetailCallback)
-        } else {
             billingClient?.startConnection(object : BillingClientStateListener {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
                     log("setUpBillingClient : onBillingSetupFinished : billingResult = $billingResult")
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) billingClient?.querySkuDetailsAsync(skuDetailParams, productsDetailCallback)
 
-                    //get History
-                    billingClient?.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP, historyCallback)
-                    //get Product Details
-                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                        billingClient?.querySkuDetailsAsync(skuDetailParams, productsDetailCallback)
-                    }
+                    billingClient?.queryPurchaseHistoryAsync(type, historyCallback)
                 }
 
                 override fun onBillingServiceDisconnected() {
@@ -148,21 +64,54 @@ class InAppPurchase(
         }
     }
 
+    private val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
+        log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
+
+            val data = PurchaseModel()
+            data.success = "1"
+            data.productDetails = ArrayList()
+            productList.forEach {
+                val purchaseModel = PurchaseModel.PurchaseDetailModel()
+                purchaseModel.description = it.description
+                purchaseModel.subscriptionPeriod = it.subscriptionPeriod
+                purchaseModel.introductoryPrice = it.subscriptionPeriod
+                purchaseModel.originalPrice = it.originalPrice
+                purchaseModel.freeTrialPeriod = it.freeTrialPeriod
+                purchaseModel.price = it.price
+                purchaseModel.priceCurrencyCode = it.priceCurrencyCode
+                purchaseModel.productId = it.sku
+                purchaseModel.title = it.title
+                purchaseModel.type = it.type
+                data.productDetails?.add(purchaseModel)
+            }
+            if (type == BillingClient.SkuType.INAPP) Utils.putObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, data)
+            if (type == BillingClient.SkuType.SUBS) Utils.putObject(sharedPreferences, MyConstants.IN_APP_SUBS, data)
+        }
+    }
+
+    val historyCallback = PurchaseHistoryResponseListener { billingResult, purchaseHistoryRecordList ->
+        log("getHistory : onPurchaseHistoryResponse : billingResult = $billingResult : purchaseHistoryRecordList = $purchaseHistoryRecordList")
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+
+            val status = purchaseHistoryRecordList?.size ?: 0 > 0
+            setProductStatus(status)
+
+            purchaseCallback?.invoke(status)
+            if (purchaseCallback != null) toast("Purchase Restored")
+        }
+    }
+
+    /*________________________ Shared Pref _______________________*/
+    private fun setProductStatus(status: Boolean) = sharedPreferences.edit().putBoolean(MyConstants.IS_PREMIUM, status).apply()
+
+    /*________________________ History and products detail _______________________*/
+
     /*________________________________ Restore ________________________________*/
     fun restorePurchase(callback: (() -> Unit)? = null) {
         log("restorePurchase")
-        billingClient?.endConnection()
         billingClient = null
-        setUpBillingClient(callback)
-    }
-
-    /*________________________ start purchasing _____________________________*/
-    private var purchaseCallback: ((status: Boolean) -> Unit)? = null
-    private fun invokePurchaseCallback(status: Boolean) {
-        purchaseCallback?.invoke(status)
-        purchaseCallback = null
-
-        if (status) updateUI()
+        setUpBillingClient()
     }
 
     fun purchase(activity: Activity, productId: String, callback: ((status: Boolean) -> Unit)? = null) {
@@ -180,8 +129,6 @@ class InAppPurchase(
                         log("purchase : productId = $productId : responseCode = $responseCode")
                     }
                 }
-            } else {
-                invokePurchaseCallback(false)
             }
         }
 
@@ -197,15 +144,10 @@ class InAppPurchase(
                 handlePurchase(it)
             }
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
-            //restorePurchase()
-            billingClient?.endConnection()
-            billingClient = null
-            setUpBillingClient()
-            invokePurchaseCallback(true)
-        } else {
-            invokePurchaseCallback(false)
-            toast("${billingResult.debugMessage} ResponseCode ${billingResult.responseCode}")
-        }
+            setProductStatus(true)
+            purchaseCallback?.invoke(true)
+            if (purchaseCallback != null) toast("Item already owned")
+        } else toast(billingResult.debugMessage)
     }
 
     private fun handlePurchase(purchase: Purchase) {
@@ -213,27 +155,19 @@ class InAppPurchase(
         when (purchase.purchaseState) {
             Purchase.PurchaseState.PURCHASED -> {
                 if (isSignatureValid(purchase)) {
-                    purchase.skus.forEach {
-                        setProductStatus(it, true)
-                    }
-                    invokePurchaseCallback(true)
-
-                    if (!purchase.isAcknowledged && mAcknowledge) {
+                    if (!purchase.isAcknowledged) {
                         val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()
                         billingClient?.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
                             log("handlePurchase : onAcknowledgePurchaseResponse : billingResult = $billingResult")
                         }
                     }
+                    setProductStatus(true)
+                    purchaseCallback?.invoke(true)
+                    toast("Item purchased")
                 }
             }
-            Purchase.PurchaseState.PENDING -> {
-                toast("Purchase PENDING")
-                invokePurchaseCallback(false)
-            }
-            Purchase.PurchaseState.UNSPECIFIED_STATE -> {
-                toast("Purchase UNSPECIFIED_STATE")
-                invokePurchaseCallback(false)
-            }
+            Purchase.PurchaseState.PENDING -> toast("Purchase PENDING")
+            Purchase.PurchaseState.UNSPECIFIED_STATE -> toast("Purchase UNSPECIFIED_STATE")
         }
     }
 
@@ -300,77 +234,18 @@ class InAppPurchase(
         }
     }
 
-    /*________________________ update ui _____________________________________*/
+    // call
+    fun isPurchased() = sharedPreferences.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS)
 
-    private var fragmentInstance: Fragment? = null
-    private var fragmentProducts: ArrayList<String>? = null
-    private var fragmentCallback: ((status: Boolean) -> Unit)? = null
-    private fun invokePremiumCallbackFragment(status: Boolean) {
-        if (fragmentInstance?.isAdded == true) {
-            fragmentCallback?.invoke(status)
-        }
+    private fun <T> getObject(key: String, classOfT: Class<T>): T {
+        val json: String = sharedPreferences.getString(key, "") ?: ""
+        return Gson().fromJson(json, classOfT) ?: throw NullPointerException()
     }
 
-    private var activityInstance: Activity? = null
-    private var activityProducts: ArrayList<String>? = null
-    private var activityCallback: ((status: Boolean) -> Unit)? = null
-    private fun invokePremiumCallbackActivity(status: Boolean) {
-        if (activityInstance?.isDestroyed == false && activityInstance?.isFinishing == false) {
-            activityCallback?.invoke(status)
-        }
+    fun getAllProductList(): PurchaseModel {
+        return if (type == BillingClient.SkuType.INAPP) getObject(MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java)
+        else getObject(MyConstants.IN_APP_SUBS, PurchaseModel::class.java)
     }
-
-    private fun isProductPurchasedCommon(context: Any, productList: ArrayList<String>, callback: ((status: Boolean) -> Unit)) {
-        val status = isAnyPurchased(productList)
-
-        if (context is Fragment) {
-            fragmentInstance = context
-            fragmentProducts = productList
-            fragmentCallback = callback
-
-            invokePremiumCallbackFragment(status)
-        } else if (context is Activity) {
-            activityInstance = context
-            activityProducts = productList
-            activityCallback = callback
-
-            invokePremiumCallbackActivity(status)
-        }
-
-        setUpBillingClient()
-    }
-
-    private fun updateUI() {
-        log("updateUI")
-        val statusFragment = isAnyPurchased(fragmentProducts)
-        invokePremiumCallbackFragment(statusFragment)
-
-        val statusActivity = isAnyPurchased(activityProducts)
-        invokePremiumCallbackActivity(statusActivity)
-    }
-
-    private fun isAnyPurchased(list: ArrayList<String>?): Boolean {
-        var status = false//is any product purchased from list
-        list?.forEach { productId ->
-            if (getProductStatus(productId)) {
-                status = true
-                return@forEach
-            }
-        }
-
-        return status
-    }
-
-
-    fun isProductPurchased(context: Fragment, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
-        isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
-    }
-
-    fun isProductPurchased(context: Activity, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
-        isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
-    }
-
-
 }
 
 /* Use

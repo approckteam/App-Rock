@@ -11,17 +11,16 @@ import kotlin.math.roundToInt
 
 class NativeAdStyle {
 
-    var background: Drawable? = null
-    var backgroundTint: Int = Color.BLUE
+    private var background: Drawable? = null
+    private var backgroundTint: Int = Color.BLUE
+
     fun getBackground(context: Context): Drawable? {
         return if (background == null) {
             val drawable = ContextCompat.getDrawable(context, R.drawable.bg_corner_10) as GradientDrawable
             val strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, context.resources.displayMetrics).roundToInt()
             drawable.setStroke(strokeWidth, backgroundTint)
             drawable
-        } else {
-            background
-        }
+        } else background
     }
 
     var headlineTextColor: Int = Color.BLUE

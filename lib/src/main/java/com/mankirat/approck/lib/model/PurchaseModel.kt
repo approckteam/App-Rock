@@ -19,6 +19,5 @@ class PurchaseModel : Serializable {
         var productId: String? = null
         var title: String? = null
         var type: String? = null
-
     }
 }

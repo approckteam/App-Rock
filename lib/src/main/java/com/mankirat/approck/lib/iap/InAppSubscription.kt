@@ -1,74 +1,27 @@
 package com.mankirat.approck.lib.iap
 
-import android.app.Activity
 import android.content.Context
-import android.util.Base64
-import android.util.Log
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.android.billingclient.api.AcknowledgePurchaseParams
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.BillingFlowParams
-import com.android.billingclient.api.BillingResult
-import com.android.billingclient.api.Purchase
-import com.android.billingclient.api.PurchaseHistoryResponseListener
-import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.SkuDetails
-import com.android.billingclient.api.SkuDetailsParams
-import com.android.billingclient.api.SkuDetailsResponseListener
-import com.google.gson.Gson
-import com.mankirat.approck.lib.MyConstants
-import com.mankirat.approck.lib.model.PurchaseModel
-import java.io.IOException
-import java.security.InvalidKeyException
-import java.security.KeyFactory
-import java.security.NoSuchAlgorithmException
-import java.security.PublicKey
-import java.security.Signature
-import java.security.SignatureException
-import java.security.spec.InvalidKeySpecException
-import java.security.spec.X509EncodedKeySpec
 
-class InAppSubscription(
-    private val mContext: Context, private val base64Key: String, private val mainProductId: String, allProducts: ArrayList<String>? = null,
-    private val defaultStatus: Boolean = MyConstants.IAP_DEFAULT_STATUS,
-    private val mAcknowledge: Boolean = true,
-) {
+class InAppSubscription private constructor(private val mContext: Context, private val base64Key: String, productIds: ArrayList<String>) {}/*{
 
-    private fun log(msg: String, e: Throwable? = null) {
-        Log.e("InAppSubscription", msg, e)
-    }
+    private fun log(msg: String, e: Throwable? = null) = Log.e("InAppSubscription", msg, e)
 
-    private fun toast(msg: String) {
-        //runOnUiThread {
-        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
-        //}
-    }
+    private fun toast(msg: String) = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
 
-    private val mProductList = ArrayList<String>()
     private var billingClient: BillingClient? = null
-    private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(mProductList).setType(BillingClient.SkuType.SUBS).build() }
 
-    init {
-        mProductList.clear()
-        if (allProducts == null) mProductList.add(mainProductId)
-        else mProductList.addAll(allProducts)
-    }
+    private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(mProductList).setType(BillingClient.SkuType.SUBS).build() }
 
     private fun setUpBillingClient(restoreCallback: (() -> Unit)? = null) {
         log("setUpBillingClient : billingClient = $billingClient")
         if (billingClient == null) {
-            billingClient = BillingClient.newBuilder(mContext)
-                .enablePendingPurchases()
-                .setListener(productPurchaseCallback)
-                .build()
+            billingClient = BillingClient.newBuilder(mContext).enablePendingPurchases().setListener(productPurchaseCallback).build()
         }
 
         getHistoryAndProducts(restoreCallback)
     }
 
-    /*________________________ Shared Pref _______________________*/
+    *//*________________________ Shared Pref _______________________*//*
 
     private val sharedPreferences by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
 
@@ -99,7 +52,7 @@ class InAppSubscription(
     fun getAllProductList(): PurchaseModel {
         return getObject(MyConstants.ALLPRODUCTDETAILS, PurchaseModel::class.java)
     }
-    /*________________________ History and products detail _______________________*/
+    *//*________________________ History and products detail _______________________*//*
 
     private fun getHistoryAndProducts(restoreCallback: (() -> Unit)? = null) {
         val historyCallback = PurchaseHistoryResponseListener { billingResult, purchaseHistoryRecordList ->
@@ -182,7 +135,7 @@ class InAppSubscription(
         }
     }
 
-    /*________________________________ Restore ________________________________*/
+    *//*________________________________ Restore ________________________________*//*
 
     fun restorePurchase(callback: (() -> Unit)? = null) {
         log("restorePurchase")
@@ -191,7 +144,7 @@ class InAppSubscription(
         setUpBillingClient(callback)
     }
 
-    /*________________________ start purchasing _____________________________*/
+    *//*________________________ start purchasing _____________________________*//*
     private var purchaseCallback: ((status: Boolean) -> Unit)? = null
     private fun invokePurchaseCallback(status: Boolean) {
         purchaseCallback?.invoke(status)
@@ -272,7 +225,7 @@ class InAppSubscription(
         }
     }
 
-    /*________________________ check base 64 key _____________________________*/
+    *//*________________________ check base 64 key _____________________________*//*
 
     private fun isSignatureValid(purchase: Purchase): Boolean {
         log("isSignatureValid : purchase = $purchase")
@@ -334,7 +287,7 @@ class InAppSubscription(
         }
     }
 
-    /*________________________ update ui _____________________________________*/
+    *//*________________________ update ui _____________________________________*//*
 
     private var fragmentInstance: Fragment? = null
     private var fragmentProducts: ArrayList<String>? = null
@@ -403,4 +356,4 @@ class InAppSubscription(
     fun isProductPurchased(context: Activity, productList: ArrayList<String>? = null, callback: ((status: Boolean) -> Unit)) {
         isProductPurchasedCommon(context, productList ?: arrayListOf(mainProductId), callback)
     }
-}
+}*/
