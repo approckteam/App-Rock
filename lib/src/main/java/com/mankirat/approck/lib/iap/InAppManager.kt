@@ -29,7 +29,7 @@ import java.security.SignatureException
 import java.security.spec.InvalidKeySpecException
 import java.security.spec.X509EncodedKeySpec
 
-class InAppPurchase(private val mContext: Context, private val base64Key: String, private val productIds: ArrayList<String>, private val type: String) {
+class InAppManager(private val mContext: Context, private val base64Key: String, private val productIds: ArrayList<String>, val type: String) {
 
     private val sharedPreferences by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
     var purchaseCallback: ((status: Boolean) -> Unit)? = null

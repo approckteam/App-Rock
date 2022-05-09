@@ -1,5 +1,7 @@
 package com.mankirat.approck.lib
 
+import com.android.billingclient.api.BillingClient
+
 object MyConstants {
 
     const val SHARED_PREF_IAP = "iap_app_rock"
@@ -37,5 +39,10 @@ object MyConstants {
 
         const val LOAD_REWARD_SUCCESS = "load_reward_success"
         const val LOAD_REWARD_ERROR = "load_reward_fail"
+    }
+
+    object BillingConstant {
+        const val IN_APP_PURCHASE = BillingClient.SkuType.INAPP
+        const val IN_APP_SUBS = BillingClient.SkuType.SUBS
     }
 }

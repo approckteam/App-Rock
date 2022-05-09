@@ -27,7 +27,7 @@ import com.mankirat.approck.lib.R
 import com.mankirat.approck.lib.Utils
 
 object AdMobUtil {
-    private val adMobIds = AdMobIds()
+    val adMobIds = AdMobIds()
     private var sharedPreferences: SharedPreferences? = null
 
     // Click Count
