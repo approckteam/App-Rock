@@ -50,17 +50,7 @@ object AdMobUtil {
         if (testMediation) MediationTestSuite.launch(context)
     }
 
-    private fun isPremium(isLoad: Boolean = false): Boolean {
-        //if (iapIds.isEmpty() && subsIds.isEmpty()) return false
-        val defaultStatus = if (isLoad) false else MyConstants.IAP_DEFAULT_STATUS
-
-        val productStatus = false // isAnyPurchased(iapIds, false, defaultStatus)
-        val subStatus = false // isAnyPurchased(subsIds, true, defaultStatus)
-        val isPremium = productStatus || subStatus
-
-        log("isPremium : premium = $isPremium")
-        return isPremium
-    }
+    private fun isPremium(): Boolean = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS) ?: false
 
     /*______________________________ Banner ______________________________*/
 

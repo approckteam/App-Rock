@@ -10,6 +10,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mankirat.approck.lib.AdType
+import com.mankirat.approck.lib.MyConstants
 import com.mankirat.approck.lib.Utils
 
 class InterstitialAdsHandler private constructor(private val interstitialId: String, private val interstitialIdSplash: String, private val targetClickCount: Int, private val screenOpenCount: Int) {
@@ -31,9 +32,10 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
     private var isInterstitialLoading = false
     private var isInterstitialLoadingSplash = false
 
-    private var isPremium = false
-
     private fun log(msg: String, t: Throwable? = null) = Log.e("InterstitialAdsHandler", msg, t)
+
+    private fun isPremium(context: Context): Boolean =
+        context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE).getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS)
 
     fun buttonClickCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         currentClickCount += 1
@@ -53,7 +55,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
 
     fun loadInterstitial(context: Context) {
         log("loadInterstitial : instance = $mInterstitialAd : isLoading = $isInterstitialLoading")
-        if (isPremium) return
+        if (isPremium(context)) return
 
         if (mInterstitialAd != null || isInterstitialLoading) return
 
@@ -80,7 +82,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
 
     private fun showInterstitial(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         log("showInterstitial : mInterstitialAd = $mInterstitialAd")
-        if (isPremium) {
+        if (isPremium(activity)) {
             callback?.invoke(false)
             return
         }
@@ -131,7 +133,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
 
     fun loadInterstitialSplash(context: Context) {
         log("loadInterstitialSplash : instance = $mInterstitialAdSplash : isLoading = $isInterstitialLoadingSplash")
-        if (isPremium) return
+        if (isPremium(context)) return
 
         if (mInterstitialAdSplash != null || isInterstitialLoadingSplash) return
 
@@ -159,7 +161,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
 
     fun showInterstitialSplash(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         log("showInterstitialSplash : mInterstitialAd = $mInterstitialAdSplash")
-        if (isPremium) {
+        if (isPremium(activity)) {
             callback?.invoke(false)
             return
         }
