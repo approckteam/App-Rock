@@ -11,7 +11,6 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import com.google.android.ads.mediationtestsuite.MediationTestSuite
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -47,7 +46,7 @@ object AdMobUtil {
         interstitialAdsHandler?.loadInterstitialSplash(context)
 
         defaultNativeAdStyle.setColorTheme(nativeColor)
-        if (testMediation) MediationTestSuite.launch(context)
+//        if (testMediation) MediationTestSuite.launch(context)
     }
 
     private fun isPremium(): Boolean = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS) ?: false
