@@ -56,8 +56,13 @@ object Utils {
         firebaseEventCallback?.invoke(name, null)
     }
 
-    fun putObject(prefs: SharedPreferences, key: String, obj: Any) {
+    fun putObject(prefs: SharedPreferences?, key: String, obj: Any) {
         val gson = Gson()
-        prefs.edit().putString(key, gson.toJson(obj)).apply()
+        prefs?.edit()?.putString(key, gson.toJson(obj))?.apply()
+    }
+
+    fun <T> getObject(prefs: SharedPreferences?, key: String, classOfT: Class<T>): T {
+        val json: String = prefs?.getString(key, "") ?: ""
+        return Gson().fromJson(json, classOfT) ?: throw NullPointerException()
     }
 }

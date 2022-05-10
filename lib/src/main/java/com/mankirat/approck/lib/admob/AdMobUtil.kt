@@ -1,5 +1,6 @@
 package com.mankirat.approck.lib.admob
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
@@ -46,7 +47,9 @@ object AdMobUtil {
         interstitialAdsHandler?.loadInterstitialSplash(context)
 
         defaultNativeAdStyle.setColorTheme(nativeColor)
-//        if (testMediation) MediationTestSuite.launch(context)
+        if (testMediation) MobileAds.openAdInspector(context) {
+            log("MobileAds Error: ${it?.message}")
+        }
     }
 
     private fun isPremium(): Boolean = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS) ?: false
@@ -198,6 +201,32 @@ object AdMobUtil {
         adView.storeView = tvStore
         adView.callToActionView = btnAction
         adView.setNativeAd(nativeAd)
+    }
+
+    /*______________________________ Interstitial ______________________________*/
+
+    fun buttonClickCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+        interstitialAdsHandler?.buttonClickCount(activity, callback)
+    }
+
+    fun screenOpenCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+        interstitialAdsHandler?.screenOpenCount(activity, callback)
+    }
+
+    fun loadInterstitial(context: Context) {
+        interstitialAdsHandler?.loadInterstitial(context)
+    }
+
+    fun showInterstitial(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+        interstitialAdsHandler?.showInterstitial(activity, callback)
+    }
+
+    fun loadInterstitialSplash(context: Context) {
+        interstitialAdsHandler?.loadInterstitialSplash(context)
+    }
+
+    fun showInterstitialSplash(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+        interstitialAdsHandler?.showInterstitialSplash(activity, callback)
     }
 }
 

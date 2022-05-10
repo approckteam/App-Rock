@@ -2,6 +2,7 @@ package com.mankirat.approck.lib.iap
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
@@ -15,7 +16,6 @@ import com.android.billingclient.api.PurchaseHistoryResponseListener
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
-import com.google.gson.Gson
 import com.mankirat.approck.lib.MyConstants
 import com.mankirat.approck.lib.Utils
 import com.mankirat.approck.lib.model.PurchaseModel
@@ -29,13 +29,13 @@ import java.security.SignatureException
 import java.security.spec.InvalidKeySpecException
 import java.security.spec.X509EncodedKeySpec
 
-class InAppManager(private val mContext: Context, private val base64Key: String, private val productIds: ArrayList<String>, val type: String) {
+class InAppManager(private val base64Key: String, private val productIds: ArrayList<String>, val type: String) {
 
-    private val sharedPreferences by lazy { mContext.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE) }
+    private var sharedPreferences: SharedPreferences? = null
     var purchaseCallback: ((status: Boolean) -> Unit)? = null
 
     private fun log(msg: String, e: Throwable? = null) = Log.e("InAppPurchase", msg, e)
-    private fun toast(msg: String) = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
+    private fun toast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
     private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(productIds).setType(type).build() }
 
@@ -43,17 +43,18 @@ class InAppManager(private val mContext: Context, private val base64Key: String,
         private var billingClient: BillingClient? = null
     }
 
-    fun setUpBillingClient() {
+    fun setUpBillingClient(context: Context) {
         log("setUpBillingClient : billingClient = $billingClient")
+        sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
         if (billingClient == null) {
-            billingClient = BillingClient.newBuilder(mContext).setListener(productPurchaseCallback).enablePendingPurchases().build()
+            billingClient = BillingClient.newBuilder(context).setListener(productPurchaseCallback(context)).enablePendingPurchases().build()
 
             billingClient?.startConnection(object : BillingClientStateListener {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
                     log("setUpBillingClient : onBillingSetupFinished : billingResult = $billingResult")
                     if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) billingClient?.querySkuDetailsAsync(skuDetailParams, productsDetailCallback)
 
-                    billingClient?.queryPurchaseHistoryAsync(type, historyCallback)
+                    billingClient?.queryPurchaseHistoryAsync(type, historyCallback(context))
                 }
 
                 override fun onBillingServiceDisconnected() {
@@ -90,7 +91,7 @@ class InAppManager(private val mContext: Context, private val base64Key: String,
         }
     }
 
-    val historyCallback = PurchaseHistoryResponseListener { billingResult, purchaseHistoryRecordList ->
+    fun historyCallback(context: Context) = PurchaseHistoryResponseListener { billingResult, purchaseHistoryRecordList ->
         log("getHistory : onPurchaseHistoryResponse : billingResult = $billingResult : purchaseHistoryRecordList = $purchaseHistoryRecordList")
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 
@@ -98,20 +99,20 @@ class InAppManager(private val mContext: Context, private val base64Key: String,
             setProductStatus(status)
 
             purchaseCallback?.invoke(status)
-            if (purchaseCallback != null) toast("Purchase Restored")
+            if (purchaseCallback != null) toast(context, "Purchase Restored")
         }
     }
 
     /*________________________ Shared Pref _______________________*/
-    private fun setProductStatus(status: Boolean) = sharedPreferences.edit().putBoolean(MyConstants.IS_PREMIUM, status).apply()
+    private fun setProductStatus(status: Boolean) = sharedPreferences?.edit()?.putBoolean(MyConstants.IS_PREMIUM, status)?.apply()
 
     /*________________________ History and products detail _______________________*/
 
     /*________________________________ Restore ________________________________*/
-    fun restorePurchase(callback: (() -> Unit)? = null) {
+    fun restorePurchase(context: Context, callback: (() -> Unit)? = null) {
         log("restorePurchase")
         billingClient = null
-        setUpBillingClient()
+        setUpBillingClient(context)
     }
 
     fun purchase(activity: Activity, productId: String, callback: ((status: Boolean) -> Unit)? = null) {
@@ -136,21 +137,21 @@ class InAppManager(private val mContext: Context, private val base64Key: String,
     }
 
     //after completing work on google/play store activity
-    private val productPurchaseCallback = PurchasesUpdatedListener { billingResult, purchaseList ->
+    private fun productPurchaseCallback(context: Context) = PurchasesUpdatedListener { billingResult, purchaseList ->
         //This method starts when user buy a product
         log("purchasesCallback : onPurchasesUpdated : billingResult = $billingResult : purchaseList = $purchaseList")
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchaseList != null && purchaseList.isNotEmpty()) {
             purchaseList.forEach {
-                handlePurchase(it)
+                handlePurchase(context, it)
             }
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
             setProductStatus(true)
             purchaseCallback?.invoke(true)
-            if (purchaseCallback != null) toast("Item already owned")
-        } else toast(billingResult.debugMessage)
+            if (purchaseCallback != null) toast(context, "Item already owned")
+        } else if (billingResult.debugMessage != "") toast(context, billingResult.debugMessage)
     }
 
-    private fun handlePurchase(purchase: Purchase) {
+    private fun handlePurchase(context: Context, purchase: Purchase) {
         log("handlePurchase : purchase : $purchase")
         when (purchase.purchaseState) {
             Purchase.PurchaseState.PURCHASED -> {
@@ -163,11 +164,11 @@ class InAppManager(private val mContext: Context, private val base64Key: String,
                     }
                     setProductStatus(true)
                     purchaseCallback?.invoke(true)
-                    toast("Item purchased")
+                    toast(context, "Item purchased")
                 }
             }
-            Purchase.PurchaseState.PENDING -> toast("Purchase PENDING")
-            Purchase.PurchaseState.UNSPECIFIED_STATE -> toast("Purchase UNSPECIFIED_STATE")
+            Purchase.PurchaseState.PENDING -> toast(context, "Purchase PENDING")
+            Purchase.PurchaseState.UNSPECIFIED_STATE -> toast(context, "Purchase UNSPECIFIED_STATE")
         }
     }
 
@@ -235,16 +236,11 @@ class InAppManager(private val mContext: Context, private val base64Key: String,
     }
 
     // call
-    fun isPurchased() = sharedPreferences.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS)
-
-    private fun <T> getObject(key: String, classOfT: Class<T>): T {
-        val json: String = sharedPreferences.getString(key, "") ?: ""
-        return Gson().fromJson(json, classOfT) ?: throw NullPointerException()
-    }
+    fun isPurchased() = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS)
 
     fun getAllProductList(): PurchaseModel {
-        return if (type == BillingClient.SkuType.INAPP) getObject(MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java)
-        else getObject(MyConstants.IN_APP_SUBS, PurchaseModel::class.java)
+        return if (type == BillingClient.SkuType.INAPP) Utils.getObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java)
+        else Utils.getObject(sharedPreferences, MyConstants.IN_APP_SUBS, PurchaseModel::class.java)
     }
 }
 
