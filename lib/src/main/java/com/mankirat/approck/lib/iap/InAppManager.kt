@@ -32,7 +32,6 @@ import java.security.spec.X509EncodedKeySpec
 class InAppManager(private val base64Key: String, private val productIds: ArrayList<String>, val type: String) {
 
     private var sharedPreferences: SharedPreferences? = null
-    var purchaseCallback: ((status: Boolean) -> Unit)? = null
 
     private fun log(msg: String, e: Throwable? = null) = Log.e("InAppPurchase", msg, e)
     private fun toast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
@@ -95,11 +94,11 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
         log("getHistory : onPurchaseHistoryResponse : billingResult = $billingResult : purchaseHistoryRecordList = $purchaseHistoryRecordList")
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 
-            val status = purchaseHistoryRecordList?.size ?: 0 > 0
+            val status = (purchaseHistoryRecordList?.size ?: 0) > 0
             setProductStatus(status)
 
-            purchaseCallback?.invoke(status)
-            if (purchaseCallback != null) toast(context, "Purchase Restored")
+            Utils.purchaseCallback?.invoke(status)
+            if (Utils.purchaseCallback != null) toast(context, "Purchase Restored")
         }
     }
 
@@ -117,7 +116,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
     fun purchase(activity: Activity, productId: String, callback: ((status: Boolean) -> Unit)? = null) {
         log("purchase : productId = $productId")
-        purchaseCallback = callback
+        Utils.purchaseCallback = callback
 
         val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
             log("purchase : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
@@ -146,8 +145,8 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
             }
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
             setProductStatus(true)
-            purchaseCallback?.invoke(true)
-            if (purchaseCallback != null) toast(context, "Item already owned")
+            Utils.purchaseCallback?.invoke(true)
+            if (Utils.purchaseCallback != null) toast(context, "Item already owned")
         } else if (billingResult.debugMessage != "") toast(context, billingResult.debugMessage)
     }
 
@@ -163,7 +162,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                         }
                     }
                     setProductStatus(true)
-                    purchaseCallback?.invoke(true)
+                    Utils.purchaseCallback?.invoke(true)
                     toast(context, "Item purchased")
                 }
             }

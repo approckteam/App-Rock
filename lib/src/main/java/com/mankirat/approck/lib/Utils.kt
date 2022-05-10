@@ -7,6 +7,7 @@ import com.mankirat.approck.lib.MyConstants.FirebaseEvent
 
 object Utils {
     var firebaseEventCallback: ((eventName: String, bundle: Bundle?) -> Unit)? = null
+    var purchaseCallback: ((status: Boolean) -> Unit)? = null
 
     fun loadError(type: AdType, statusCode: Int, msg: String) {
         val name = when (type) {
