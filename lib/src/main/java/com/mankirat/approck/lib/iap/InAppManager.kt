@@ -235,7 +235,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     }
 
     // call
-    fun isPurchased() = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS)
+    fun isPurchased(): Boolean = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS) ?: MyConstants.IAP_DEFAULT_STATUS
 
     fun getAllProductList(): PurchaseModel {
         return if (type == BillingClient.SkuType.INAPP) Utils.getObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java)

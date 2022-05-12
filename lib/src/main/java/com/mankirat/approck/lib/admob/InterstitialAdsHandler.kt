@@ -131,7 +131,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
         currentScreenCount = 0
     }
 
-    fun loadInterstitialSplash(context: Context) {
+    fun loadInterstitialSplash(context: Context, callback: (() -> Unit)? = null) {
         log("loadInterstitialSplash : instance = $mInterstitialAdSplash : isLoading = $isInterstitialLoadingSplash")
         if (isPremium(context)) return
 
@@ -146,6 +146,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
 
                 mInterstitialAdSplash = interstitialAd
                 isInterstitialLoadingSplash = false
+                callback?.invoke()
             }
 
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
@@ -155,6 +156,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
 
                 mInterstitialAdSplash = null
                 isInterstitialLoadingSplash = false
+                callback?.invoke()
             }
         })
     }
