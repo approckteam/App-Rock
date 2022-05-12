@@ -221,7 +221,7 @@ object AdMobUtil {
         interstitialAdsHandler?.showInterstitial(activity, callback)
     }
 
-    fun loadInterstitialSplash(context: Context, callback: (() -> Unit)?) {
+    fun loadInterstitialSplash(context: Context, callback: (() -> Unit)? = null) {
         interstitialAdsHandler?.loadInterstitialSplash(context, callback)
     }
 
