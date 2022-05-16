@@ -1,9 +1,20 @@
 package com.mankirat.approck.lib
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import com.google.gson.Gson
 import com.mankirat.approck.lib.MyConstants.FirebaseEvent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.IOException
+import java.net.InetSocketAddress
+import java.net.Socket
+
 
 object Utils {
     var firebaseEventCallback: ((eventName: String, bundle: Bundle?) -> Unit)? = null
@@ -65,5 +76,47 @@ object Utils {
     fun <T> getObject(prefs: SharedPreferences?, key: String, classOfT: Class<T>): T {
         val json: String = prefs?.getString(key, "") ?: ""
         return Gson().fromJson(json, classOfT) ?: throw NullPointerException()
+    }
+
+
+    fun hasInternetConnection(context: Context, callBack: ((Boolean) -> Unit)) {
+        if (isNetworkAvailable(context)) {
+            CoroutineScope(Dispatchers.IO).launch {
+                hostAvailable {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        callBack.invoke(it)
+                    }
+                }
+            }
+        } else callBack.invoke(false)
+    }
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork) ?: return false
+            return when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                else -> false
+            }
+        } else {
+            val info = connectivityManager.activeNetworkInfo
+            if (info != null && info.isConnectedOrConnecting) return true
+        }
+        return false
+    }
+
+    private fun hostAvailable(callBack: ((Boolean) -> Unit)) {
+        try {
+            Socket().use { socket ->
+                socket.connect(InetSocketAddress("www.meter.net", 80), 2000)
+                callBack.invoke(true)
+            }
+        } catch (e: IOException) {
+            callBack.invoke(false)
+        }
     }
 }

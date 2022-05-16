@@ -42,7 +42,13 @@ object AdMobUtil {
         interstitialAdsHandler = InterstitialAdsHandler.getInstance(adMobIds.interstitialId, adMobIds.interstitialIdSplash, targetClick, targetScreenCount)
         sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
 
-        MobileAds.initialize(context)
+        MobileAds.initialize(context) { initializationStatus ->
+            val statusMap = initializationStatus.adapterStatusMap
+            for (adapterClass in statusMap.keys) {
+                val status = statusMap[adapterClass]
+                log(String.format("Adapter name: %s, Description: %s, Latency: %d", adapterClass, status?.description, status?.latency))
+            }
+        }
         interstitialAdsHandler?.loadInterstitial(context)
         interstitialAdsHandler?.loadInterstitialSplash(context)
 

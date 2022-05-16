@@ -63,6 +63,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
         InterstitialAd.load(context, interstitialId, AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
                 super.onAdLoaded(interstitialAd)
+                log("loadInterstitial : onAdLoaded -> AdClass: ${interstitialAd.responseInfo.mediationAdapterClassName}")
                 Utils.loadSuccess(AdType.INTERSTITIAL)
 
                 mInterstitialAd = interstitialAd
@@ -147,7 +148,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
         InterstitialAd.load(context, interstitialIdSplash, AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
                 super.onAdLoaded(interstitialAd)
-                log("loadInterstitialSplash : onAdLoaded")
+                log("loadInterstitialSplash : onAdLoaded -> AdClass: ${interstitialAd.responseInfo.mediationAdapterClassName}")
                 Utils.loadSuccess(AdType.INTERSTITIAL_SPLASH)
 
                 mInterstitialAdSplash = interstitialAd
