@@ -1,0 +1,22 @@
+<resources>
+
+    <string name="start_like_pro">Mulai seperti pro</string>
+    <string name="buy_pro_version_to_unlock_all_features">Beli versi pro untuk membuka kunci semua fitur</string>
+    <string name="pro">Pro</string>
+    <string name="remove_native_ads">Hapus iklan asli</string>
+    <string name="remove_banner_ads">Hapus iklan spanduk</string>
+    <string name="remove_interstitial_ads">Hapus iklan interstitial</string>
+    <string name="vip_customer_support">Dukungan Pelanggan VIP</string>
+    <string name="start_free_trial">Mulai uji coba gratis</string>
+    <string name="subscription_will_auto_renew">Langganan akan memperbarui otomatis</string>
+    <string name="_90_00_month_after_1_week_free_trail">₹ 90,00/bulan setelah 1 minggu jejak gratis</string>
+    <string name="basic">Dasar</string>
+    <string name="subscribe_now">Berlangganan sekarang</string>
+    <string name="after_free">setelah gratis</string>
+    <string name="trial">uji coba</string>
+    <string name="month">Bulan</string>
+    <string name="week">Pekan</string>
+    <string name="year">Tahun</string>
+    <string name="day">hari</string>
+    <string name="day2" translatable="false">hari</string>
+</resources>

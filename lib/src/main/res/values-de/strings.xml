@@ -1,0 +1,23 @@
+<resources>
+
+    <string name="start_like_pro">Starten Sie wie ein Profi</string>
+    <string name="buy_pro_version_to_unlock_all_features">Kaufen Sie die Pro-Version, um alle Funktionen freizuschalten</string>
+    <string name="pro">Profi</string>
+    <string name="remove_native_ads">Entfernen Sie native Anzeigen</string>
+    <string name="remove_banner_ads">Werbebanner entfernen</string>
+    <string name="remove_interstitial_ads">Entfernen Sie Interstitial-Anzeigen</string>
+    <string name="vip_customer_support">VIP-Kundendienst</string>
+    <string name="start_free_trial">Kostenlos testen</string>
+    <string name="subscription_will_auto_renew">Das Abonnement verlängert sich automatisch</string>
+    <string name="_90_00_month_after_1_week_free_trail">₹90,00/Monat Nach 1 Woche kostenloser Trail</string>
+    <string name="basic">Basic</string>
+    <string name="subscribe_now">Abonniere jetzt</string>
+    <string name="after_free">nach frei</string>
+    <string name="trial">Studie</string>
+
+    <string name="month">Monat</string>
+    <string name="week">Woche</string>
+    <string name="year">Jahr</string>
+    <string name="day">Tag</string>
+    <string name="day2" translatable="false">day</string>
+</resources>

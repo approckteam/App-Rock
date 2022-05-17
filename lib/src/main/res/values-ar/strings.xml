@@ -1,0 +1,23 @@
+<resources>
+
+    <string name="start_like_pro">ابدأ كالمحترفين</string>
+    <string name="buy_pro_version_to_unlock_all_features">قم بشراء إصدار Pro لفتح جميع الميزات</string>
+    <string name="pro">طليعة</string>
+    <string name="remove_native_ads">إزالة الإعلانات الأصلية</string>
+    <string name="remove_banner_ads">إزالة لافتة الإعلانات</string>
+    <string name="remove_interstitial_ads">إزالة الإعلانات البينية</string>
+    <string name="vip_customer_support">دعم عملاء VIP</string>
+    <string name="start_free_trial">ابدأ الإصدار التجريبي المجاني</string>
+    <string name="subscription_will_auto_renew">سيتم تجديد الاشتراك تلقائيًا</string>
+    <string name="_90_00_month_after_1_week_free_trail">90.00 دولارًا في الشهر بعد أسبوع واحد من التجربة المجانية</string>
+    <string name="basic">الأساسي</string>
+    <string name="subscribe_now">إشترك الآن</string>
+    <string name="after_free">بعد مجانا</string>
+    <string name="trial">التجربة</string>
+
+    <string name="month">شهر</string>
+    <string name="week">أسبوع</string>
+    <string name="year">سنة</string>
+    <string name="day">يوم</string>
+    <string name="day2" translatable="false">day</string>
+</resources>

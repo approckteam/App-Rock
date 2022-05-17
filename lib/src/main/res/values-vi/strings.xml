@@ -1,0 +1,22 @@
+<resources>
+
+    <string name="start_like_pro">Bắt đầu như một chuyên gia</string>
+    <string name="buy_pro_version_to_unlock_all_features">Mua phiên bản Pro để mở khóa tất cả các tính năng</string>
+    <string name="pro">Pro</string>
+    <string name="remove_native_ads">Xóa quảng cáo gốc</string>
+    <string name="remove_banner_ads">Xóa quảng cáo biểu ngữ</string>
+    <string name="remove_interstitial_ads">Loại bỏ quảng cáo kẽ</string>
+    <string name="vip_customer_support">Hỗ trợ khách hàng VIP</string>
+    <string name="start_free_trial">Bắt đầu dùng thử miễn phí</string>
+    <string name="subscription_will_auto_renew">Đăng ký sẽ tự động gia hạn</string>
+    <string name="_90_00_month_after_1_week_free_trail">$ 90,00/tháng sau 1 tuần miễn phí</string>
+    <string name="basic">Nền tảng</string>
+    <string name="subscribe_now">Theo dõi ngay</string>
+    <string name="after_free">sau khi miễn phí</string>
+    <string name="trial">sự thử nghiệm</string>
+    <string name="month">Tháng</string>
+    <string name="week">Tuần</string>
+    <string name="year">Năm</string>
+    <string name="day">ngày</string>
+    <string name="day2" translatable="false">ngày</string>
+</resources>

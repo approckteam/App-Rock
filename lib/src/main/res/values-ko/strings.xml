@@ -1,0 +1,22 @@
+<resources>
+
+    <string name="start_like_pro">프로처럼 시작하십시오</string>
+    <string name="buy_pro_version_to_unlock_all_features">프로 버전을 구입하여 모든 기능을 잠금 해제하십시오</string>
+    <string name="pro">찬성</string>
+    <string name="remove_native_ads">기본 광고를 제거하십시오</string>
+    <string name="remove_banner_ads">배너 광고를 제거하십시오</string>
+    <string name="remove_interstitial_ads">간질 광고를 제거하십시오</string>
+    <string name="vip_customer_support">VIP 고객 지원</string>
+    <string name="start_free_trial">무료 평가판을 시작하십시오</string>
+    <string name="subscription_will_auto_renew">구독은 자동 갱신됩니다</string>
+    <string name="_90_00_month_after_1_week_free_trail">1 주 무료 트레일 후 ₹ 90.00/월</string>
+    <string name="basic">기초적인</string>
+    <string name="subscribe_now">지금 구독하십시오</string>
+    <string name="after_free">무료 후</string>
+    <string name="trial">재판</string>
+    <string name="month">월</string>
+    <string name="week">주</string>
+    <string name="year">년도</string>
+    <string name="day">낮</string>
+    <string name="day2" translatable="false">낮</string>
+</resources>

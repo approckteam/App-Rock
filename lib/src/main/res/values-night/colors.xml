@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_orange">#d2606a</color>
+    <color name="app_purple">#6059BB</color>
+    <color name="app_white">#FFFFFF</color>
+    <color name="app_black">#000000</color>
+    <color name="app_bg_white">#F4F4F4</color>
+
+
+    <color name="txt_orange">#d2606a</color>
+    <color name="txt_purple">#6059BB</color>
+    <color name="txt_white">#FFFFFF</color>
+    <color name="txt_black">#000000</color>
+
+
+    <color name="ic_orange">#d2606a</color>
+    <color name="ic_purple">#6059BB</color>
+    <color name="ic_white">#FFFFFF</color>
+    <color name="ic_black">#000000</color>
+
+
+    <color name="bg_orange">#d2606a</color>
+    <color name="bg_purple">#6059BB</color>
+    <color name="bg_white">#FFFFFF</color>
+    <color name="bg_black">#000000</color>
+    <color name="bg_black_dim">#B3000000</color>
+    <color name="bg_red">#FF0000</color>
+    <color name="bg_grey">#9A474747</color>
+    <color name="bg_light_pink">#f8ecef</color>
+    <color name="bg_green">#205A00</color>
+
+
+    <color name="grey_1">#D2D2D2</color>
+    <color name="grey_2">#A8A8A8</color>
+    <color name="grey_3">#7E7E7E</color>
+    <color name="grey_4">#545454</color>
+    <color name="grey_5">#2A2A2A</color>
+
+    <color name="transparent_grey">#BBFFFFFF</color>
+
+    <integer-array name="progress_colors">
+        <item>@color/ic_orange</item>
+        <item>@color/ic_black</item>
+        <item>@color/ic_purple</item>
+        <item>@color/ic_white</item>
+    </integer-array>
+
+</resources>

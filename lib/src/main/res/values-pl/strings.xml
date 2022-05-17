@@ -1,0 +1,22 @@
+<resources>
+
+    <string name="start_like_pro">Zacznij jak profesjonalista</string>
+    <string name="buy_pro_version_to_unlock_all_features">Kup wersję pro, aby odblokować wszystkie funkcje</string>
+    <string name="pro">Zawodowiec</string>
+    <string name="remove_native_ads">Usuń rodzime reklamy</string>
+    <string name="remove_banner_ads">Usuń reklamy banerowe</string>
+    <string name="remove_interstitial_ads">Usuń reklamy śródmiąższowe</string>
+    <string name="vip_customer_support">Obsługa klienta VIP</string>
+    <string name="start_free_trial">Rozpocznij darmowy okres próbny</string>
+    <string name="subscription_will_auto_renew">Subskrypcja automatycznie odnowi</string>
+    <string name="_90_00_month_after_1_week_free_trail">₹ 90,00/miesiąc po 1 tygodniu bezpłatnego szlaku</string>
+    <string name="basic">Podstawowy</string>
+    <string name="subscribe_now">Zapisz się teraz</string>
+    <string name="after_free">po wolnym</string>
+    <string name="trial">test</string>
+    <string name="month">Miesiąc</string>
+    <string name="week">Tydzień</string>
+    <string name="year">Rok</string>
+    <string name="day">dzień</string>
+    <string name="day2" translatable="false">dzień</string>
+</resources>
