@@ -32,7 +32,8 @@ object AdMobUtil {
     private var sharedPreferences: SharedPreferences? = null
 
     // Click Count
-    var interstitialAdsHandler: InterstitialAdsHandler? = null
+    private var interstitialAdsHandler: InterstitialAdsHandler? = null
+    private var rewardAdsHandler: RewardAdsHandler? = null
 
     private fun log(msg: String, e: Throwable? = null) = Log.e("AdMobUtil", msg, e)
 
@@ -40,6 +41,7 @@ object AdMobUtil {
         log("setUp -> targetClick: $targetClick, targetScreenCount: $targetScreenCount")
 
         interstitialAdsHandler = InterstitialAdsHandler.getInstance(adMobIds.interstitialId, adMobIds.interstitialIdSplash, targetClick, targetScreenCount)
+        rewardAdsHandler = RewardAdsHandler.getInstance(adMobIds.rewardId)
         sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
 
         MobileAds.initialize(context) { initializationStatus ->
@@ -50,7 +52,7 @@ object AdMobUtil {
             }
         }
         interstitialAdsHandler?.loadInterstitial(context)
-        interstitialAdsHandler?.loadInterstitialSplash(context)
+        rewardAdsHandler?.loadRewardedAd(context)
 
         defaultNativeAdStyle.setColorTheme(nativeColor)
         if (testMediation) MobileAds.openAdInspector(context) {
@@ -234,12 +236,20 @@ object AdMobUtil {
     fun showInterstitialSplash(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         interstitialAdsHandler?.showInterstitialSplash(activity, callback)
     }
+
+    /*______________________________ Reward ______________________________*/
+
+    fun loadRewardAd(context: Context) {
+        rewardAdsHandler?.loadRewardedAd(context)
+    }
+
+    fun showRewardAd(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+        rewardAdsHandler?.showRewardAd(activity, callback)
+    }
 }
 
 
 /*
 * Pending Tasks:
 * banner adview gravity center
-* reward ad missing
-* test suit
 * */
