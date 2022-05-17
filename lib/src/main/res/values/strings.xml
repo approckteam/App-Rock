@@ -1,3 +1,22 @@
 <resources>
 
+    <string name="start_like_pro">Start like a Pro</string>
+    <string name="buy_pro_version_to_unlock_all_features">Buy Pro version to unlock all Features</string>
+    <string name="pro">Pro</string>
+    <string name="remove_native_ads">Remove Native Ads</string>
+    <string name="remove_banner_ads">Remove Banner Ads</string>
+    <string name="remove_interstitial_ads">Remove Interstitial Ads</string>
+    <string name="vip_customer_support">VIP Customer Support</string>
+    <string name="start_free_trial">Start Free Trial</string>
+    <string name="subscription_will_auto_renew">Subscription will auto renew</string>
+    <string name="_90_00_month_after_1_week_free_trail">₹90.00/Month After 1 Week Free Trail</string>
+    <string name="basic">Basic</string>
+    <string name="subscribe_now">Subscribe Now</string>
+    <string name="after_free">after free</string>
+    <string name="trial">trial</string>
+
+    <string name="month">Month</string>
+    <string name="week">Week</string>
+    <string name="year">Year</string>
+    <string name="day">day</string>
 </resources>
