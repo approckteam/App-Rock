@@ -22,6 +22,7 @@ class SubsActivity : AppCompatActivity() {
 
         var purchaseModel: PurchaseModel? = null
         var selectedSubs = ""
+        var plansVisibility = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +68,8 @@ class SubsActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.recyclerPlans.visibility = if (plansVisibility) View.VISIBLE else View.GONE
     }
 
     private fun listeners() {
