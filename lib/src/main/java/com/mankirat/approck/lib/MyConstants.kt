@@ -6,7 +6,7 @@ object MyConstants {
 
     const val SHARED_PREF_IAP = "iap_app_rock"
     const val IS_PREMIUM = "is_premium"
-    const val IAP_DEFAULT_STATUS = true
+    const val IAP_DEFAULT_STATUS = false
     const val IN_APP_PRODUCTS = "in_app_products"
     const val IN_APP_SUBS = "in_app_subs"
 
