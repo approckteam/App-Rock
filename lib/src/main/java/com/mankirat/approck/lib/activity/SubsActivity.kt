@@ -91,15 +91,20 @@ class SubsActivity : AppCompatActivity() {
             else -> getString(R.string.year)
         }
 
-        val durationName = when {
-            detailData?.freeTrialPeriod?.substring(2) == "D" -> getString(R.string.day)
-            detailData?.freeTrialPeriod?.substring(2) == "W" -> getString(R.string.week)
-            else -> ""
-        }
+        val durationName = if (detailData?.freeTrialPeriod != null && detailData.freeTrialPeriod != "") {
+            when {
+                detailData.freeTrialPeriod?.substring(2) == "D" -> getString(R.string.day)
+                detailData.freeTrialPeriod?.substring(2) == "W" -> getString(R.string.week)
+                else -> ""
+            }
+        } else ""
 
-        val afterFree = resources.getString(R.string.after_free)
-        val trial = resources.getString(R.string.trial)
-        val message = "${detailData?.originalPrice}/$sDuration $afterFree ${detailData?.freeTrialPeriod?.substring(1, 2)}-$durationName $trial"
+        val message = if (durationName == "") "${detailData?.originalPrice}/$sDuration"
+        else {
+            val afterFree = resources.getString(R.string.after_free)
+            val trial = resources.getString(R.string.trial)
+            "${detailData?.originalPrice}/$sDuration $afterFree ${detailData?.freeTrialPeriod?.substring(1, 2)}-$durationName $trial"
+        }
 
         binding.txtFreeTrail.text = message
     }
