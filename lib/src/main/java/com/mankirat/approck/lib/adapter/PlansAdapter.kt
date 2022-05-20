@@ -60,7 +60,7 @@ class PlansAdapter : RecyclerView.Adapter<PlansAdapter.ViewHolder>() {
                 binding.tx3Month.setTextColor(ContextCompat.getColor(binding.txt3Price.context, android.R.color.white))
                 clickListener?.invoke(position)
             } else {
-                binding.txt3Price.setTextColor(ContextCompat.getColor(binding.txt3Price.context, R.color.grey_3))
+                binding.txt3Price.setTextColor(ContextCompat.getColor(binding.txt3Price.context, R.color.lib_grey_3))
                 binding.cl3Month.setBackgroundResource(R.drawable.bg_unselected_premium)
                 binding.tx3Month.setTextColor(ContextCompat.getColor(binding.txt3Price.context, android.R.color.black))
             }
@@ -71,7 +71,7 @@ class PlansAdapter : RecyclerView.Adapter<PlansAdapter.ViewHolder>() {
                 binding.tx3Month.setTextColor(ContextCompat.getColor(binding.txt3Price.context, android.R.color.white))
             } else {
                 binding.cl3Month.setBackgroundResource(R.drawable.bg_unselected_premium)
-                binding.txt3Price.setTextColor(ContextCompat.getColor(binding.txt3Price.context, R.color.grey_3))
+                binding.txt3Price.setTextColor(ContextCompat.getColor(binding.txt3Price.context, R.color.lib_grey_3))
                 binding.tx3Month.setTextColor(ContextCompat.getColor(binding.txt3Price.context, android.R.color.black))
             }
         }

@@ -9,7 +9,6 @@
     <string name="vip_customer_support">VIP Customer Support</string>
     <string name="start_free_trial">Start Free Trial</string>
     <string name="subscription_will_auto_renew">Subscription will auto renew</string>
-    <string name="_90_00_month_after_1_week_free_trail">₹90.00/Month After 1 Week Free Trail</string>
     <string name="basic">Basic</string>
     <string name="subscribe_now">Subscribe Now</string>
     <string name="after_free">after free</string>
@@ -18,5 +17,9 @@
     <string name="week">Week</string>
     <string name="year">Year</string>
     <string name="day">day</string>
-    <string name="day2" translatable="false">day</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">₹90.00/Month After 1 Week Free Trial</string>
+    <string name="no_internet">No Internet</string>
+    <string name="no_internet_desc">Please check your internet, We need internet to check your subscription history</string>
+    <string name="ok">OK</string>
 </resources>

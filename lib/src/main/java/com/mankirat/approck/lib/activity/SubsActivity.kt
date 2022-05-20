@@ -53,12 +53,14 @@ class SubsActivity : AppCompatActivity() {
 
         listeners()
 
+        var noFreeTrial = true
         if (productList?.isNotEmpty() == true) {
             for (i in 0 until productList.size) {
                 if (productList[i].productId == selectedSubs) {
                     detailData = productList[i]
                     selectedSubs = detailData?.productId.toString()
                     if (productList[i].freeTrialPeriod != "") {
+                        noFreeTrial = false
                         binding.txtFreeTrail.visibility = View.VISIBLE
                         setFreeTrialData(productList[i])
                     } else {
@@ -67,6 +69,10 @@ class SubsActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+        if (noFreeTrial && productList?.isNotEmpty() == true) {
+            binding.txtFreeTrail.visibility = View.VISIBLE
+            setFreeTrialData(productList.first())
         }
 
         binding.recyclerPlans.visibility = if (plansVisibility) View.VISIBLE else View.GONE

@@ -1,20 +1,29 @@
 package com.mankirat.approck.lib
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.mankirat.approck.lib.MyConstants.FirebaseEvent
+import com.mankirat.approck.lib.databinding.DialogInternetBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
-
 
 object Utils {
     var firebaseEventCallback: ((eventName: String, bundle: Bundle?) -> Unit)? = null
@@ -118,6 +127,40 @@ object Utils {
             }
         } catch (e: IOException) {
             callBack.invoke(false)
+        }
+    }
+
+    fun openPlayStore(context: Context, targetClick: String, appId: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(targetClick))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appId"))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+    }
+
+    var alertDialog: AlertDialog? = null
+    fun internetDialog(activity: Activity, callback: (() -> Unit)? = null) {
+        val dialogBinding = DialogInternetBinding.inflate(activity.layoutInflater, null, false)
+        dialogBinding.btnOk.setOnClickListener {
+            alertDialog?.dismiss()
+            alertDialog = null
+            callback?.invoke()
+        }
+        if (alertDialog != null) {
+            alertDialog?.dismiss()
+            alertDialog = null
+        }
+        alertDialog = AlertDialog.Builder(activity).setCancelable(false).setView(dialogBinding.root).create()
+        alertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(500)
+            withContext(Dispatchers.Main) {
+                if (!activity.isFinishing) alertDialog?.show()
+            }
         }
     }
 }

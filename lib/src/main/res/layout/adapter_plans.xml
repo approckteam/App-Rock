@@ -12,7 +12,7 @@
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="10dp"
 
-        app:cardBackgroundColor="@color/grey_1"
+        app:cardBackgroundColor="@color/lib_grey_1"
         app:cardCornerRadius="15dp"
         app:cardElevation="6dp"
 
@@ -54,7 +54,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"
-                android:textColor="@color/grey_3"
+                android:textColor="@color/lib_grey_3"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

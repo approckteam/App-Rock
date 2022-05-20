@@ -12,7 +12,7 @@
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/btn_setting"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content">
 
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +62,6 @@
                 android:layout_marginTop="10dp"
 
                 android:gravity="center"
-                android:includeFontPadding="false"
 
                 android:text="@string/start_like_pro"
                 android:textColor="@color/subs_primary_color"
@@ -81,10 +80,9 @@
                 android:layout_marginTop="5dp"
 
                 android:gravity="center"
-                android:includeFontPadding="false"
 
                 android:text="@string/buy_pro_version_to_unlock_all_features"
-                android:textColor="@color/grey_3"
+                android:textColor="@color/lib_grey_3"
                 android:textSize="14sp"
 
                 app:layout_constraintEnd_toEndOf="@id/tv_title"
@@ -109,10 +107,9 @@
                     android:layout_height="wrap_content"
 
                     android:layout_marginHorizontal="20dp"
-                    android:includeFontPadding="false"
 
                     android:text="@string/basic"
-                    android:textColor="@color/grey_3"
+                    android:textColor="@color/lib_grey_3"
                     android:textSize="16sp"
 
                     app:layout_constraintEnd_toEndOf="parent"
@@ -123,18 +120,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginHorizontal="30dp"
-                    android:includeFontPadding="false"
+                    android:layout_marginHorizontal="20dp"
 
                     android:text="@string/pro"
-                    android:textColor="@color/grey_3"
+                    android:textColor="@color/lib_grey_3"
                     android:textSize="16sp"
 
                     app:layout_constraintEnd_toStartOf="@id/tv_pro"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgNative"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,14 +145,15 @@
 
                 <TextView
                     android:id="@+id/tv_remove_native_ads"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="sans-serif-light"
                     android:text="@string/remove_native_ads"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
+
+                    app:layout_constraintEnd_toStartOf="@id/iv_remove_native_ads_dash"
                     app:layout_constraintStart_toEndOf="@id/imgNative"
                     app:layout_constraintTop_toBottomOf="@id/tvBasic" />
 
@@ -187,7 +184,7 @@
                     app:layout_constraintTop_toTopOf="@id/tv_remove_native_ads" />
 
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgBanner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -202,16 +199,16 @@
 
                 <TextView
                     android:id="@+id/tv_remove_banner_ads"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
 
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="sans-serif-light"
                     android:text="@string/remove_banner_ads"
-                    android:textColor="@android:color/black"
-
+                    android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
+
+                    app:layout_constraintEnd_toStartOf="@id/iv_remove_banner_ads_dash"
                     app:layout_constraintStart_toEndOf="@id/imgBanner"
                     app:layout_constraintTop_toBottomOf="@+id/tv_remove_native_ads" />
 
@@ -242,7 +239,7 @@
                     app:layout_constraintTop_toTopOf="@id/tv_remove_banner_ads" />
 
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgInter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -257,16 +254,17 @@
 
                 <TextView
                     android:id="@+id/tv_remove_inter_ads"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
 
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="sans-serif-light"
+
                     android:text="@string/remove_interstitial_ads"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
 
+                    app:layout_constraintEnd_toStartOf="@id/iv_remove_inter_ads_dash"
                     app:layout_constraintStart_toEndOf="@id/imgInter"
                     app:layout_constraintTop_toBottomOf="@+id/tv_remove_banner_ads" />
 
@@ -297,7 +295,7 @@
                     app:layout_constraintStart_toStartOf="@id/tvBasic"
                     app:layout_constraintTop_toTopOf="@id/tv_remove_inter_ads" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgVip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -317,11 +315,11 @@
 
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="sans-serif-light"
+
                     android:text="@string/vip_customer_support"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+
                     app:layout_constraintStart_toEndOf="@id/imgVip"
                     app:layout_constraintTop_toBottomOf="@+id/tv_remove_inter_ads" />
 
@@ -395,10 +393,9 @@
             android:layout_marginTop="20dp"
 
             android:gravity="center"
-            android:includeFontPadding="false"
 
             android:text="@string/_90_00_month_after_1_week_free_trail"
-            android:textColor="@color/grey_4"
+            android:textColor="@color/lib_grey_4"
             android:textSize="12sp"
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -414,17 +411,17 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="2dp"
 
-            app:backgroundTint="@null"
             android:background="@drawable/bg_gradient"
             android:elevation="5dp"
             android:outlineProvider="bounds"
             android:stateListAnimator="@null"
-
             android:text="@string/start_free_trial"
+
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:backgroundTint="@null"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -437,9 +434,8 @@
 
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
-            android:paddingBottom="10dp"
             android:text="@string/subscription_will_auto_renew"
-            android:textColor="@color/grey_4"
+            android:textColor="@color/lib_grey_4"
             android:textSize="11sp"
 
             app:layout_constraintBottom_toBottomOf="parent"
