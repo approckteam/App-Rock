@@ -49,10 +49,14 @@ dependencies {
     //in-app-purchase
     implementation 'com.android.billingclient:billing-ktx:4.1.0'
     //ad-mob
-    implementation 'com.google.android.gms:play-services-ads:20.6.0'
+    implementation 'com.google.android.gms:play-services-ads:20.4.0'
     //ad-mob-mediation
-    implementation 'com.google.ads.mediation:adcolony:4.7.1.0'
+    /*implementation 'com.google.ads.mediation:adcolony:4.7.1.0'
     implementation 'com.google.ads.mediation:applovin:11.3.3.0'
     implementation 'com.google.ads.mediation:facebook:6.10.0.0'
-    implementation 'com.google.ads.mediation:vungle:6.11.0.0'
+    implementation 'com.google.ads.mediation:vungle:6.11.0.0'*/
+
+    implementation 'com.google.ads.mediation:adcolony:4.6.4.0'
+    implementation 'com.google.ads.mediation:applovin:10.3.4.0'
+    implementation 'com.google.ads.mediation:facebook:6.7.0.0'
 }
