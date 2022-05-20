@@ -9,7 +9,6 @@
     <string name="vip_customer_support">Assistance client VIP</string>
     <string name="start_free_trial">Commencer l\'essai gratuit</string>
     <string name="subscription_will_auto_renew">L\'abonnement se renouvellera automatiquement</string>
-    <string name="_90_00_month_after_1_week_free_trail"><![CDATA[90,00 ₹/mois après 1 semaine d\'essai gratuit]]></string>
     <string name="basic">Basique</string>
     <string name="subscribe_now">Abonnez-vous maintenant</string>
     <string name="after_free">après libre</string>
@@ -19,5 +18,10 @@
     <string name="week">La semaine</string>
     <string name="year">An</string>
     <string name="day">journée</string>
-    <string name="day2" translatable="false">day</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">90,00 ₹ / mois après 1 semaine Essai gratuit</string>
+    <string name="no_internet">Pas d\'Internet</string>
+    <string name="no_internet_desc">Veuillez vérifier votre Internet, nous avons besoin d\'Internet pour vérifier l\'historique de votre abonnement</string>
+    <string name="ok">D\'ACCORD</string>
+    <string name="ads">Les publicités</string>
 </resources>

@@ -9,7 +9,6 @@
     <string name="vip_customer_support">Asistență pentru clienți VIP</string>
     <string name="start_free_trial">Incepe o probă gratuită</string>
     <string name="subscription_will_auto_renew">Abonamentul va reînnoi automat</string>
-    <string name="_90_00_month_after_1_week_free_trail">90,00 lei/lună după 1 săptămână traseu gratuit</string>
     <string name="basic">De bază</string>
     <string name="subscribe_now">Abonează-te acum</string>
     <string name="after_free">după liber</string>
@@ -18,5 +17,10 @@
     <string name="week">Săptămână</string>
     <string name="year">An</string>
     <string name="day">zi</string>
-    <string name="day2" translatable="false">zi</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">90,00 lei/lună după 1 săptămână de încercare gratuită</string>
+    <string name="no_internet">Fara Internet</string>
+    <string name="no_internet_desc">Vă rugăm să vă verificați internetul, avem nevoie de internet pentru a verifica istoricul abonamentului</string>
+    <string name="ok">Bine</string>
+    <string name="ads">Reclame</string>
 </resources>

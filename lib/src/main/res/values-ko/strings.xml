@@ -9,7 +9,6 @@
     <string name="vip_customer_support">VIP 고객 지원</string>
     <string name="start_free_trial">무료 평가판을 시작하십시오</string>
     <string name="subscription_will_auto_renew">구독은 자동 갱신됩니다</string>
-    <string name="_90_00_month_after_1_week_free_trail">1 주 무료 트레일 후 ₹ 90.00/월</string>
     <string name="basic">기초적인</string>
     <string name="subscribe_now">지금 구독하십시오</string>
     <string name="after_free">무료 후</string>
@@ -18,5 +17,10 @@
     <string name="week">주</string>
     <string name="year">년도</string>
     <string name="day">낮</string>
-    <string name="day2" translatable="false">낮</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">1 주 무료 평가판 후 ₹ 90.00/월</string>
+    <string name="no_internet">인터넷이 없습니다</string>
+    <string name="no_internet_desc">인터넷을 확인하십시오. 구독 기록을 확인하려면 인터넷이 필요합니다.</string>
+    <string name="ok">확인</string>
+    <string name="ads">광고</string>
 </resources>

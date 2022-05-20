@@ -9,7 +9,6 @@
     <string name="vip_customer_support">VIP -поддержка клиентов</string>
     <string name="start_free_trial">Начните бесплатную пробную версию</string>
     <string name="subscription_will_auto_renew">Подписка будет автоматической обновлением</string>
-    <string name="_90_00_month_after_1_week_free_trail">₹ 90,00 в месяц после 1 недели бесплатный след</string>
     <string name="basic">Базовый</string>
     <string name="subscribe_now">Подпишись сейчас</string>
     <string name="after_free">После бесплатного</string>
@@ -18,5 +17,10 @@
     <string name="week">Неделю</string>
     <string name="year">Год</string>
     <string name="day">день</string>
-    <string name="day2" translatable="false">день</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">₹ 90,00 в месяц после 1 недели бесплатной пробной версии</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="no_internet_desc">Пожалуйста, проверьте свой интернет, нам нужен интернет, чтобы проверить историю подписки</string>
+    <string name="ok">ХОРОШО</string>
+    <string name="ads">Объявления</string>
 </resources>

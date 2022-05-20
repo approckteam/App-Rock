@@ -9,7 +9,6 @@
     <string name="vip_customer_support">वीआईपी ग्राहक सहायता</string>
     <string name="start_free_trial">निशुल्क आजमाइश शुरु करें</string>
     <string name="subscription_will_auto_renew">सदस्यता स्वतः नवीनीकृत हो जाएगी</string>
-    <string name="_90_00_month_after_1_week_free_trail">₹90.00/माह 1 सप्ताह के बाद निःशुल्क ट्रेल</string>
     <string name="basic">बुनियादी</string>
     <string name="subscribe_now">अब सदस्यता लें</string>
     <string name="after_free">फ्री के बाद</string>
@@ -19,5 +18,10 @@
     <string name="week">सप्ताह</string>
     <string name="year">साल</string>
     <string name="day">दिन</string>
-    <string name="day2" translatable="false">day</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">1 सप्ताह के नि: शुल्क परीक्षण के बाद ₹ 90.00/महीना</string>
+    <string name="no_internet">इंटरनेट नहीं है</string>
+    <string name="no_internet_desc">कृपया अपने इंटरनेट की जाँच करें, हमें आपके सदस्यता इतिहास की जांच करने के लिए इंटरनेट की आवश्यकता है</string>
+    <string name="ok">ठीक है</string>
+    <string name="ads">विज्ञापन</string>
 </resources>

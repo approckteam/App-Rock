@@ -9,7 +9,6 @@
     <string name="vip_customer_support">Obsługa klienta VIP</string>
     <string name="start_free_trial">Rozpocznij darmowy okres próbny</string>
     <string name="subscription_will_auto_renew">Subskrypcja automatycznie odnowi</string>
-    <string name="_90_00_month_after_1_week_free_trail">₹ 90,00/miesiąc po 1 tygodniu bezpłatnego szlaku</string>
     <string name="basic">Podstawowy</string>
     <string name="subscribe_now">Zapisz się teraz</string>
     <string name="after_free">po wolnym</string>
@@ -18,5 +17,10 @@
     <string name="week">Tydzień</string>
     <string name="year">Rok</string>
     <string name="day">dzień</string>
-    <string name="day2" translatable="false">dzień</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">90,00/miesiąc po 1 tygodniu bezpłatnego procesu</string>
+    <string name="no_internet">Brak internetu</string>
+    <string name="no_internet_desc">Sprawdź internet, potrzebujemy Internetu, aby sprawdzić historię subskrypcji</string>
+    <string name="ok">OK</string>
+    <string name="ads">Reklamy</string>
 </resources>

@@ -9,7 +9,6 @@
     <string name="vip_customer_support">VIP-Kundendienst</string>
     <string name="start_free_trial">Kostenlos testen</string>
     <string name="subscription_will_auto_renew">Das Abonnement verlängert sich automatisch</string>
-    <string name="_90_00_month_after_1_week_free_trail">₹90,00/Monat Nach 1 Woche kostenloser Trail</string>
     <string name="basic">Basic</string>
     <string name="subscribe_now">Abonniere jetzt</string>
     <string name="after_free">nach frei</string>
@@ -19,5 +18,10 @@
     <string name="week">Woche</string>
     <string name="year">Jahr</string>
     <string name="day">Tag</string>
-    <string name="day2" translatable="false">day</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">£ 90.00/Monat nach 1 Woche kostenloser Testversion</string>
+    <string name="no_internet">Kein Internet</string>
+    <string name="no_internet_desc">Bitte überprüfen Sie Ihr Internet. Wir benötigen das Internet, um Ihren Abonnementverlauf zu überprüfen</string>
+    <string name="ok">OK</string>
+    <string name="ads">Anzeigen</string>
 </resources>

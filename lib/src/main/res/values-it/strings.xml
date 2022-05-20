@@ -9,7 +9,6 @@
     <string name="vip_customer_support">Assistenza clienti VIP</string>
     <string name="start_free_trial">Inizia la prova gratuita</string>
     <string name="subscription_will_auto_renew">L\'abbonamento si rinnoverà automaticamente</string>
-    <string name="_90_00_month_after_1_week_free_trail">£ 90,00/mese dopo 1 settimana percorso gratuito</string>
     <string name="basic">Di base</string>
     <string name="subscribe_now">Iscriviti ora</string>
     <string name="after_free">dopo libero</string>
@@ -18,5 +17,10 @@
     <string name="week">Settimana</string>
     <string name="year">Anno</string>
     <string name="day">giorno</string>
-    <string name="day2" translatable="false">giorno</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">£ 90,00/mese dopo 1 settimana di prova gratuita</string>
+    <string name="no_internet">Senza internet</string>
+    <string name="no_internet_desc">Controlla Internet, abbiamo bisogno di Internet per controllare la cronologia dell\'abbonamento</string>
+    <string name="ok">OK</string>
+    <string name="ads">Annunci</string>
 </resources>

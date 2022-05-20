@@ -9,7 +9,6 @@
     <string name="vip_customer_support">VIP Müşteri Desteği</string>
     <string name="start_free_trial">Deneme sürümüne başla</string>
     <string name="subscription_will_auto_renew">Abonelik otomatik olarak yenilenecek</string>
-    <string name="_90_00_month_after_1_week_free_trail">1 Haftalık Ücretsiz Trail\'den sonra 90,00/ay</string>
     <string name="basic">Temel</string>
     <string name="subscribe_now">Şimdi abone olun</string>
     <string name="after_free">Ücretsiz</string>
@@ -18,5 +17,10 @@
     <string name="week">Hafta</string>
     <string name="year">Yıl</string>
     <string name="day">gün</string>
-    <string name="day2" translatable="false">gün</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">1 Hafta Ücretsiz Deneme\'den Sonra 90.00/Ay</string>
+    <string name="no_internet">İnternet yok</string>
+    <string name="no_internet_desc">Lütfen internetinizi kontrol edin, abonelik geçmişinizi kontrol etmek için İnternet\'e ihtiyacımız var</string>
+    <string name="ok">TAMAM</string>
+    <string name="ads">Reklam</string>
 </resources>

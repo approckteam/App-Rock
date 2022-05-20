@@ -72,7 +72,7 @@ class SubsActivity : AppCompatActivity() {
         }
         if (noFreeTrial && productList?.isNotEmpty() == true) {
             binding.txtFreeTrail.visibility = View.VISIBLE
-            setFreeTrialData(productList.first())
+            setFreeTrialData(detailData)
         }
 
         binding.recyclerPlans.visibility = if (plansVisibility) View.VISIBLE else View.GONE

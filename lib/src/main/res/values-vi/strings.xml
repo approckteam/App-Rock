@@ -9,7 +9,6 @@
     <string name="vip_customer_support">Hỗ trợ khách hàng VIP</string>
     <string name="start_free_trial">Bắt đầu dùng thử miễn phí</string>
     <string name="subscription_will_auto_renew">Đăng ký sẽ tự động gia hạn</string>
-    <string name="_90_00_month_after_1_week_free_trail">$ 90,00/tháng sau 1 tuần miễn phí</string>
     <string name="basic">Nền tảng</string>
     <string name="subscribe_now">Theo dõi ngay</string>
     <string name="after_free">sau khi miễn phí</string>
@@ -18,5 +17,10 @@
     <string name="week">Tuần</string>
     <string name="year">Năm</string>
     <string name="day">ngày</string>
-    <string name="day2" translatable="false">ngày</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">$ 90,00/tháng sau 1 tuần dùng thử miễn phí</string>
+    <string name="no_internet">Không có mạng</string>
+    <string name="no_internet_desc">Vui lòng kiểm tra Internet của bạn, chúng tôi cần Internet để kiểm tra lịch sử đăng ký của bạn</string>
+    <string name="ok">ĐƯỢC RỒI</string>
+    <string name="ads">Quảng cáo</string>
 </resources>

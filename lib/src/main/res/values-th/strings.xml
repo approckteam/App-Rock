@@ -9,7 +9,6 @@
     <string name="vip_customer_support">ฝ่ายสนับสนุนลูกค้าวีไอพี</string>
     <string name="start_free_trial">เริ่มทดลองใช้ฟรี</string>
     <string name="subscription_will_auto_renew">การสมัครสมาชิกจะต่ออายุอัตโนมัติ</string>
-    <string name="_90_00_month_after_1_week_free_trail">₹ 90.00/เดือนหลังจากเส้นทางฟรี 1 สัปดาห์</string>
     <string name="basic">ขั้นพื้นฐาน</string>
     <string name="subscribe_now">สมัครสมาชิกทันที</string>
     <string name="after_free">หลังฟรี</string>
@@ -18,5 +17,10 @@
     <string name="week">สัปดาห์</string>
     <string name="year">ปี</string>
     <string name="day">วัน</string>
-    <string name="day2" translatable="false">วัน</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">₹ 90.00/เดือนหลังจากทดลองใช้ฟรี 1 สัปดาห์</string>
+    <string name="no_internet">ไม่มีอินเทอร์เน็ต</string>
+    <string name="no_internet_desc">โปรดตรวจสอบอินเทอร์เน็ตของคุณเราต้องการอินเทอร์เน็ตเพื่อตรวจสอบประวัติการสมัครสมาชิกของคุณ</string>
+    <string name="ok">ตกลง</string>
+    <string name="ads">โฆษณา</string>
 </resources>

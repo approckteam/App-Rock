@@ -9,7 +9,6 @@
     <string name="vip_customer_support">Sokongan pelanggan VIP</string>
     <string name="start_free_trial">Mulakan Percubaan Percuma</string>
     <string name="subscription_will_auto_renew">Langganan akan memperbaharui automatik</string>
-    <string name="_90_00_month_after_1_week_free_trail">₹ 90.00/bulan selepas 1 minggu jejak percuma</string>
     <string name="basic">Asas</string>
     <string name="subscribe_now">Langgan sekarang</string>
     <string name="after_free">selepas percuma</string>
@@ -18,5 +17,10 @@
     <string name="week">Minggu</string>
     <string name="year">Tahun</string>
     <string name="day">hari</string>
-    <string name="day2" translatable="false">hari</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">₹ 90.00/bulan selepas percubaan percuma 1 minggu</string>
+    <string name="no_internet">Tiada Internet</string>
+    <string name="no_internet_desc">Sila periksa internet anda, kami memerlukan internet untuk memeriksa sejarah langganan anda</string>
+    <string name="ok">okey</string>
+    <string name="ads">Iklan</string>
 </resources>
