@@ -21,7 +21,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">₹90.00/Month After 1 Week Free Trial</string>
     <string name="no_internet">No Internet</string>
-    <string name="no_internet_desc">Please check your internet, We need internet to check your subscription history</string>
+    <string name="no_internet_desc">Please check your internet. We need internet to check your subscription history</string>
     <string name="ok">OK</string>
     <string name="ads">Ads</string>
 </resources>

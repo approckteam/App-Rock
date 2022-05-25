@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">₹ 90,00/mês após 1 semana de avaliação gratuita</string>
     <string name="no_internet">Sem internet</string>
-    <string name="no_internet_desc">Por favor, verifique sua internet, precisamos da Internet para verificar seu histórico de assinatura</string>
+    <string name="no_internet_desc">Por favor, verifique sua internet. Precisamos da Internet para verificar seu histórico de assinatura</string>
     <string name="ok">OK</string>
     <string name="ads">Publicidades</string>
 </resources>

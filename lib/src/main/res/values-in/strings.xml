@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">₹ 90,00/bulan setelah 1 minggu uji coba gratis</string>
     <string name="no_internet">Tidak ada internet</string>
-    <string name="no_internet_desc">Silakan periksa internet Anda, kami perlu internet untuk memeriksa riwayat langganan Anda</string>
+    <string name="no_internet_desc">Silakan periksa internet Anda. Kami membutuhkan internet untuk memeriksa riwayat langganan Anda</string>
     <string name="ok">Oke</string>
     <string name="ads">Iklan</string>
 </resources>

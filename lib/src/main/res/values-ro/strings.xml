@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">90,00 lei/lună după 1 săptămână de încercare gratuită</string>
     <string name="no_internet">Fara Internet</string>
-    <string name="no_internet_desc">Vă rugăm să vă verificați internetul, avem nevoie de internet pentru a verifica istoricul abonamentului</string>
+    <string name="no_internet_desc">Vă rugăm să vă verificați internetul. Avem nevoie de internet pentru a vă verifica istoricul abonamentului</string>
     <string name="ok">Bine</string>
     <string name="ads">Reclame</string>
 </resources>

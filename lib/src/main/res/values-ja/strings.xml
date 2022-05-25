@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">1週間の無料トライアルの後、£90.00/月</string>
     <string name="no_internet">インターネットがない</string>
-    <string name="no_internet_desc">あなたのインターネットを確認してください、私たちはあなたのサブスクリプション履歴をチェックするためにインターネットが必要です</string>
+    <string name="no_internet_desc">インターネットを確認してください。サブスクリプション履歴を確認するには、インターネットが必要です</string>
     <string name="ok">わかった</string>
     <string name="ads">広告</string>
 </resources>

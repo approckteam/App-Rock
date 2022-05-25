@@ -21,7 +21,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">90,00 ₹ / mois après 1 semaine Essai gratuit</string>
     <string name="no_internet">Pas d\'Internet</string>
-    <string name="no_internet_desc">Veuillez vérifier votre Internet, nous avons besoin d\'Internet pour vérifier l\'historique de votre abonnement</string>
+    <string name="no_internet_desc">Veuillez vérifier votre Internet. Nous avons besoin d\'Internet pour vérifier l\'historique de votre abonnement</string>
     <string name="ok">D\'ACCORD</string>
     <string name="ads">Les publicités</string>
 </resources>

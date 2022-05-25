@@ -21,7 +21,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">90.00 دولار في الشهر بعد أسبوع واحد تجريبي مجاني</string>
     <string name="no_internet">لا انترنت</string>
-    <string name="no_internet_desc">يرجى التحقق من الإنترنت الخاص بك ، نحتاج إلى الإنترنت للتحقق من سجل الاشتراك الخاص بك</string>
+    <string name="no_internet_desc">يرجى التحقق من الإنترنت الخاص بك. نحتاج إلى الإنترنت للتحقق من سجل الاشتراك الخاص بك</string>
     <string name="ok">نعم</string>
     <string name="ads">إعلانات</string>
 </resources>

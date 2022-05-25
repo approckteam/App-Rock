@@ -3,6 +3,8 @@
     <color name="subs_primary_color">#25ACE3</color>
     <color name="subs_secondary_color">#1289B3</color>
 
+    <color name="lib_txt_black">#000000</color>
+
     <color name="lib_grey_1">#D2D2D2</color>
     <color name="lib_grey_2">#A8A8A8</color>
     <color name="lib_grey_3">#7E7E7E</color>

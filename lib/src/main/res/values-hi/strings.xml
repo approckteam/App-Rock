@@ -21,7 +21,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">1 सप्ताह के नि: शुल्क परीक्षण के बाद ₹ 90.00/महीना</string>
     <string name="no_internet">इंटरनेट नहीं है</string>
-    <string name="no_internet_desc">कृपया अपने इंटरनेट की जाँच करें, हमें आपके सदस्यता इतिहास की जांच करने के लिए इंटरनेट की आवश्यकता है</string>
+    <string name="no_internet_desc">कृपया अपना इंटरनेट देखें। हमें आपके सदस्यता इतिहास की जांच करने के लिए इंटरनेट की आवश्यकता है</string>
     <string name="ok">ठीक है</string>
     <string name="ads">विज्ञापन</string>
 </resources>

@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">90,00/miesiąc po 1 tygodniu bezpłatnego procesu</string>
     <string name="no_internet">Brak internetu</string>
-    <string name="no_internet_desc">Sprawdź internet, potrzebujemy Internetu, aby sprawdzić historię subskrypcji</string>
+    <string name="no_internet_desc">Sprawdź swój Internet. Potrzebujemy Internetu, aby sprawdzić historię subskrypcji</string>
     <string name="ok">OK</string>
     <string name="ads">Reklamy</string>
 </resources>

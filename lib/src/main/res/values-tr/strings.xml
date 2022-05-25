@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">1 Hafta Ücretsiz Deneme\'den Sonra 90.00/Ay</string>
     <string name="no_internet">İnternet yok</string>
-    <string name="no_internet_desc">Lütfen internetinizi kontrol edin, abonelik geçmişinizi kontrol etmek için İnternet\'e ihtiyacımız var</string>
+    <string name="no_internet_desc">Lütfen internetinizi kontrol edin. Abonelik geçmişinizi kontrol etmek için İnternet\'e ihtiyacımız var</string>
     <string name="ok">TAMAM</string>
     <string name="ads">Reklam</string>
 </resources>

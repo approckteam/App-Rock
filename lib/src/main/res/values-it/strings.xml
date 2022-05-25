@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">£ 90,00/mese dopo 1 settimana di prova gratuita</string>
     <string name="no_internet">Senza internet</string>
-    <string name="no_internet_desc">Controlla Internet, abbiamo bisogno di Internet per controllare la cronologia dell\'abbonamento</string>
+    <string name="no_internet_desc">Per favore controlla la tua Internet. Abbiamo bisogno di Internet per controllare la cronologia dell\'abbonamento</string>
     <string name="ok">OK</string>
     <string name="ads">Annunci</string>
 </resources>

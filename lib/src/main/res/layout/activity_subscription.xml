@@ -150,7 +150,7 @@
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/remove_native_ads"
-                    android:textColor="@android:color/primary_text_light"
+                    android:textColor="@color/lib_txt_black"
                     android:textStyle="bold"
 
                     app:layout_constraintEnd_toStartOf="@id/iv_remove_native_ads_dash"
@@ -205,7 +205,7 @@
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/remove_banner_ads"
-                    android:textColor="@android:color/primary_text_light"
+                    android:textColor="@color/lib_txt_black"
                     android:textStyle="bold"
 
                     app:layout_constraintEnd_toStartOf="@id/iv_remove_banner_ads_dash"
@@ -261,7 +261,7 @@
                     android:layout_marginTop="16dp"
 
                     android:text="@string/remove_interstitial_ads"
-                    android:textColor="@android:color/primary_text_light"
+                    android:textColor="@color/lib_txt_black"
                     android:textStyle="bold"
 
                     app:layout_constraintEnd_toStartOf="@id/iv_remove_inter_ads_dash"
@@ -307,7 +307,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_remove_custom_ads" />
 
-
                 <TextView
                     android:id="@+id/tv_remove_custom_ads"
                     android:layout_width="0dp"
@@ -317,7 +316,7 @@
                     android:layout_marginTop="16dp"
 
                     android:text="@string/vip_customer_support"
-                    android:textColor="@android:color/primary_text_light"
+                    android:textColor="@color/lib_txt_black"
                     android:textStyle="bold"
 
                     app:layout_constraintEnd_toStartOf="@id/iv_remove_custom_ads_dash"

@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">1 주 무료 평가판 후 ₹ 90.00/월</string>
     <string name="no_internet">인터넷이 없습니다</string>
-    <string name="no_internet_desc">인터넷을 확인하십시오. 구독 기록을 확인하려면 인터넷이 필요합니다.</string>
+    <string name="no_internet_desc">인터넷을 확인하십시오. 구독 기록을 확인하려면 인터넷이 필요합니다</string>
     <string name="ok">확인</string>
     <string name="ads">광고</string>
 </resources>

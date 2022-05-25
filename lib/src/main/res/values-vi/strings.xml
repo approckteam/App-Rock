@@ -20,7 +20,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">$ 90,00/tháng sau 1 tuần dùng thử miễn phí</string>
     <string name="no_internet">Không có mạng</string>
-    <string name="no_internet_desc">Vui lòng kiểm tra Internet của bạn, chúng tôi cần Internet để kiểm tra lịch sử đăng ký của bạn</string>
+    <string name="no_internet_desc">Vui lòng kiểm tra Internet của bạn. Chúng tôi cần Internet để kiểm tra lịch sử đăng ký của bạn</string>
     <string name="ok">ĐƯỢC RỒI</string>
     <string name="ads">Quảng cáo</string>
 </resources>

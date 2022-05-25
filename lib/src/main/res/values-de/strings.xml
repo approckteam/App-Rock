@@ -21,7 +21,7 @@
 
     <string name="_90_00_month_after_1_week_free_trail">£ 90.00/Monat nach 1 Woche kostenloser Testversion</string>
     <string name="no_internet">Kein Internet</string>
-    <string name="no_internet_desc">Bitte überprüfen Sie Ihr Internet. Wir benötigen das Internet, um Ihren Abonnementverlauf zu überprüfen</string>
+    <string name="no_internet_desc">Bitte überprüfen Sie Ihr Internet. Wir brauchen Internet, um Ihren Abonnementverlauf zu überprüfen</string>
     <string name="ok">OK</string>
     <string name="ads">Anzeigen</string>
 </resources>
