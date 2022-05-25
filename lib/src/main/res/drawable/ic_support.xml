@@ -7,7 +7,7 @@
         android:fillColor="@color/subs_primary_color"
         android:pathData="M1,0L12,0A1,1 0,0 1,13 1L13,12A1,1 0,0 1,12 13L1,13A1,1 0,0 1,0 12L0,1A1,1 0,0 1,1 0z" />
     <path
-        android:fillColor="@android:color/white"
+        android:fillColor="@color/lib_white"
         android:pathData="M1,2h11v10h-11z" />
     <path
         android:fillColor="@color/subs_primary_color"
