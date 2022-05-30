@@ -20,13 +20,17 @@ import com.mankirat.approck.lib.Utils
 
 class AppOpenManager(private val id: String, application: Application) : Application.ActivityLifecycleCallbacks, LifecycleEventObserver {
 
-    private var appOpenAd: AppOpenAd? = null
-    private var isLoading = false
     private var currentActivity: Activity? = null
 
     init {
         application.registerActivityLifecycleCallbacks(this)
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+    }
+
+    companion object {
+        private var appOpenAd: AppOpenAd? = null
+        private var isLoading = false
+        private var isShowingAd = false
     }
 
     private fun log(msg: String, t: Throwable? = null) = Log.e("AppOpenManager", msg, t)
@@ -63,7 +67,7 @@ class AppOpenManager(private val id: String, application: Application) : Applica
     }
 
     private fun showAppOpen(activity: Activity) {
-        log("showAppOpen : instance = $appOpenAd : isLoading = $isLoading")
+        log("showAppOpen : instance = $appOpenAd : isShowing = $isShowingAd")
         if (isPremium(activity, true)) return
 
         if (appOpenAd == null) {
@@ -71,9 +75,13 @@ class AppOpenManager(private val id: String, application: Application) : Applica
             return
         }
 
+        if (isShowingAd) return
+        isShowingAd = true
+
         val fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 super.onAdFailedToShowFullScreenContent(adError)
+                isShowingAd = false
 
                 log("showAppOpen : onAdFailedToShowFullScreenContent : adError = $adError")
                 Utils.showError(AdType.APP_OPEN, adError.code, adError.message)
@@ -85,10 +93,12 @@ class AppOpenManager(private val id: String, application: Application) : Applica
             override fun onAdShowedFullScreenContent() {
                 super.onAdShowedFullScreenContent()
                 log("showAppOpen : onAdShowedFullScreenContent")
+                isShowingAd = false
             }
 
             override fun onAdDismissedFullScreenContent() {
                 super.onAdDismissedFullScreenContent()
+                isShowingAd = false
                 Utils.showSuccess(AdType.APP_OPEN)
 
                 appOpenAd = null
