@@ -237,9 +237,15 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     // call
     fun isPurchased(): Boolean = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS) ?: MyConstants.IAP_DEFAULT_STATUS
 
-    fun getAllProductList(): PurchaseModel {
-        return if (type == BillingClient.SkuType.INAPP) Utils.getObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java)
-        else Utils.getObject(sharedPreferences, MyConstants.IN_APP_SUBS, PurchaseModel::class.java)
+    fun getAllProductList(): PurchaseModel? {
+        return when (type) {
+            BillingClient.SkuType.INAPP -> {
+                if (sharedPreferences?.contains(MyConstants.IN_APP_PRODUCTS) == true) Utils.getObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java) else null
+            }
+            else -> {
+                if (sharedPreferences?.contains(MyConstants.IN_APP_SUBS) == true) Utils.getObject(sharedPreferences, MyConstants.IN_APP_SUBS, PurchaseModel::class.java) else null
+            }
+        }
     }
 }
 

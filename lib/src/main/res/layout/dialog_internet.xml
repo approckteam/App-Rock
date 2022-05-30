@@ -63,7 +63,7 @@
 
             android:text="@string/ok"
             android:textAllCaps="true"
-            android:textColor="@color/lib_white"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
 

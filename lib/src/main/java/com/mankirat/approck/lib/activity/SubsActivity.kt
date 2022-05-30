@@ -1,6 +1,5 @@
 package com.mankirat.approck.lib.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -18,11 +17,11 @@ class SubsActivity : AppCompatActivity() {
 
     companion object {
         const val FROM_SPLASH = "from_splash"
-        var className = ""
 
         var purchaseModel: PurchaseModel? = null
         var selectedSubs = ""
         var plansVisibility = false
+        var callback: (() -> Unit)? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,8 +110,7 @@ class SubsActivity : AppCompatActivity() {
 
     private fun back() {
         if (intent != null && intent.getBooleanExtra(FROM_SPLASH, false)) {
-            startActivity(Intent(this, Class.forName(className)))
-            finishAffinity()
+            callback?.invoke()
         } else onBackPressed()
     }
 }

@@ -34,6 +34,7 @@ object Utils {
         val name = when (type) {
             AdType.INTERSTITIAL -> FirebaseEvent.LOAD_INTERSTITIAL_ERROR
             AdType.INTERSTITIAL_SPLASH -> FirebaseEvent.LOAD_INTERSTITIAL_SPLASH_ERROR
+            AdType.APP_OPEN -> FirebaseEvent.LOAD_APP_OPEN_ERROR
             AdType.NATIVE -> FirebaseEvent.LOAD_NATIVE_ERROR
             AdType.REWARD -> FirebaseEvent.LOAD_REWARD_ERROR
             else -> ""
@@ -48,6 +49,7 @@ object Utils {
         val name = when (type) {
             AdType.INTERSTITIAL -> FirebaseEvent.LOAD_INTERSTITIAL_SUCCESS
             AdType.INTERSTITIAL_SPLASH -> FirebaseEvent.LOAD_INTERSTITIAL_SPLASH_SUCCESS
+            AdType.APP_OPEN -> FirebaseEvent.LOAD_APP_OPEN_SUCCESS
             AdType.NATIVE -> FirebaseEvent.LOAD_NATIVE_SUCCESS
             AdType.REWARD -> FirebaseEvent.LOAD_REWARD_SUCCESS
             else -> ""
@@ -59,6 +61,7 @@ object Utils {
         val name = when (type) {
             AdType.INTERSTITIAL -> FirebaseEvent.SHOW_INTERSTITIAL_ERROR
             AdType.INTERSTITIAL_SPLASH -> FirebaseEvent.SHOW_INTERSTITIAL_SPLASH_ERROR
+            AdType.APP_OPEN -> FirebaseEvent.SHOW_APP_OPEN_ERROR
             AdType.BANNER -> FirebaseEvent.SHOW_BANNER_ERROR
             else -> ""
         }
@@ -72,6 +75,7 @@ object Utils {
         val name = when (type) {
             AdType.INTERSTITIAL -> FirebaseEvent.SHOW_INTERSTITIAL_SUCCESS
             AdType.INTERSTITIAL_SPLASH -> FirebaseEvent.SHOW_INTERSTITIAL_SPLASH_SUCCESS
+            AdType.APP_OPEN -> FirebaseEvent.SHOW_APP_OPEN_SUCCESS
             AdType.BANNER -> FirebaseEvent.SHOW_BANNER_SUCCESS
             else -> ""
         }

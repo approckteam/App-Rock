@@ -31,6 +31,12 @@ object MyConstants {
         const val SHOW_INTERSTITIAL_SPLASH_SUCCESS = "show_inter_splash_success"
         const val SHOW_INTERSTITIAL_SPLASH_ERROR = "show_inter_splash_fail"
 
+        const val LOAD_APP_OPEN_SUCCESS = "load_app_open_success"
+        const val LOAD_APP_OPEN_ERROR = "load_app_open_fail"
+
+        const val SHOW_APP_OPEN_SUCCESS = "show_app_open_success"
+        const val SHOW_APP_OPEN_ERROR = "show_app_open_fail"
+
         const val SHOW_BANNER_SUCCESS = "show_banner_success"
         const val SHOW_BANNER_ERROR = "show_banner_fail"
 

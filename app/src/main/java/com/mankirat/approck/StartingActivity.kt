@@ -95,7 +95,10 @@ class StartingActivity : BaseActivity() {
                 AdMobUtil.loadInterstitialSplash(this@StartingActivity) {
                     SubsActivity.purchaseModel = inAppSubs?.getAllProductList()
 //                    SubsActivity.selectedSubs = firebaseRemoteConfig.getString(FirebaseRemote.SELECTED_SUBS)
-                    SubsActivity.className = "com.appsuite.hasib.photocompressorandresizer.activities.MainActivity"
+                    SubsActivity.callback = {
+//                        startActivity(Intent(this@StartingActivity, MainActivity::class.java))
+                        finishAffinity()
+                    }
 
                     val intent = Intent(this@StartingActivity, SubsActivity::class.java)
                     intent.putExtra(SubsActivity.FROM_SPLASH, true)
