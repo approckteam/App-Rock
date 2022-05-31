@@ -111,6 +111,7 @@ class SubsActivity : AppCompatActivity() {
     private fun back() {
         if (intent != null && intent.getBooleanExtra(FROM_SPLASH, false)) {
             callback?.invoke()
+            finishAffinity()
         } else onBackPressed()
     }
 }
