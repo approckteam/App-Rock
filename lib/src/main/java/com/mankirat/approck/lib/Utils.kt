@@ -154,10 +154,6 @@ object Utils {
             alertDialog = null
             callback?.invoke()
         }
-        if (alertDialog != null) {
-            alertDialog?.dismiss()
-            alertDialog = null
-        }
         alertDialog = AlertDialog.Builder(activity).setCancelable(false).setView(dialogBinding.root).create()
         alertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         CoroutineScope(Dispatchers.IO).launch {

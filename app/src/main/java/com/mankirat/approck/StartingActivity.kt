@@ -97,7 +97,6 @@ class StartingActivity : BaseActivity() {
 //                    SubsActivity.selectedSubs = firebaseRemoteConfig.getString(FirebaseRemote.SELECTED_SUBS)
                     SubsActivity.callback = {
 //                        startActivity(Intent(this@StartingActivity, MainActivity::class.java))
-                        finishAffinity()
                     }
 
                     val intent = Intent(this@StartingActivity, SubsActivity::class.java)
