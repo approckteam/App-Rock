@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/lib_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
@@ -82,7 +83,7 @@
 
                 android:text="@string/buy_pro_version_to_unlock_all_features"
                 android:textColor="@color/lib_grey_3"
-                android:textSize="14sp"
+                android:textSize="16sp"
 
                 app:layout_constraintEnd_toEndOf="@id/tv_title"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -395,7 +396,7 @@
 
             android:text="@string/_90_00_month_after_1_week_free_trail"
             android:textColor="@color/lib_grey_4"
-            android:textSize="12sp"
+            android:textSize="15sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -435,7 +436,7 @@
             android:layout_marginBottom="15dp"
             android:text="@string/subscription_will_auto_renew"
             android:textColor="@color/lib_grey_4"
-            android:textSize="11sp"
+            android:textSize="13sp"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

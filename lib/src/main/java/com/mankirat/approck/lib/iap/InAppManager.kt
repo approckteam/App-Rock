@@ -38,9 +38,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
     private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(productIds).setType(type).build() }
 
-    companion object {
-        private var billingClient: BillingClient? = null
-    }
+    private var billingClient: BillingClient? = null
 
     fun setUpBillingClient(context: Context) {
         log("setUpBillingClient : billingClient = $billingClient")
@@ -59,7 +57,6 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                 override fun onBillingServiceDisconnected() {
                     log("setUpBillingClient : onBillingServiceDisconnected")
                     billingClient = null
-                    setUpBillingClient(context)
                 }
             })
         }
@@ -109,9 +106,10 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     /*________________________ History and products detail _______________________*/
 
     /*________________________________ Restore ________________________________*/
-    fun restartConnection() {
+    fun disconnectConnection() {
         log("restartConnection")
         billingClient?.endConnection()
+        billingClient = null
     }
 
     fun purchase(activity: Activity, productId: String) {

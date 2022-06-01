@@ -6,6 +6,8 @@
     <color name="lib_black">#000000</color>
     <color name="lib_white">#FFFFFF</color>
 
+    <color name="lib_bg">#FFFFFF</color>
+
     <color name="lib_grey_1">#D2D2D2</color>
     <color name="lib_grey_2">#A8A8A8</color>
     <color name="lib_grey_3">#7E7E7E</color>
