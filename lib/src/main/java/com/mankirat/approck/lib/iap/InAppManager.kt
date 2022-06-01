@@ -33,7 +33,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
     private var sharedPreferences: SharedPreferences? = null
 
-    private fun log(msg: String, e: Throwable? = null) = Log.e("InAppPurchase", msg, e)
+    private fun log(msg: String, e: Throwable? = null) = Log.e("InAppManager", msg, e)
     private fun toast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
     private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(productIds).setType(type).build() }
@@ -59,6 +59,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                 override fun onBillingServiceDisconnected() {
                     log("setUpBillingClient : onBillingServiceDisconnected")
                     billingClient = null
+                    setUpBillingClient(context)
                 }
             })
         }
@@ -108,15 +109,13 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     /*________________________ History and products detail _______________________*/
 
     /*________________________________ Restore ________________________________*/
-    fun restorePurchase(context: Context, callback: (() -> Unit)? = null) {
-        log("restorePurchase")
-        billingClient = null
-        setUpBillingClient(context)
+    fun restartConnection() {
+        log("restartConnection")
+        billingClient?.endConnection()
     }
 
-    fun purchase(activity: Activity, productId: String, callback: ((status: Boolean) -> Unit)? = null) {
+    fun purchase(activity: Activity, productId: String) {
         log("purchase : productId = $productId")
-        Utils.purchaseCallback = callback
 
         val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
             log("purchase : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
@@ -159,11 +158,16 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                         val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()
                         billingClient?.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
                             log("handlePurchase : onAcknowledgePurchaseResponse : billingResult = $billingResult")
+
+                            setProductStatus(true)
+                            Utils.purchaseCallback?.invoke(true)
+                            toast(context, "Item purchased")
                         }
+                    } else {
+                        setProductStatus(true)
+                        Utils.purchaseCallback?.invoke(true)
+                        toast(context, "Item purchased")
                     }
-                    setProductStatus(true)
-                    Utils.purchaseCallback?.invoke(true)
-                    toast(context, "Item purchased")
                 }
             }
             Purchase.PurchaseState.PENDING -> toast(context, "Purchase PENDING")
