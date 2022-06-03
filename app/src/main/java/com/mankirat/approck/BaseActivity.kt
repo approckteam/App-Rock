@@ -50,9 +50,10 @@ open class BaseActivity : AppCompatActivity() {
             if (it) updateUI(it)
             else {
                 if (inAppSubs == null) {
+                    inAppManager?.disconnectConnection()
                     // list of subscription that used within your app, You can find these at Google play console
                     inAppSubs = InAppManager("", arrayListOf("week_subs", "month_subs", "year_subs"), MyConstants.BillingConstant.IN_APP_SUBS)
-                    inAppSubs?.restartConnection()
+                    inAppSubs?.setUpBillingClient(this)
                 } else updateUI(it)
             }
         }

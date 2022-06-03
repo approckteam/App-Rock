@@ -107,7 +107,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
     /*________________________________ Restore ________________________________*/
     fun disconnectConnection() {
-        log("restartConnection")
+        log("disconnectConnection")
         billingClient?.endConnection()
         billingClient = null
     }
@@ -143,6 +143,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
             setProductStatus(true)
             Utils.purchaseCallback?.invoke(true)
+            Utils.subsCallback?.invoke()
             if (Utils.purchaseCallback != null) toast(context, "Item already owned")
         } else if (billingResult.debugMessage != "") toast(context, billingResult.debugMessage)
     }
@@ -159,11 +160,13 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
                             setProductStatus(true)
                             Utils.purchaseCallback?.invoke(true)
+                            Utils.subsCallback?.invoke()
                             toast(context, "Item purchased")
                         }
                     } else {
                         setProductStatus(true)
                         Utils.purchaseCallback?.invoke(true)
+                        Utils.subsCallback?.invoke()
                         toast(context, "Item purchased")
                     }
                 }

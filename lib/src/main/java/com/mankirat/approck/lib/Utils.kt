@@ -29,6 +29,7 @@ object Utils {
     var firebaseEventCallback: ((eventName: String, bundle: Bundle?) -> Unit)? = null
     var purchaseCallback: ((status: Boolean) -> Unit)? = null
     var buySubscription: ((id: String) -> Unit)? = null
+    var subsCallback: (() -> Unit)? = null
 
     fun loadError(type: AdType, statusCode: Int, msg: String) {
         val name = when (type) {

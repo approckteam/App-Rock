@@ -36,6 +36,10 @@ class StartingActivity : BaseActivity() {
 //            log("onCreate : addOnCanceledListener")
 //        }
 
+        inAppManager?.disconnectConnection()
+        inAppManager = null
+        inAppSubs?.disconnectConnection()
+        inAppSubs = null
         appRockAds()
         checkNetwork()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) splashScreen.setKeepOnScreenCondition { true }

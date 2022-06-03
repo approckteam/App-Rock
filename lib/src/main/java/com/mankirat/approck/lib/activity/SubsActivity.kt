@@ -75,6 +75,15 @@ class SubsActivity : AppCompatActivity() {
         }
 
         binding.recyclerPlans.visibility = if (plansVisibility) View.VISIBLE else View.GONE
+
+        Utils.subsCallback = {
+            back()
+        }
+    }
+
+    override fun onDestroy() {
+        Utils.subsCallback = null
+        super.onDestroy()
     }
 
     private fun listeners() {
