@@ -23,4 +23,5 @@
     <string name="no_internet_desc">Vă rugăm să vă verificați internetul. Avem nevoie de internet pentru a vă verifica istoricul abonamentului</string>
     <string name="ok">Bine</string>
     <string name="ads">Reclame</string>
+    <string name="google_subs_terms">Această aplicație vă oferă acces nelimitat la toate caracteristicile și materialele fără reclame. Abonamentul este facturat săptămânal, anual sau lunar (așa cum se arată mai sus) automat după procesul gratuit (dacă este disponibil) și este taxat prin GooglePlay. Anularea în timpul procesului gratuit nu va fi taxată. Pentru anularea perioadei facturate, vizitați Googleplay cu 24 de ore înainte</string>
 </resources>

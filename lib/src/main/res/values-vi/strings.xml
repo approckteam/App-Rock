@@ -23,4 +23,5 @@
     <string name="no_internet_desc">Vui lòng kiểm tra Internet của bạn. Chúng tôi cần Internet để kiểm tra lịch sử đăng ký của bạn</string>
     <string name="ok">ĐƯỢC RỒI</string>
     <string name="ads">Quảng cáo</string>
+    <string name="google_subs_terms">Ứng dụng này cung cấp cho bạn quyền truy cập không giới hạn vào tất cả các tính năng và tài liệu mà không có quảng cáo. Đăng ký được lập hóa đơn hàng tuần, hàng năm hoặc hàng tháng (như được hiển thị ở trên) sau khi dùng thử miễn phí (nếu có) và tính phí thông qua GooglePlay. Hủy bỏ trong phiên tòa miễn phí sẽ không được tính phí. Để hủy thời gian hóa đơn, vui lòng truy cập trước của Googleplay 24 giờ</string>
 </resources>

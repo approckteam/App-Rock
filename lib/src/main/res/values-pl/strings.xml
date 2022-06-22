@@ -23,4 +23,5 @@
     <string name="no_internet_desc">Sprawdź swój Internet. Potrzebujemy Internetu, aby sprawdzić historię subskrypcji</string>
     <string name="ok">OK</string>
     <string name="ads">Reklamy</string>
+    <string name="google_subs_terms">Ta aplikacja zapewnia nieograniczony dostęp do wszystkich funkcji i materiałów bez reklam. Subskrypcja jest rozliczana co tydzień, co miesiąc (jak pokazano powyżej) automatycznie po bezpłatnym okresie próbnym (jeśli jest dostępny) i naliczona za pośrednictwem GooglePlay. Anulowanie podczas bezpłatnego procesu nie zostanie obciążone. W celu anulowania okresu, odwiedź GooglePlay 24 godziny wcześniej</string>
 </resources>

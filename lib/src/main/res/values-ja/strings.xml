@@ -23,4 +23,5 @@
     <string name="no_internet_desc">インターネットを確認してください。サブスクリプション履歴を確認するには、インターネットが必要です</string>
     <string name="ok">わかった</string>
     <string name="ads">広告</string>
+    <string name="google_subs_terms">このアプリは、広告のないすべての機能と資料への無制限のアクセスを提供します。サブスクリプションは、無料試用版（利用可能な場合）の後に自動的に毎週、毎月、または毎月（上記のように）請求され、GooglePlayを通じて請求されます。無料試験中のキャンセルは請求されません。請求期間のキャンセルについては、24時間前にGooglePlayにアクセスしてください</string>
 </resources>

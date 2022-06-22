@@ -24,4 +24,5 @@
     <string name="no_internet_desc">Veuillez vérifier votre Internet. Nous avons besoin d\'Internet pour vérifier l\'historique de votre abonnement</string>
     <string name="ok">D\'ACCORD</string>
     <string name="ads">Les publicités</string>
+    <string name="google_subs_terms">Cette application vous donne un accès illimité à toutes les fonctionnalités et matériaux sans annonces. L\'abonnement est facturé chaque semaine, annuel ou mensuel (comme indiqué ci-dessus) automatiquement après l\'essai gratuit (si disponible) et facturé via GooglePlay. L\'annulation pendant l\'essai gratuit ne sera pas facturée. Pour l\'annulation de la période facturée, veuillez visiter GooglePlay 24 heures à l\'avance</string>
 </resources>

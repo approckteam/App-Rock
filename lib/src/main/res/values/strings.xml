@@ -24,4 +24,6 @@
     <string name="no_internet_desc">Please check your internet. We need internet to check your subscription history</string>
     <string name="ok">OK</string>
     <string name="ads">Ads</string>
+
+    <string name="google_subs_terms">This app gives you unlimited access to all features and materials without ads. The subscription is billed weekly, yearly or monthly (as shown above) automatically after the free trial (if available) and charged through GooglePlay. Cancellation during the free trial will not be charged. For billed period cancellation, please visit GooglePlay 24 hours in advance</string>
 </resources>

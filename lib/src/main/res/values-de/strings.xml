@@ -24,4 +24,5 @@
     <string name="no_internet_desc">Bitte überprüfen Sie Ihr Internet. Wir brauchen Internet, um Ihren Abonnementverlauf zu überprüfen</string>
     <string name="ok">OK</string>
     <string name="ads">Anzeigen</string>
+    <string name="google_subs_terms">Diese App bietet Ihnen unbegrenzten Zugriff auf alle Funktionen und Materialien ohne Anzeigen. Das Abonnement wird wöchentlich, jährlich oder monatlich (wie oben gezeigt) automatisch nach der kostenlosen Testversion (falls verfügbar) in Rechnung gestellt und über Googleplay berechnet. Die Stornierung während der freien Testversion wird nicht berechnet. Für abrechnungsgemäße Stornierung besuchen Sie bitte 24 Stunden im Voraus Googleplay</string>
 </resources>

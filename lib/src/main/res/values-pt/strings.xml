@@ -23,4 +23,5 @@
     <string name="no_internet_desc">Por favor, verifique sua internet. Precisamos da Internet para verificar seu histórico de assinatura</string>
     <string name="ok">OK</string>
     <string name="ads">Publicidades</string>
+    <string name="google_subs_terms">Este aplicativo oferece acesso ilimitado a todos os recursos e materiais sem anúncios. A assinatura é cobrada semanalmente, anualmente ou mensalmente (como mostrado acima) automaticamente após o teste gratuito (se disponível) e cobrado pelo GooglePlay. O cancelamento durante o teste gratuito não será cobrado. Para o cancelamento do período faturado, visite o GooglePlay com 24 horas de antecedência</string>
 </resources>

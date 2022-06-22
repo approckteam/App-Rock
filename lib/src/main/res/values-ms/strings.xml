@@ -23,4 +23,5 @@
     <string name="no_internet_desc">Sila periksa internet anda. Kami memerlukan internet untuk memeriksa sejarah langganan anda</string>
     <string name="ok">okey</string>
     <string name="ads">Iklan</string>
+    <string name="google_subs_terms">Aplikasi ini memberi anda akses tanpa had kepada semua ciri dan bahan tanpa iklan. Langganan ini dibilkan mingguan, tahunan atau bulanan (seperti yang ditunjukkan di atas) secara automatik selepas percubaan percuma (jika ada) dan dikenakan melalui GooglePlay. Pembatalan semasa percubaan percuma tidak akan dikenakan. Untuk pembatalan tempoh yang dibilkan, sila lawati Googleplay 24 jam lebih awal</string>
 </resources>

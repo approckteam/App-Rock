@@ -23,4 +23,5 @@
     <string name="no_internet_desc">Per favore controlla la tua Internet. Abbiamo bisogno di Internet per controllare la cronologia dell\'abbonamento</string>
     <string name="ok">OK</string>
     <string name="ads">Annunci</string>
+    <string name="google_subs_terms">Questa app offre un accesso illimitato a tutte le caratteristiche e materiali senza annunci. L\'abbonamento viene fatturato settimanalmente, annuale o mensile (come mostrato sopra) automaticamente dopo la prova gratuita (se disponibile) e addebitato tramite GooglePlay. La cancellazione durante la prova gratuita non verrà addebitata. Per la cancellazione del periodo fatturato, visitare Googleplay con 24 ore di anticipo in anticipo</string>
 </resources>

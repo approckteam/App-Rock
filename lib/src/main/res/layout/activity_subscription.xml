@@ -438,10 +438,28 @@
             android:textColor="@color/lib_grey_4"
             android:textSize="13sp"
 
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnSubscribe" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_terms"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:scrollbars="vertical"
+
+            android:text="@string/google_subs_terms"
+            android:textColor="@color/lib_grey_4"
+            android:textSize="12sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtAutoRenew" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

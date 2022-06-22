@@ -23,4 +23,5 @@
     <string name="no_internet_desc">Lütfen internetinizi kontrol edin. Abonelik geçmişinizi kontrol etmek için İnternet\'e ihtiyacımız var</string>
     <string name="ok">TAMAM</string>
     <string name="ads">Reklam</string>
+    <string name="google_subs_terms">Bu uygulama, reklamsız tüm özelliklere ve malzemelere sınırsız erişim sağlar. Abonelik, ücretsiz denemeden sonra (varsa) otomatik olarak haftalık, yıllık veya aylık (yukarıda gösterildiği gibi) faturalandırılır ve GooglePlay aracılığıyla ücretlendirilir. Ücretsiz deneme sırasında iptal alınmayacaktır. Faturalandırılan dönem iptali için lütfen 24 saat önceden GooglePlay\'i ziyaret edin</string>
 </resources>

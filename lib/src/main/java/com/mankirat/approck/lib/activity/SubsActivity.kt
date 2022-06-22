@@ -1,6 +1,7 @@
 package com.mankirat.approck.lib.activity
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mankirat.approck.lib.R
@@ -32,6 +33,7 @@ class SubsActivity : AppCompatActivity() {
         binding.btnSetting.setOnClickListener {
             back()
         }
+        binding.tvTerms.movementMethod = ScrollingMovementMethod()
 
         val productList = purchaseModel?.productDetails
         adapter = PlansAdapter()

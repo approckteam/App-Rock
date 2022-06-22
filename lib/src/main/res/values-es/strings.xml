@@ -23,4 +23,5 @@
     <string name="no_internet_desc">Por favor revise su Internet. Necesitamos Internet para verificar su historial de suscripción</string>
     <string name="ok">DE ACUERDO</string>
     <string name="ads">Anuncios</string>
+    <string name="google_subs_terms">Esta aplicación le brinda acceso ilimitado a todas las características y materiales sin anuncios. La suscripción se factura semanalmente, anual o mensualmente (como se muestra arriba) automáticamente después de la prueba gratuita (si está disponible) y se cobra a través de GooglePlay. La cancelación durante la prueba gratuita no se cobrará. Para la cancelación del período facturado, visite GooglePlay con 24 horas de anticipación</string>
 </resources>
