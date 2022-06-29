@@ -17,12 +17,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AdsAdapter<T : Any>(private val dataSet: ArrayList<T>, @LayoutRes val layoutID: Int, private val context: Context) : RecyclerView.Adapter<AdsAdapter.ViewHolder>() {
+class AdsAdapter<T : Any>(@LayoutRes val layoutID: Int, private val context: Context) : RecyclerView.Adapter<AdsAdapter.ViewHolder>() {
 
     private var nativeAds: NativeAd? = null
     private var count = 0
     private var totalAdLoad = 0
 
+    var dataSet: ArrayList<T>? = null
     var bindingInterface: AdsBindingInterface<T>? = null
     var adsCount = 20
 
@@ -34,7 +35,7 @@ class AdsAdapter<T : Any>(private val dataSet: ArrayList<T>, @LayoutRes val layo
         fun bindData(item: T, view: View)
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = dataSet?.size ?: 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (getItemViewType(viewType) == 2) {
@@ -61,7 +62,7 @@ class AdsAdapter<T : Any>(private val dataSet: ArrayList<T>, @LayoutRes val layo
                     frameLayout.visibility = View.VISIBLE
                 }
             }
-        } else holder.bind(dataSet[position], bindingInterface)
+        } else holder.bind(dataSet!![position], bindingInterface)
     }
 
     override fun getItemViewType(position: Int): Int {
