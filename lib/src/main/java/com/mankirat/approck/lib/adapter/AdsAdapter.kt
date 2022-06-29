@@ -17,25 +17,24 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AdsAdapter<T : Any>(@LayoutRes val layoutID: Int, private val context: Context) : RecyclerView.Adapter<AdsAdapter.ViewHolder<T>>() {
+class AdsAdapter<T : Any>(val dataSet: ArrayList<T>, @LayoutRes val layoutID: Int, private val context: Context) : RecyclerView.Adapter<AdsAdapter.ViewHolder<T>>() {
 
     private var nativeAds: NativeAd? = null
     private var count = 0
     private var totalAdLoad = 0
 
-    var dataSet: ArrayList<T>? = null
     var bindingInterface: AdsBindingInterface<T>? = null
     var adsCount = 20
     var itemClickCallback: ((item: T) -> Unit)? = null
 
-    class ViewHolder<T : Any>(private val view: View, dataSet: ArrayList<T>? = null, itemClickCallback: ((item: T) -> Unit)? = null) : RecyclerView.ViewHolder(view) {
+    class ViewHolder<T : Any>(private val view: View, dataSet: ArrayList<T>, itemClickCallback: ((item: T) -> Unit)? = null) : RecyclerView.ViewHolder(view) {
         fun <T : Any> bind(item: T, bindingInterface: AdsBindingInterface<T>?) = bindingInterface?.bindData(item, view)
 
         init {
             itemView.setOnClickListener {
                 if (adapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
 
-                val item = dataSet!![adapterPosition]
+                val item = dataSet[adapterPosition]
                 itemClickCallback?.invoke(item)
             }
         }
@@ -45,7 +44,7 @@ class AdsAdapter<T : Any>(@LayoutRes val layoutID: Int, private val context: Con
         fun bindData(item: T, view: View)
     }
 
-    override fun getItemCount() = dataSet?.size ?: 0
+    override fun getItemCount() = dataSet.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
         return if (getItemViewType(viewType) == 2) {
@@ -72,7 +71,7 @@ class AdsAdapter<T : Any>(@LayoutRes val layoutID: Int, private val context: Con
                     frameLayout.visibility = View.VISIBLE
                 }
             }
-        } else holder.bind(dataSet!![position], bindingInterface)
+        } else holder.bind(dataSet[position], bindingInterface)
     }
 
     override fun getItemViewType(position: Int): Int {
