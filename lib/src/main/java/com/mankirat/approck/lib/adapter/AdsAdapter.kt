@@ -17,7 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AdsAdapter<T : Any>(@LayoutRes val layoutID: Int, private val context: Context) : RecyclerView.Adapter<AdsAdapter.ViewHolder>() {
+class AdsAdapter<T : Any>(@LayoutRes val layoutID: Int, private val context: Context) : RecyclerView.Adapter<AdsAdapter.ViewHolder<T>>() {
 
     private var nativeAds: NativeAd? = null
     private var count = 0
@@ -26,9 +26,19 @@ class AdsAdapter<T : Any>(@LayoutRes val layoutID: Int, private val context: Con
     var dataSet: ArrayList<T>? = null
     var bindingInterface: AdsBindingInterface<T>? = null
     var adsCount = 20
+    var itemClickCallback: ((item: T) -> Unit)? = null
 
-    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder<T : Any>(private val view: View, dataSet: ArrayList<T>? = null, itemClickCallback: ((item: T) -> Unit)? = null) : RecyclerView.ViewHolder(view) {
         fun <T : Any> bind(item: T, bindingInterface: AdsBindingInterface<T>?) = bindingInterface?.bindData(item, view)
+
+        init {
+            itemView.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
+
+                val item = dataSet!![adapterPosition]
+                itemClickCallback?.invoke(item)
+            }
+        }
     }
 
     interface AdsBindingInterface<T> {
@@ -37,13 +47,13 @@ class AdsAdapter<T : Any>(@LayoutRes val layoutID: Int, private val context: Con
 
     override fun getItemCount() = dataSet?.size ?: 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
         return if (getItemViewType(viewType) == 2) {
-            ViewHolder(ItemAdsBinding.inflate(LayoutInflater.from(parent.context)).root)
-        } else ViewHolder(LayoutInflater.from(parent.context).inflate(layoutID, parent, false))
+            ViewHolder(ItemAdsBinding.inflate(LayoutInflater.from(parent.context)).root, dataSet, itemClickCallback)
+        } else ViewHolder(LayoutInflater.from(parent.context).inflate(layoutID, parent, false), dataSet, itemClickCallback)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
         if (getItemViewType(position) == 2) {
             if (nativeAds == null) loadNativeAd(holder)
             else {
