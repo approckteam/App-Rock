@@ -139,6 +139,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
 
         currentClickCount = 0
         currentScreenCount = 0
+        tabChangeCount = 0
     }
 
     fun loadInterstitialSplash(context: Context, callback: (() -> Unit)? = null) {
@@ -233,5 +234,6 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
 
         currentClickCount = 0
         currentScreenCount = 0
+        tabChangeCount = 0
     }
 }
