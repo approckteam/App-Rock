@@ -13,18 +13,19 @@ import com.mankirat.approck.lib.AdType
 import com.mankirat.approck.lib.MyConstants
 import com.mankirat.approck.lib.Utils
 
-class InterstitialAdsHandler private constructor(private val interstitialId: String, private val interstitialIdSplash: String, private val targetClickCount: Int, private val screenOpenCount: Int) {
+class InterstitialAdsHandler private constructor(private val interstitialId: String, private val interstitialIdSplash: String, private val targetClickCount: Int, private val screenOpenCount: Int, private val targetTabChangeCount: Int) {
     companion object {
         private var instance: InterstitialAdsHandler? = null
 
-        fun getInstance(id: String, splashId: String, targetClickCount: Int = 4, screenOpenCount: Int = 2): InterstitialAdsHandler {
-            if (instance == null) instance = InterstitialAdsHandler(id, splashId, targetClickCount, screenOpenCount)
+        fun getInstance(id: String, splashId: String, targetClickCount: Int = 4, screenOpenCount: Int = 2, targetTabChangeCount: Int = 3): InterstitialAdsHandler {
+            if (instance == null) instance = InterstitialAdsHandler(id, splashId, targetClickCount, screenOpenCount, targetTabChangeCount)
             return instance!!
         }
     }
 
     private var currentClickCount = 0
     private var currentScreenCount = 0
+    private var tabChangeCount = 0
 
     private var mInterstitialAd: InterstitialAd? = null
     private var mInterstitialAdSplash: InterstitialAd? = null
@@ -50,6 +51,14 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
         log("screenOpenCount : targetClick = $screenOpenCount : currentClick = $currentScreenCount")
 
         if (currentScreenCount >= screenOpenCount) showInterstitial(activity, callback)
+        else callback?.invoke(false)
+    }
+
+    fun tabChangeCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+        tabChangeCount += 1
+        log("screenOpenCount : targetClick = $targetTabChangeCount : currentClick = $tabChangeCount")
+
+        if (tabChangeCount >= targetTabChangeCount) showInterstitial(activity, callback)
         else callback?.invoke(false)
     }
 

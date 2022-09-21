@@ -37,10 +37,10 @@ object AdMobUtil {
 
     private fun log(msg: String, e: Throwable? = null) = Log.e("AdMobUtil", msg, e)
 
-    fun setUp(context: Context, targetClick: Int = 4, targetScreenCount: Int = 2, nativeColor: Int, testMediation: Boolean = false) {
+    fun setUp(context: Context, targetClick: Int = 4, targetScreenCount: Int = 2, targetTabChangeCount: Int = 3, nativeColor: Int, testMediation: Boolean = false) {
         log("setUp -> targetClick: $targetClick, targetScreenCount: $targetScreenCount")
 
-        interstitialAdsHandler = InterstitialAdsHandler.getInstance(adMobIds.interstitialId, adMobIds.interstitialIdSplash, targetClick, targetScreenCount)
+        interstitialAdsHandler = InterstitialAdsHandler.getInstance(adMobIds.interstitialId, adMobIds.interstitialIdSplash, targetClick, targetScreenCount, targetTabChangeCount)
         rewardAdsHandler = RewardAdsHandler.getInstance(adMobIds.rewardId)
         sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
 
@@ -219,6 +219,10 @@ object AdMobUtil {
 
     fun screenOpenCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
         interstitialAdsHandler?.screenOpenCount(activity, callback)
+    }
+
+    fun tabChangeCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
+        interstitialAdsHandler?.tabChangeCount(activity, callback)
     }
 
     fun loadInterstitial(context: Context) {
