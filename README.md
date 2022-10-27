@@ -16,7 +16,6 @@ allprojects {<br />
 # In app level gradle
 
 dependencies {
-
     //app-rock
     implementation 'com.github.approckteam:app-rock:1.1.3'
 }
