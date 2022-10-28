@@ -88,7 +88,7 @@ object AdMobUtil {
         }
 
         val adView = AdView(adContainer.context)
-        //adView.adSize = adSize
+        adView.setAdSize(adSize)
         adView.adUnitId = adMobIds.bannerId
         adView.adListener = adListener
         adView.loadAd(AdRequest.Builder().build())
