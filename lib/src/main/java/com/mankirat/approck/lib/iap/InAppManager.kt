@@ -11,11 +11,14 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.ProductDetailsResponseListener
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchaseHistoryResponseListener
+import com.android.billingclient.api.PurchasesResponseListener
 import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.SkuDetailsParams
-import com.android.billingclient.api.SkuDetailsResponseListener
+import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryPurchaseHistoryParams
+import com.android.billingclient.api.QueryPurchasesParams
 import com.mankirat.approck.lib.MyConstants
 import com.mankirat.approck.lib.Utils
 import com.mankirat.approck.lib.model.PurchaseModel
@@ -36,7 +39,23 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     private fun log(msg: String, e: Throwable? = null) = Log.e("InAppManager", msg, e)
     private fun toast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
-    private val skuDetailParams by lazy { SkuDetailsParams.newBuilder().setSkusList(productIds).setType(type).build() }
+    private val skuDetailParams by lazy {
+        val productList: MutableList<QueryProductDetailsParams.Product> = ArrayList()
+
+        productIds.forEach {
+            productList.add(
+                QueryProductDetailsParams.Product.newBuilder()
+                    .setProductType(type)
+                    .setProductId(it)
+                    .build()
+            )
+        }
+
+        QueryProductDetailsParams.newBuilder().setProductList(productList).build()
+
+        /*SkuDetailsParams.newBuilder().setSkusList(productIds).setType(type).build()*/
+    }
+    private val productDetailsParamsList = ArrayList<BillingFlowParams.ProductDetailsParams>()
 
     private var billingClient: BillingClient? = null
 
@@ -49,9 +68,9 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
             billingClient?.startConnection(object : BillingClientStateListener {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
                     log("setUpBillingClient : onBillingSetupFinished : billingResult = $billingResult")
-                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) billingClient?.querySkuDetailsAsync(skuDetailParams, productsDetailCallback)
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) billingClient?.queryProductDetailsAsync(skuDetailParams, productsDetailCallback)
 
-                    billingClient?.queryPurchaseHistoryAsync(type, historyCallback(context))
+                    billingClient?.queryPurchaseHistoryAsync(QueryPurchaseHistoryParams.newBuilder().setProductType(type).build(), historyCallback(context))
                 }
 
                 override fun onBillingServiceDisconnected() {
@@ -62,29 +81,54 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
         }
     }
 
-    private val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
+    private val productsDetailCallback = ProductDetailsResponseListener { billingResult, productList ->
         log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
-        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+
+            productDetailsParamsList.clear()
 
             val data = PurchaseModel()
             data.success = "1"
             data.productDetails = ArrayList()
+            log("Type: $type")
             productList.forEach {
                 val purchaseModel = PurchaseModel.PurchaseDetailModel()
-                purchaseModel.description = it.description
-                purchaseModel.subscriptionPeriod = it.subscriptionPeriod
-                purchaseModel.introductoryPrice = it.subscriptionPeriod
-                purchaseModel.originalPrice = it.originalPrice
-                purchaseModel.freeTrialPeriod = it.freeTrialPeriod
-                purchaseModel.price = it.price
-                purchaseModel.priceCurrencyCode = it.priceCurrencyCode
-                purchaseModel.productId = it.sku
-                purchaseModel.title = it.title
-                purchaseModel.type = it.type
-                data.productDetails?.add(purchaseModel)
+
+                if (it.subscriptionOfferDetails == null) {
+                    purchaseModel.description = it.description
+                    /*purchaseModel.subscriptionPeriod = it.subscriptionOfferDetails?.get(position)?.pricingPhases?.pricingPhaseList?.get(0)?.billingPeriod
+                    purchaseModel.introductoryPrice = it.subscriptionOfferDetails?.get(position)?.pricingPhases?.pricingPhaseList?.get(0)?.billingPeriod*/
+                    purchaseModel.originalPrice = it.oneTimePurchaseOfferDetails?.formattedPrice
+                    /*purchaseModel.freeTrialPeriod = it.subscriptionOfferDetails?.get(position)?.pricingPhases?.pricingPhaseList?.get(0)?.billingPeriod*/
+                    purchaseModel.price = it.oneTimePurchaseOfferDetails?.formattedPrice
+                    purchaseModel.priceCurrencyCode = it.oneTimePurchaseOfferDetails?.priceCurrencyCode
+                    purchaseModel.productId = it.productId
+                    purchaseModel.title = it.title
+                    purchaseModel.type = it.productType
+                    data.productDetails?.add(purchaseModel)
+                } else {
+                    val position = if (it.subscriptionOfferDetails?.size!! > 1) 1 else 0
+
+                    purchaseModel.description = it.description
+                    purchaseModel.subscriptionPeriod = it.subscriptionOfferDetails?.get(position)?.pricingPhases?.pricingPhaseList?.get(0)?.billingPeriod
+                    purchaseModel.introductoryPrice = it.subscriptionOfferDetails?.get(position)?.pricingPhases?.pricingPhaseList?.get(0)?.billingPeriod
+                    purchaseModel.originalPrice = it.subscriptionOfferDetails?.get(position)?.pricingPhases?.pricingPhaseList?.get(0)?.formattedPrice
+                    purchaseModel.freeTrialPeriod = it.subscriptionOfferDetails?.get(0)?.pricingPhases?.pricingPhaseList?.get(0)?.billingPeriod
+                    purchaseModel.price = it.subscriptionOfferDetails?.get(position)?.pricingPhases?.pricingPhaseList?.get(0)?.formattedPrice
+                    purchaseModel.priceCurrencyCode = it.subscriptionOfferDetails?.get(0)?.pricingPhases?.pricingPhaseList?.get(0)?.priceCurrencyCode
+                    purchaseModel.productId = it.productId
+                    purchaseModel.title = it.title
+                    purchaseModel.type = it.productType
+                    data.productDetails?.add(purchaseModel)
+
+                    val billingFlowParams = BillingFlowParams.ProductDetailsParams.newBuilder()
+                    billingFlowParams.setProductDetails(it)
+
+                    productDetailsParamsList.add(billingFlowParams.setOfferToken(it.subscriptionOfferDetails?.get(0)?.offerToken ?: "").build())
+                }
             }
-            if (type == BillingClient.SkuType.INAPP) Utils.putObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, data)
-            if (type == BillingClient.SkuType.SUBS) Utils.putObject(sharedPreferences, MyConstants.IN_APP_SUBS, data)
+            if (type == BillingClient.ProductType.INAPP) Utils.putObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, data)
+            if (type == BillingClient.ProductType.SUBS) Utils.putObject(sharedPreferences, MyConstants.IN_APP_SUBS, data)
         }
     }
 
@@ -115,13 +159,15 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     fun purchase(activity: Activity, productId: String) {
         log("purchase : productId = $productId")
 
-        val productsDetailCallback = SkuDetailsResponseListener { billingResult, productList ->
+        val productsDetailCallback = PurchasesResponseListener { billingResult, productList ->
             log("purchase : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null && productList.isNotEmpty()) {
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList.isNotEmpty()) {
 
                 productList.forEach {
-                    if (it.sku == productId) {
-                        val flowParams = BillingFlowParams.newBuilder().setSkuDetails(it).build()
+                    if (it.orderId == productId) {
+                        /*val flowParams = BillingFlowParams.newBuilder().setSkuDetails(it).build()*/
+
+                        val flowParams = BillingFlowParams.newBuilder().setProductDetailsParamsList(productDetailsParamsList).build()
                         val responseCode = billingClient?.launchBillingFlow(activity, flowParams)?.responseCode
                         log("purchase : productId = $productId : responseCode = $responseCode")
                     }
@@ -129,7 +175,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
             }
         }
 
-        billingClient?.querySkuDetailsAsync(skuDetailParams, productsDetailCallback)
+        billingClient?.queryPurchasesAsync(QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(), productsDetailCallback)
     }
 
     //after completing work on google/play store activity
@@ -244,7 +290,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
     fun getAllProductList(): PurchaseModel? {
         return when (type) {
-            BillingClient.SkuType.INAPP -> {
+            BillingClient.ProductType.INAPP -> {
                 if (sharedPreferences?.contains(MyConstants.IN_APP_PRODUCTS) == true) Utils.getObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java) else null
             }
             else -> {

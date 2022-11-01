@@ -179,7 +179,7 @@ object AdMobUtil {
         mediaView.visibility = if (mediaContent == null) {
             View.GONE
         } else {
-            mediaView.setMediaContent(mediaContent)
+            mediaView.mediaContent = mediaContent
             mediaView.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
             View.VISIBLE
         }
