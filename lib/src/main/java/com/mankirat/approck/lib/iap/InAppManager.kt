@@ -83,8 +83,8 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                 purchaseModel.type = it.type
                 data.productDetails?.add(purchaseModel)
             }
-            if (type == BillingClient.ProductType.INAPP) Utils.putObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, data)
-            if (type == BillingClient.ProductType.SUBS) Utils.putObject(sharedPreferences, MyConstants.IN_APP_SUBS, data)
+            if (type == BillingClient.SkuType.INAPP) Utils.putObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, data)
+            if (type == BillingClient.SkuType.SUBS) Utils.putObject(sharedPreferences, MyConstants.IN_APP_SUBS, data)
         }
     }
 
@@ -244,7 +244,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
     fun getAllProductList(): PurchaseModel? {
         return when (type) {
-            BillingClient.ProductType.INAPP -> {
+            BillingClient.SkuType.INAPP -> {
                 if (sharedPreferences?.contains(MyConstants.IN_APP_PRODUCTS) == true) Utils.getObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java) else null
             }
             else -> {

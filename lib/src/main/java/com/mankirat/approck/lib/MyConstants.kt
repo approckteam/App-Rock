@@ -48,7 +48,7 @@ object MyConstants {
     }
 
     object BillingConstant {
-        const val IN_APP_PURCHASE = BillingClient.ProductType.INAPP
-        const val IN_APP_SUBS = BillingClient.ProductType.SUBS
+        const val IN_APP_PURCHASE = BillingClient.SkuType.INAPP
+        const val IN_APP_SUBS = BillingClient.SkuType.SUBS
     }
 }
