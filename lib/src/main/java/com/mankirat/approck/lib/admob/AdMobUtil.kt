@@ -34,6 +34,7 @@ object AdMobUtil {
     // Click Count
     private var interstitialAdsHandler: InterstitialAdsHandler? = null
     private var rewardAdsHandler: RewardAdsHandler? = null
+    var needButtonClick = false
 
     private fun log(msg: String, e: Throwable? = null) = Log.e("AdMobUtil", msg, e)
 
@@ -214,7 +215,8 @@ object AdMobUtil {
     /*______________________________ Interstitial ______________________________*/
 
     fun buttonClickCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
-        interstitialAdsHandler?.buttonClickCount(activity, callback)
+        if (needButtonClick) interstitialAdsHandler?.buttonClickCount(activity, callback)
+        else callback?.invoke(true)
     }
 
     fun screenOpenCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
