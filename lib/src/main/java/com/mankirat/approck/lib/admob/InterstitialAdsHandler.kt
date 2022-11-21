@@ -63,10 +63,11 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
     }
 
     fun loadInterstitial(context: Context) {
-        log("loadInterstitial : instance = $mInterstitialAd : isLoading = $isInterstitialLoading")
         if (isPremium(context)) return
 
         if (mInterstitialAd != null || isInterstitialLoading) return
+
+        log("loadInterstitial : instance = $mInterstitialAd : isLoading = $isInterstitialLoading")
 
         isInterstitialLoading = true
         InterstitialAd.load(context, interstitialId, AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
@@ -143,7 +144,6 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
     }
 
     fun loadInterstitialSplash(context: Context, callback: (() -> Unit)? = null) {
-        log("loadInterstitialSplash : instance = $mInterstitialAdSplash : isLoading = $isInterstitialLoadingSplash")
         if (isPremium(context)) {
             callback?.invoke()
             return
@@ -153,6 +153,8 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
             callback?.invoke()
             return
         }
+
+        log("loadInterstitialSplash : instance = $mInterstitialAdSplash : isLoading = $isInterstitialLoadingSplash")
 
         isInterstitialLoadingSplash = true
         InterstitialAd.load(context, interstitialIdSplash, AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
