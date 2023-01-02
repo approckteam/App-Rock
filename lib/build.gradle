@@ -64,4 +64,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     //noinspection LifecycleAnnotationProcessorWithJava8
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.5.1'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.10'
 }
