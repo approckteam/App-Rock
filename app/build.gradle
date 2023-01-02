@@ -9,7 +9,7 @@ plugins {
 
 android {
     compileSdk 33
-    buildToolsVersion '32.0.0'
+    buildToolsVersion '33.0.0'
 
     defaultConfig {
         applicationId "com.bitsboy.imaganize"//"com.mankirat.approck"
