@@ -170,6 +170,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                         toast(context, "Item purchased")
                     }
                 }
+                Utils.subsCallback?.invoke()
             }
             Purchase.PurchaseState.PENDING -> toast(context, "Purchase PENDING")
             Purchase.PurchaseState.UNSPECIFIED_STATE -> toast(context, "Purchase UNSPECIFIED_STATE")
