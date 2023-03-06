@@ -93,7 +93,7 @@ object AdMobUtil {
 
     private val defaultNativeAdStyle = NativeAdStyle()
 
-    fun showNativeAd(adContainer: FrameLayout, nativeAdStyle: NativeAdStyle? = null, callback: ((nativeAd: NativeAd) -> Unit)? = null, nativeAdSize: NativeAdSize? = NativeAdSize.FULL) {
+    fun showNativeAd(adContainer: FrameLayout, nativeAdStyle: NativeAdStyle? = null, callback: ((nativeAd: NativeAd) -> Unit)? = null) {
         log("showNativeAd")
         if (isPremium()) {
             adContainer.visibility = View.GONE
@@ -118,27 +118,54 @@ object AdMobUtil {
 
         val onNativeAdLoadedListener = NativeAd.OnNativeAdLoadedListener { nativeAd ->
             log("showNativeAd : onNativeAdLoaded")
-            if (nativeAdSize == NativeAdSize.FULL) {
+            val layoutInflater = adContainer.context.getSystemService(LayoutInflater::class.java)
+            val adView = layoutInflater.inflate(R.layout.native_ad_mob_1, adContainer, false) as NativeAdView
+            populateNativeAdViews(adView, nativeAd, nativeAdStyle ?: defaultNativeAdStyle)
 
-                val layoutInflater = adContainer.context.getSystemService(LayoutInflater::class.java)
-                val adView = layoutInflater.inflate(R.layout.native_ad_mob_1, adContainer, false) as NativeAdView
-                populateNativeAdViews(adView, nativeAd, nativeAdStyle ?: defaultNativeAdStyle)
+            adContainer.removeAllViews()
+            adContainer.addView(adView)
 
-                adContainer.removeAllViews()
-                adContainer.addView(adView)
+            callback?.invoke(nativeAd)
+        }
 
-                callback?.invoke(nativeAd)
-            } else if (nativeAdSize == NativeAdSize.MEDIUM) {
-                val layoutInflater = adContainer.context.getSystemService(LayoutInflater::class.java)
+        AdLoader.Builder(adContainer.context, adMobIds.nativeId).forNativeAd(onNativeAdLoadedListener).withAdListener(adListener).build().loadAd(AdRequest.Builder().build())
+    }
 
-                val adView = layoutInflater.inflate(R.layout.admob_native_ad, adContainer, false) as NativeAdView
-                populateNativeAdViewsMedium(adView, nativeAd, nativeAdStyle ?: defaultNativeAdStyle)
+    fun showNativeAdMedium(adContainer: FrameLayout, nativeAdStyle: NativeAdStyle? = null, callback: ((nativeAd: NativeAd) -> Unit)? = null) {
+        log("showNativeAd")
+        if (isPremium()) {
+            adContainer.visibility = View.GONE
+            return
+        }
 
-                adContainer.removeAllViews()
-                adContainer.addView(adView)
+        adContainer.visibility = View.VISIBLE
 
-                callback?.invoke(nativeAd)
+        val adListener = object : AdListener() {
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                super.onAdFailedToLoad(loadAdError)
+                log("showNativeAd : onAdFailedToLoad : loadAdError = $loadAdError")
+                Utils.loadError(AdType.NATIVE, loadAdError.code, loadAdError.message)
             }
+
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                log("showNativeAd : onAdLoaded")
+                Utils.loadSuccess(AdType.NATIVE)
+            }
+        }
+
+        val onNativeAdLoadedListener = NativeAd.OnNativeAdLoadedListener { nativeAd ->
+            log("showNativeAd : onNativeAdLoaded")
+
+            val layoutInflater = adContainer.context.getSystemService(LayoutInflater::class.java)
+
+            val adView = layoutInflater.inflate(R.layout.admob_native_ad, adContainer, false) as NativeAdView
+            populateNativeAdViewsMedium(adView, nativeAd, nativeAdStyle ?: defaultNativeAdStyle)
+
+            adContainer.removeAllViews()
+            adContainer.addView(adView)
+
+            callback?.invoke(nativeAd)
         }
 
         AdLoader.Builder(adContainer.context, adMobIds.nativeId).forNativeAd(onNativeAdLoadedListener).withAdListener(adListener).build().loadAd(AdRequest.Builder().build())
