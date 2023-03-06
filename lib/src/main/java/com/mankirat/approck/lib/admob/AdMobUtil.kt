@@ -146,17 +146,17 @@ object AdMobUtil {
 
     private fun populateNativeAdViews(adView: NativeAdView, nativeAd: NativeAd, nativeAdStyle: NativeAdStyle) {
         log("populateNativeAdViews")
-        val clMain = adView.findViewById<View>(R.id.cl_main)
-        val tvAd = adView.findViewById<TextView>(R.id.tv_ad)
-        val mediaView = adView.findViewById<MediaView>(R.id.media_view)//either video or image
-        val tvHeadline = adView.findViewById<TextView>(R.id.tv_headline)
-        val tvAdvertiser = adView.findViewById<TextView>(R.id.tv_advertiser)
-        val tvBody = adView.findViewById<TextView>(R.id.tv_body)
-        val tvPrice = adView.findViewById<TextView>(R.id.tv_price)
-        val tvStore = adView.findViewById<TextView>(R.id.tv_store)
-        val btnAction = adView.findViewById<Button>(R.id.btn_action)
-        val ivIcon = adView.findViewById<ImageView>(R.id.iv_icon)
-        val rbStars = adView.findViewById<RatingBar>(R.id.rb_stars)
+        val clMain = adView.findViewById<View>(R.id.cl_main_ad)
+        val tvAd = adView.findViewById<TextView>(R.id.tv_ad_ad)
+        val mediaView = adView.findViewById<MediaView>(R.id.media_view_ad)//either video or image
+        val tvHeadline = adView.findViewById<TextView>(R.id.tv_headline_ad)
+        val tvAdvertiser = adView.findViewById<TextView>(R.id.tv_advertiser_ad)
+        val tvBody = adView.findViewById<TextView>(R.id.tv_body_ad)
+        val tvPrice = adView.findViewById<TextView>(R.id.tv_price_ad)
+        val tvStore = adView.findViewById<TextView>(R.id.tv_store_ad)
+        val btnAction = adView.findViewById<Button>(R.id.btn_action_ad)
+        val ivIcon = adView.findViewById<ImageView>(R.id.iv_icon_ad)
+        val rbStars = adView.findViewById<RatingBar>(R.id.rb_stars_ad)
 
         clMain.background = nativeAdStyle.getBackground(adView.context)
         tvBody.setTextColor(nativeAdStyle.bodyTextColor)
