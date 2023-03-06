@@ -118,9 +118,9 @@ object AdMobUtil {
 
         val onNativeAdLoadedListener = NativeAd.OnNativeAdLoadedListener { nativeAd ->
             log("showNativeAd : onNativeAdLoaded")
-
-            val layoutInflater = adContainer.context.getSystemService(LayoutInflater::class.java)
             if (nativeAdSize == NativeAdSize.FULL) {
+
+                val layoutInflater = adContainer.context.getSystemService(LayoutInflater::class.java)
                 val adView = layoutInflater.inflate(R.layout.native_ad_mob_1, adContainer, false) as NativeAdView
                 populateNativeAdViews(adView, nativeAd, nativeAdStyle ?: defaultNativeAdStyle)
 
@@ -129,6 +129,8 @@ object AdMobUtil {
 
                 callback?.invoke(nativeAd)
             } else if (nativeAdSize == NativeAdSize.MEDIUM) {
+                val layoutInflater = adContainer.context.getSystemService(LayoutInflater::class.java)
+
                 val adView = layoutInflater.inflate(R.layout.admob_native_ad, adContainer, false) as NativeAdView
                 populateNativeAdViewsMedium(adView, nativeAd, nativeAdStyle ?: defaultNativeAdStyle)
 
@@ -225,7 +227,7 @@ object AdMobUtil {
         val ivIcon = adView.findViewById<ImageView>(R.id.iv_icon)
         val rbStars = adView.findViewById<RatingBar>(R.id.rb_stars)
 
-        /*clMain.background = nativeAdStyle.getBackground(adView.context)*/
+        clMain.background = nativeAdStyle.getBackground(adView.context)
         tvBody.setTextColor(nativeAdStyle.bodyTextColor)
         rbStars.progressTintList = ColorStateList.valueOf(nativeAdStyle.starTint)
         tvHeadline.setTextColor(nativeAdStyle.headlineTextColor)
