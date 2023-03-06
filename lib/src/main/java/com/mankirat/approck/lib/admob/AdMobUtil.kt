@@ -225,7 +225,7 @@ object AdMobUtil {
         val ivIcon = adView.findViewById<ImageView>(R.id.iv_icon)
         val rbStars = adView.findViewById<RatingBar>(R.id.rb_stars)
 
-        clMain.background = nativeAdStyle.getBackground(adView.context)
+        /*clMain.background = nativeAdStyle.getBackground(adView.context)*/
         tvBody.setTextColor(nativeAdStyle.bodyTextColor)
         rbStars.progressTintList = ColorStateList.valueOf(nativeAdStyle.starTint)
         tvHeadline.setTextColor(nativeAdStyle.headlineTextColor)
