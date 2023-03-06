@@ -159,7 +159,7 @@ object AdMobUtil {
 
             val layoutInflater = adContainer.context.getSystemService(LayoutInflater::class.java)
 
-            val adView = layoutInflater.inflate(R.layout.admob_native_ad, adContainer, false) as NativeAdView
+            val adView = layoutInflater.inflate(R.layout.admob_native_ad_medium, adContainer, false) as NativeAdView
             populateNativeAdViewsMedium(adView, nativeAd, nativeAdStyle ?: defaultNativeAdStyle)
 
             adContainer.removeAllViews()
