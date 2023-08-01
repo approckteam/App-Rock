@@ -18,7 +18,7 @@ class InterstitialAdsHandler private constructor(private val interstitialId: Str
         private var instance: InterstitialAdsHandler? = null
 
         fun getInstance(id: String, splashId: String, targetClickCount: Int = 4, screenOpenCount: Int = 2, targetTabChangeCount: Int = 3): InterstitialAdsHandler {
-            if (instance == null) instance = InterstitialAdsHandler(id, splashId, targetClickCount, screenOpenCount, targetTabChangeCount)
+            instance = InterstitialAdsHandler(id, splashId, targetClickCount, screenOpenCount, targetTabChangeCount)
             return instance!!
         }
     }
