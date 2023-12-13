@@ -59,7 +59,7 @@ dependencies {
     //ad-mob
     implementation 'com.google.android.gms:play-services-ads:20.6.0'
     //ad-mob-mediation
-   // implementation 'com.google.ads.mediation:adcolony:4.7.0.0'
+  //  implementation 'com.google.ads.mediation:adcolony:4.7.0.0'
     implementation 'com.google.ads.mediation:applovin:11.3.1.0'
     implementation 'com.google.ads.mediation:facebook:6.8.0.0'
     implementation 'com.facebook.android:audience-network-sdk:6.8.0'
@@ -76,7 +76,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId 'com.github.approckteam'
             artifactId 'com.mankirat.approck.lib'
-            version '1.6.3'
+            version '1.6.4'
         }
     }
 }
