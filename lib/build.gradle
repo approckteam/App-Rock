@@ -5,6 +5,7 @@ plugins {
     //id 'com.google.gms.google-services'
     //firebase-crashlytics
     //id 'com.google.firebase.crashlytics'
+    id 'maven-publish'
 }
 
 android {
@@ -68,4 +69,14 @@ dependencies {
     //ad-mob-test-suite
     //implementation 'com.google.android.ads:mediation-test-suite:2.0.0'
     //implementation 'com.android.volley:volley:1.2.0'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'com.github.approckteam'
+            artifactId 'com.mankirat.approck.lib'
+            version '1.6.3'
+        }
+    }
 }
