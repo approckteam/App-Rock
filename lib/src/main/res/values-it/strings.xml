@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="start_like_pro">Inizia come un professionista</string>
+    <string name="buy_pro_version_to_unlock_all_features">Acquista la versione Pro per sbloccare tutte le funzionalità</string>
+    <string name="pro">Pro</string>
+    <string name="remove_native_ads">Rimuovere gli annunci nativi</string>
+    <string name="remove_banner_ads">Rimuovere gli annunci banner</string>
+    <string name="remove_interstitial_ads">Rimuovere gli annunci interstiziali</string>
+    <string name="vip_customer_support">Assistenza clienti VIP</string>
+    <string name="start_free_trial">Inizia la prova gratuita</string>
+    <string name="subscription_will_auto_renew">L\'abbonamento si rinnoverà automaticamente</string>
+    <string name="basic">Di base</string>
+    <string name="subscribe_now">Iscriviti ora</string>
+    <string name="after_free">dopo libero</string>
+    <string name="trial">prova</string>
+    <string name="month">Mese</string>
+    <string name="week">Settimana</string>
+    <string name="year">Anno</string>
+    <string name="day">giorno</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">£ 90,00/mese dopo 1 settimana di prova gratuita</string>
+    <string name="no_internet">Senza internet</string>
+    <string name="no_internet_desc">Per favore controlla la tua Internet. Abbiamo bisogno di Internet per controllare la cronologia dell\'abbonamento</string>
+    <string name="ok">OK</string>
+    <string name="ads">Annunci</string>
+    <string name="google_subs_terms">Questa app offre un accesso illimitato a tutte le caratteristiche e materiali senza annunci. L\'abbonamento viene fatturato settimanalmente, annuale o mensile (come mostrato sopra) automaticamente dopo la prova gratuita (se disponibile) e addebitato tramite GooglePlay. La cancellazione durante la prova gratuita non verrà addebitata. Per la cancellazione del periodo fatturato, visitare Googleplay con 24 ore di anticipo in anticipo</string>
+</resources>

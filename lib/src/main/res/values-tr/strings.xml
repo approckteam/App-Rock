@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="start_like_pro">Profesyonel gibi başlayın</string>
+    <string name="buy_pro_version_to_unlock_all_features">Tüm özelliklerin kilidini açmak için pro sürüm satın alın</string>
+    <string name="pro">Profesyonel</string>
+    <string name="remove_native_ads">Yerel reklamları kaldırın</string>
+    <string name="remove_banner_ads">Banner Reklamları Kaldır</string>
+    <string name="remove_interstitial_ads">İnterstisyel reklamları kaldırın</string>
+    <string name="vip_customer_support">VIP Müşteri Desteği</string>
+    <string name="start_free_trial">Deneme sürümüne başla</string>
+    <string name="subscription_will_auto_renew">Abonelik otomatik olarak yenilenecek</string>
+    <string name="basic">Temel</string>
+    <string name="subscribe_now">Şimdi abone olun</string>
+    <string name="after_free">Ücretsiz</string>
+    <string name="trial">Deneme</string>
+    <string name="month">Ay</string>
+    <string name="week">Hafta</string>
+    <string name="year">Yıl</string>
+    <string name="day">gün</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">1 Hafta Ücretsiz Deneme\'den Sonra 90.00/Ay</string>
+    <string name="no_internet">İnternet yok</string>
+    <string name="no_internet_desc">Lütfen internetinizi kontrol edin. Abonelik geçmişinizi kontrol etmek için İnternet\'e ihtiyacımız var</string>
+    <string name="ok">TAMAM</string>
+    <string name="ads">Reklam</string>
+    <string name="google_subs_terms">Bu uygulama, reklamsız tüm özelliklere ve malzemelere sınırsız erişim sağlar. Abonelik, ücretsiz denemeden sonra (varsa) otomatik olarak haftalık, yıllık veya aylık (yukarıda gösterildiği gibi) faturalandırılır ve GooglePlay aracılığıyla ücretlendirilir. Ücretsiz deneme sırasında iptal alınmayacaktır. Faturalandırılan dönem iptali için lütfen 24 saat önceden GooglePlay\'i ziyaret edin</string>
+</resources>

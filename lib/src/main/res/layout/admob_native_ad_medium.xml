@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:padding="@dimen/_10sdp"
+    android:visibility="visible">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main_ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:padding="5dp"
+        tools:background="@drawable/bg_corner_10">
+
+        <com.google.android.gms.ads.nativead.MediaView
+            android:id="@+id/media_view_ad"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#D9F3D9"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_ad_ad"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="0dp"
+
+            android:background="#2196F3"
+            android:gravity="center"
+            android:text="AD"
+            android:textColor="@color/lib_black"
+            android:textSize="@dimen/_8sdp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_action_ad" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ad_app_icon_card_ad"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:adjustViewBounds="true"
+            android:clipChildren="true"
+            android:clipToPadding="true"
+
+            app:cardCornerRadius="@dimen/_4sdp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_store_ad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_icon_ad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:adjustViewBounds="true"
+                android:background="@color/lib_white" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_headline_ad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="OutDoor Explorer"
+            android:textColor="@color/lib_black"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toStartOf="@+id/media_view_ad"
+            app:layout_constraintStart_toEndOf="@+id/ad_app_icon_card_ad"
+            app:layout_constraintTop_toTopOf="@+id/ad_app_icon_card_ad" />
+
+        <TextView
+            android:id="@+id/tv_body_ad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="2"
+            android:text="Camp in the most comfortable outdoor gear around Camp in the most comfortable outdoor gear around Camp in the most comfortable outdoor gear around"
+            android:textColor="@color/lib_black"
+            android:textSize="@dimen/_8ssp"
+
+            app:layout_constraintBottom_toTopOf="@+id/tv_advertiser_ad"
+            app:layout_constraintEnd_toStartOf="@+id/media_view_ad"
+            app:layout_constraintStart_toStartOf="@+id/ad_app_icon_card_ad"
+            app:layout_constraintTop_toBottomOf="@+id/tv_store_ad" />
+
+        <TextView
+            android:id="@+id/tv_advertiser_ad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:gravity="bottom"
+            android:text="Quick Explorer"
+            android:textColor="@color/lib_black"
+            android:textSize="@dimen/_10ssp"
+
+            app:layout_constraintBottom_toTopOf="@+id/btn_action_ad"
+            app:layout_constraintEnd_toEndOf="@+id/tv_body_ad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_body_ad" />
+
+        <RatingBar
+            android:id="@+id/rb_stars_ad"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="4"
+            android:stepSize="0.5"
+            android:visibility="visible"
+
+            app:layout_constraintBottom_toBottomOf="@+id/ad_app_icon_card_ad"
+            app:layout_constraintStart_toStartOf="@+id/tv_headline_ad"
+            app:layout_constraintTop_toBottomOf="@+id/tv_headline_ad" />
+
+        <TextView
+            android:id="@+id/tv_price_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:visibility="visible"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_store_ad"
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="Quick Explorer"
+            android:textColor="@color/lib_black"
+            android:textSize="@dimen/_9ssp"
+
+            app:layout_constraintBottom_toTopOf="@+id/tv_body_ad"
+            app:layout_constraintEnd_toStartOf="@+id/media_view_ad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ad_app_icon_card_ad" />
+
+        <Button
+            android:id="@+id/btn_action_ad"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_25sdp"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="#05FFFF"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="INSTALL"
+            android:textColor="@color/lib_black"
+            android:textSize="@dimen/_10ssp"
+
+            app:layout_constraintEnd_toStartOf="@+id/tv_ad_ad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/media_view_ad" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.gms.ads.nativead.NativeAdView>

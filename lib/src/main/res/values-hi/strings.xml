@@ -1,0 +1,28 @@
+<resources>
+
+    <string name="start_like_pro">एक पेशेवर की तरह शुरू करें</string>
+    <string name="buy_pro_version_to_unlock_all_features">सभी सुविधाओं को अनलॉक करने के लिए प्रो संस्करण खरीदें</string>
+    <string name="pro">समर्थक</string>
+    <string name="remove_native_ads">मूल विज्ञापन हटाएं</string>
+    <string name="remove_banner_ads">बैनर विज्ञापन हटाएं</string>
+    <string name="remove_interstitial_ads">मध्यवर्ती विज्ञापन हटाएं</string>
+    <string name="vip_customer_support">वीआईपी ग्राहक सहायता</string>
+    <string name="start_free_trial">निशुल्क आजमाइश शुरु करें</string>
+    <string name="subscription_will_auto_renew">सदस्यता स्वतः नवीनीकृत हो जाएगी</string>
+    <string name="basic">बुनियादी</string>
+    <string name="subscribe_now">अब सदस्यता लें</string>
+    <string name="after_free">फ्री के बाद</string>
+    <string name="trial">परीक्षण</string>
+
+    <string name="month">महीना</string>
+    <string name="week">सप्ताह</string>
+    <string name="year">साल</string>
+    <string name="day">दिन</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">1 सप्ताह के नि: शुल्क परीक्षण के बाद ₹ 90.00/महीना</string>
+    <string name="no_internet">इंटरनेट नहीं है</string>
+    <string name="no_internet_desc">कृपया अपना इंटरनेट देखें। हमें आपके सदस्यता इतिहास की जांच करने के लिए इंटरनेट की आवश्यकता है</string>
+    <string name="ok">ठीक है</string>
+    <string name="ads">विज्ञापन</string>
+    <string name="google_subs_terms">यह ऐप आपको विज्ञापनों के बिना सभी सुविधाओं और सामग्रियों के लिए असीमित पहुंच प्रदान करता है। सदस्यता को साप्ताहिक, वार्षिक या मासिक (जैसा कि ऊपर दिखाया गया है) को स्वचालित रूप से नि: शुल्क परीक्षण (यदि उपलब्ध हो) के बाद बिल किया जाता है और GooglePlay के माध्यम से चार्ज किया जाता है। नि: शुल्क परीक्षण के दौरान रद्दीकरण शुल्क नहीं लिया जाएगा। बिल की अवधि रद्द करने के लिए, कृपया 24 घंटे पहले GooglePlay पर जाएं</string>
+</resources>

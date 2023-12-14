@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="start_like_pro">プロのように始めます</string>
+    <string name="buy_pro_version_to_unlock_all_features">すべての機能のロックを解除するには、プロバージョンを購入します</string>
+    <string name="pro">プロ</string>
+    <string name="remove_native_ads">ネイティブ広告を削除します</string>
+    <string name="remove_banner_ads">バナー広告を削除します</string>
+    <string name="remove_interstitial_ads">間質広告を削除します</string>
+    <string name="vip_customer_support">VIPカスタマーサポート</string>
+    <string name="start_free_trial">無料トライアルを開始</string>
+    <string name="subscription_will_auto_renew">サブスクリプションは自動更新されます</string>
+    <string name="basic">基本</string>
+    <string name="subscribe_now">今すぐ購読してください</string>
+    <string name="after_free">無料の後</string>
+    <string name="trial">トライアル</string>
+    <string name="month">月</string>
+    <string name="week">週</string>
+    <string name="year">年</string>
+    <string name="day">日</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">1週間の無料トライアルの後、£90.00/月</string>
+    <string name="no_internet">インターネットがない</string>
+    <string name="no_internet_desc">インターネットを確認してください。サブスクリプション履歴を確認するには、インターネットが必要です</string>
+    <string name="ok">わかった</string>
+    <string name="ads">広告</string>
+    <string name="google_subs_terms">このアプリは、広告のないすべての機能と資料への無制限のアクセスを提供します。サブスクリプションは、無料試用版（利用可能な場合）の後に自動的に毎週、毎月、または毎月（上記のように）請求され、GooglePlayを通じて請求されます。無料試験中のキャンセルは請求されません。請求期間のキャンセルについては、24時間前にGooglePlayにアクセスしてください</string>
+</resources>

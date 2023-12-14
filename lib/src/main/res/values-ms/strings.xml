@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="start_like_pro">Mulakan seperti pro</string>
+    <string name="buy_pro_version_to_unlock_all_features">Beli Versi Pro untuk membuka kunci semua ciri</string>
+    <string name="pro">Pro</string>
+    <string name="remove_native_ads">Keluarkan iklan asli</string>
+    <string name="remove_banner_ads">Keluarkan iklan spanduk</string>
+    <string name="remove_interstitial_ads">Keluarkan iklan interstisial</string>
+    <string name="vip_customer_support">Sokongan pelanggan VIP</string>
+    <string name="start_free_trial">Mulakan Percubaan Percuma</string>
+    <string name="subscription_will_auto_renew">Langganan akan memperbaharui automatik</string>
+    <string name="basic">Asas</string>
+    <string name="subscribe_now">Langgan sekarang</string>
+    <string name="after_free">selepas percuma</string>
+    <string name="trial">percubaan</string>
+    <string name="month">Bulan</string>
+    <string name="week">Minggu</string>
+    <string name="year">Tahun</string>
+    <string name="day">hari</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">₹ 90.00/bulan selepas percubaan percuma 1 minggu</string>
+    <string name="no_internet">Tiada Internet</string>
+    <string name="no_internet_desc">Sila periksa internet anda. Kami memerlukan internet untuk memeriksa sejarah langganan anda</string>
+    <string name="ok">okey</string>
+    <string name="ads">Iklan</string>
+    <string name="google_subs_terms">Aplikasi ini memberi anda akses tanpa had kepada semua ciri dan bahan tanpa iklan. Langganan ini dibilkan mingguan, tahunan atau bulanan (seperti yang ditunjukkan di atas) secara automatik selepas percubaan percuma (jika ada) dan dikenakan melalui GooglePlay. Pembatalan semasa percubaan percuma tidak akan dikenakan. Untuk pembatalan tempoh yang dibilkan, sila lawati Googleplay 24 jam lebih awal</string>
+</resources>

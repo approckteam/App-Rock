@@ -1,45 +1,38 @@
 # app-rock common lib for all apps of Mariano (IN MARCH 2022)
-# Developers : MANKIRAT SINGH, Bhumika Sharma, ANKIT, Ashish David
 
-# In project level gradle
+<pre>Developers : MANKIRAT SINGH, Bhumika Sharma, ANKIT, Ashish David </pre>
 
-allprojects {<br />
+# In project level build.gradle and setting.gradle
+
+<pre>
+allprojects {
     repositories {
     
-        //app-rock
-        maven { url 'https://jitpack.io' }
-        
+        maven { url 'https://jitpack.io' }    
    }
 }
-
+</pre>
 
 # In app level gradle
 
+<pre>
 dependencies {
+    
     //app-rock
-    implementation 'com.github.approckteam:app-rock:1.1.3'
+    implementation 'com.github.approckteam:app-rock:latest_version'
 }
-
+</pre>
 
 # Usage
 
+<pre>Please check sample BaseActivity and StartingActivity</pre>
 
+<pre>
+binding.btnShowInterstitial.setOnClickListener {
+    adMobInter()
+}
 
-AdMobUtil.adMobIds.apply {<br />
-    interstitialId = Constants.AdMob.INTERSTITIAL<br />
-    interstitialIdSplash = Constants.AdMob.INTERSTITIAL_SPLASH<br />
-    bannerId = Constants.AdMob.BANNER<br />
-    nativeId = Constants.AdMob.NATIVE<br />
-    rewardId = Constants.AdMob.REWARD<br />
-    appOpenId = Constants.AdMob.APP_OPEN<br />
-}<br />
+binding.flBannerAd.adMobBanner()
 
-AdMobUtil.setUp(this, 4, Color.RED)<br />
-
-binding.btnShowInterstitial.setOnClickListener {<br />
-    adMobInter()<br />
-}<br />
-
-binding.flBannerAd.adMobBanner()<br />
-
-binding.flNativeAd.adMobNative()<br />
+binding.flNativeAd.adMobNative()
+</pre>

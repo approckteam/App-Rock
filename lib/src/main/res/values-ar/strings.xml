@@ -1,0 +1,28 @@
+<resources>
+
+    <string name="start_like_pro">ابدأ كالمحترفين</string>
+    <string name="buy_pro_version_to_unlock_all_features">قم بشراء إصدار Pro لفتح جميع الميزات</string>
+    <string name="pro">طليعة</string>
+    <string name="remove_native_ads">إزالة الإعلانات الأصلية</string>
+    <string name="remove_banner_ads">إزالة لافتة الإعلانات</string>
+    <string name="remove_interstitial_ads">إزالة الإعلانات البينية</string>
+    <string name="vip_customer_support">دعم عملاء VIP</string>
+    <string name="start_free_trial">ابدأ الإصدار التجريبي المجاني</string>
+    <string name="subscription_will_auto_renew">سيتم تجديد الاشتراك تلقائيًا</string>
+    <string name="basic">الأساسي</string>
+    <string name="subscribe_now">إشترك الآن</string>
+    <string name="after_free">بعد مجانا</string>
+    <string name="trial">التجربة</string>
+
+    <string name="month">شهر</string>
+    <string name="week">أسبوع</string>
+    <string name="year">سنة</string>
+    <string name="day">يوم</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">90.00 دولار في الشهر بعد أسبوع واحد تجريبي مجاني</string>
+    <string name="no_internet">لا انترنت</string>
+    <string name="no_internet_desc">يرجى التحقق من الإنترنت الخاص بك. نحتاج إلى الإنترنت للتحقق من سجل الاشتراك الخاص بك</string>
+    <string name="ok">نعم</string>
+    <string name="ads">إعلانات</string>
+    <string name="google_subs_terms">يمنحك هذا التطبيق وصولًا غير محدود إلى جميع الميزات والمواد بدون إعلانات. يتم فواتير الاشتراك أسبوعيًا أو سنويًا أو شهريًا (كما هو موضح أعلاه) تلقائيًا بعد التجربة المجانية (إن وجدت) ويتم فرضه من خلال Googleplay. لن يتم شحن الإلغاء أثناء التجربة المجانية. لإلغاء الفترة الفاتورة ، يرجى زيارة Googleplay قبل 24 ساعة</string>
+</resources>

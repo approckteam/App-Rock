@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="start_like_pro">Începe ca un profesionist</string>
+    <string name="buy_pro_version_to_unlock_all_features">Cumpărați versiunea Pro pentru a debloca toate caracteristicile</string>
+    <string name="pro">Pro</string>
+    <string name="remove_native_ads">Eliminați anunțurile native</string>
+    <string name="remove_banner_ads">Scoateți anunțurile banner</string>
+    <string name="remove_interstitial_ads">Eliminați anunțurile interstițiale</string>
+    <string name="vip_customer_support">Asistență pentru clienți VIP</string>
+    <string name="start_free_trial">Incepe o probă gratuită</string>
+    <string name="subscription_will_auto_renew">Abonamentul va reînnoi automat</string>
+    <string name="basic">De bază</string>
+    <string name="subscribe_now">Abonează-te acum</string>
+    <string name="after_free">după liber</string>
+    <string name="trial">proces</string>
+    <string name="month">Lună</string>
+    <string name="week">Săptămână</string>
+    <string name="year">An</string>
+    <string name="day">zi</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">90,00 lei/lună după 1 săptămână de încercare gratuită</string>
+    <string name="no_internet">Fara Internet</string>
+    <string name="no_internet_desc">Vă rugăm să vă verificați internetul. Avem nevoie de internet pentru a vă verifica istoricul abonamentului</string>
+    <string name="ok">Bine</string>
+    <string name="ads">Reclame</string>
+    <string name="google_subs_terms">Această aplicație vă oferă acces nelimitat la toate caracteristicile și materialele fără reclame. Abonamentul este facturat săptămânal, anual sau lunar (așa cum se arată mai sus) automat după procesul gratuit (dacă este disponibil) și este taxat prin GooglePlay. Anularea în timpul procesului gratuit nu va fi taxată. Pentru anularea perioadei facturate, vizitați Googleplay cu 24 de ore înainte</string>
+</resources>

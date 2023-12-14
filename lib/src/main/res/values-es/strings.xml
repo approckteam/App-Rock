@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="start_like_pro">Empezar como un profesional</string>
+    <string name="buy_pro_version_to_unlock_all_features">Compre la versión Pro para desbloquear todas las funciones</string>
+    <string name="pro">Pro</string>
+    <string name="remove_native_ads">Eliminar anuncios nativos</string>
+    <string name="remove_banner_ads">Eliminar anuncios de banner</string>
+    <string name="remove_interstitial_ads">Eliminar anuncios intersticiales</string>
+    <string name="vip_customer_support">Atención al cliente VIP</string>
+    <string name="start_free_trial">Empiza la prueba gratuita</string>
+    <string name="subscription_will_auto_renew">La suscripción se renovará automáticamente</string>
+    <string name="basic">Básico</string>
+    <string name="subscribe_now">Suscríbase ahora</string>
+    <string name="after_free">Después de Free</string>
+    <string name="trial">ensayo</string>
+    <string name="month">Mes</string>
+    <string name="week">Semana</string>
+    <string name="year">Año</string>
+    <string name="day">día</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">₹ 90.00/mes después de 1 semana de prueba gratuita</string>
+    <string name="no_internet">Sin internet</string>
+    <string name="no_internet_desc">Por favor revise su Internet. Necesitamos Internet para verificar su historial de suscripción</string>
+    <string name="ok">DE ACUERDO</string>
+    <string name="ads">Anuncios</string>
+    <string name="google_subs_terms">Esta aplicación le brinda acceso ilimitado a todas las características y materiales sin anuncios. La suscripción se factura semanalmente, anual o mensualmente (como se muestra arriba) automáticamente después de la prueba gratuita (si está disponible) y se cobra a través de GooglePlay. La cancelación durante la prueba gratuita no se cobrará. Para la cancelación del período facturado, visite GooglePlay con 24 horas de anticipación</string>
+</resources>

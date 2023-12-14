@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="start_like_pro">เริ่มต้นเหมือนมืออาชีพ</string>
+    <string name="buy_pro_version_to_unlock_all_features">ซื้อเวอร์ชันมืออาชีพเพื่อปลดล็อกคุณสมบัติทั้งหมด</string>
+    <string name="pro">มือโปร</string>
+    <string name="remove_native_ads">ลบโฆษณาดั้งเดิม</string>
+    <string name="remove_banner_ads">ลบโฆษณาแบนเนอร์</string>
+    <string name="remove_interstitial_ads">ลบโฆษณาคั่นระหว่างหน้า</string>
+    <string name="vip_customer_support">ฝ่ายสนับสนุนลูกค้าวีไอพี</string>
+    <string name="start_free_trial">เริ่มทดลองใช้ฟรี</string>
+    <string name="subscription_will_auto_renew">การสมัครสมาชิกจะต่ออายุอัตโนมัติ</string>
+    <string name="basic">ขั้นพื้นฐาน</string>
+    <string name="subscribe_now">สมัครสมาชิกทันที</string>
+    <string name="after_free">หลังฟรี</string>
+    <string name="trial">การทดลอง</string>
+    <string name="month">เดือน</string>
+    <string name="week">สัปดาห์</string>
+    <string name="year">ปี</string>
+    <string name="day">วัน</string>
+
+    <string name="_90_00_month_after_1_week_free_trail">₹ 90.00/เดือนหลังจากทดลองใช้ฟรี 1 สัปดาห์</string>
+    <string name="no_internet">ไม่มีอินเทอร์เน็ต</string>
+    <string name="no_internet_desc">โปรดตรวจสอบอินเทอร์เน็ตของคุณ เราต้องการอินเทอร์เน็ตเพื่อตรวจสอบประวัติการสมัครสมาชิกของคุณ</string>
+    <string name="ok">ตกลง</string>
+    <string name="ads">โฆษณา</string>
+    <string name="google_subs_terms">แอพนี้ช่วยให้คุณเข้าถึงคุณสมบัติและวัสดุทั้งหมดได้ไม่ จำกัด โดยไม่มีโฆษณา การสมัครสมาชิกจะถูกเรียกเก็บเงินรายสัปดาห์รายปีหรือรายเดือน (ดังที่แสดงด้านบน) โดยอัตโนมัติหลังจากการทดลองใช้ฟรี (ถ้ามี) และเรียกเก็บเงินผ่าน googleplay การยกเลิกระหว่างการทดลองใช้ฟรีจะไม่ถูกเรียกเก็บเงิน สำหรับการยกเลิกระยะเวลาที่เรียกเก็บเงินกรุณาเยี่ยมชม googleplay ล่วงหน้า 24 ชั่วโมง</string>
+</resources>
