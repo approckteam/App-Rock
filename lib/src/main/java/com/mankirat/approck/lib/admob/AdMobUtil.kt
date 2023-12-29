@@ -312,16 +312,18 @@ object AdMobUtil {
     /*______________________________ Interstitial ______________________________*/
 
     fun buttonClickCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
-        if (needButtonClick) interstitialAdsHandler?.buttonClickCount(activity, callback)
+        if (needButtonClick) {
+            interstitialAdsHandler?.buttonClickCount(activity, callback) ?: callback?.invoke(false)
+        }
         else callback?.invoke(true)
     }
 
     fun screenOpenCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
-        interstitialAdsHandler?.screenOpenCount(activity, callback)
+        interstitialAdsHandler?.screenOpenCount(activity, callback) ?: callback?.invoke(false)
     }
 
     fun tabChangeCount(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
-        interstitialAdsHandler?.tabChangeCount(activity, callback)
+        interstitialAdsHandler?.tabChangeCount(activity, callback) ?: callback?.invoke(false)
     }
 
     fun loadInterstitial(context: Context) {
@@ -329,15 +331,15 @@ object AdMobUtil {
     }
 
     fun showInterstitial(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
-        interstitialAdsHandler?.showInterstitial(activity, callback)
+        interstitialAdsHandler?.showInterstitial(activity, callback) ?: callback?.invoke(false)
     }
 
     fun loadInterstitialSplash(context: Context, callback: (() -> Unit)? = null) {
-        interstitialAdsHandler?.loadInterstitialSplash(context, callback)
+        interstitialAdsHandler?.loadInterstitialSplash(context, callback) ?: callback?.invoke()
     }
 
     fun showInterstitialSplash(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
-        interstitialAdsHandler?.showInterstitialSplash(activity, callback)
+        interstitialAdsHandler?.showInterstitialSplash(activity, callback)  ?: callback?.invoke(false)
     }
 
     /*______________________________ Reward ______________________________*/
@@ -347,7 +349,7 @@ object AdMobUtil {
     }
 
     fun showRewardAd(activity: Activity, callback: ((success: Boolean) -> Unit)? = null) {
-        rewardAdsHandler?.showRewardAd(activity, callback)
+        rewardAdsHandler?.showRewardAd(activity, callback)  ?: callback?.invoke(false)
     }
 }
 
