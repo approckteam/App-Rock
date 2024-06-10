@@ -49,11 +49,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // in-app-purchase
-    implementation 'com.android.billingclient:billing-ktx:6.2.1'
+    implementation 'com.android.billingclient:billing-ktx:7.0.0'
 // ad-mob
     implementation 'com.google.android.gms:play-services-ads:21.4.0'
     // ad-mob-mediation
-    implementation 'com.google.ads.mediation:adcolony:4.8.0.0'
+//    implementation 'com.google.ads.mediation:adcolony:4.8.0.0'
     implementation 'com.google.ads.mediation:applovin:11.5.3.0'
     implementation 'com.google.ads.mediation:facebook:6.11.0.0'
     implementation 'com.facebook.android:audience-network-sdk:6.12.0'

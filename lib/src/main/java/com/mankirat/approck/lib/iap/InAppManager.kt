@@ -11,6 +11,7 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetailsResponseListener
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesResponseListener
@@ -34,7 +35,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
     private var sharedPreferences: SharedPreferences? = null
 
-    val params = QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build()
+    val params = QueryPurchasesParams.newBuilder().setProductType(type).build()
     private fun log(msg: String, e: Throwable? = null) = Log.e("InAppManager", msg, e)
     private fun toast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
@@ -59,12 +60,18 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
         log("setUpBillingClient : billingClient = $billingClient")
         sharedPreferences = context.getSharedPreferences(MyConstants.SHARED_PREF_IAP, Context.MODE_PRIVATE)
         if (billingClient == null) {
-            billingClient = BillingClient.newBuilder(context).setListener(productPurchaseCallback(context)).enablePendingPurchases().build()
+            billingClient =
+                BillingClient.newBuilder(context).setListener(productPurchaseCallback(context)).enablePendingPurchases(
+                    PendingPurchasesParams.newBuilder().enableOneTimeProducts().build()
+                ).build()
 
             billingClient?.startConnection(object : BillingClientStateListener {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
                     log("setUpBillingClient : onBillingSetupFinished : billingResult = $billingResult")
-                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) billingClient?.queryProductDetailsAsync(skuDetailParams, productsDetailCallback)
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) billingClient?.queryProductDetailsAsync(
+                        skuDetailParams,
+                        productsDetailCallback
+                    )
 
                     billingClient?.queryPurchasesAsync(params, historyCallback(context))
                 }
@@ -77,7 +84,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
         }
     }
 
-    private val productsDetailCallback = ProductDetailsResponseListener  { billingResult, productList ->
+    private val productsDetailCallback = ProductDetailsResponseListener { billingResult, productList ->
         log("getProductDetail : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null) {
 
@@ -87,6 +94,20 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
             productList.forEach {
                 val purchaseModel = PurchaseModel.PurchaseDetailModel()
                 purchaseModel.description = it.description
+
+                    val pricingPhases = it.subscriptionOfferDetails?.get(0)?.pricingPhases?.pricingPhaseList
+                    pricingPhases?.forEach { pricingPhase ->
+                        if (pricingPhase.priceAmountMicros == 0L) {
+                            purchaseModel.freeTrialPeriod = pricingPhase.billingPeriod
+//                            it.subscriptionOfferDetails?.get(0)?.pricingPhases?.pricingPhaseList?.get(0)?.billingPeriod
+                        }
+                        purchaseModel.subscriptionPeriod = pricingPhase.billingPeriod
+                    }
+                    purchaseModel.introductoryPrice =
+                        it.subscriptionOfferDetails?.get(0)?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+                    purchaseModel.originalPrice =
+                        it.subscriptionOfferDetails?.get(0)?.pricingPhases?.pricingPhaseList?.lastOrNull()?.formattedPrice
+
 //                purchaseModel.subscriptionPeriod = it.subscriptionPeriod
 //                purchaseModel.introductoryPrice = it.subscriptionPeriod
 //                purchaseModel.originalPrice = it.originalPrice
@@ -98,12 +119,20 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                 purchaseModel.type = it.productType
                 data.productDetails?.add(purchaseModel)
             }
-            if (type == BillingClient.ProductType.INAPP) Utils.putObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, data)
-            if (type == BillingClient.ProductType.SUBS) Utils.putObject(sharedPreferences, MyConstants.IN_APP_SUBS, data)
+            if (type == BillingClient.ProductType.INAPP) Utils.putObject(
+                sharedPreferences,
+                MyConstants.IN_APP_PRODUCTS,
+                data
+            )
+            if (type == BillingClient.ProductType.SUBS) Utils.putObject(
+                sharedPreferences,
+                MyConstants.IN_APP_SUBS,
+                data
+            )
         }
     }
 
-    fun historyCallback(context: Context) = PurchasesResponseListener  { billingResult, purchaseHistoryRecordList ->
+    fun historyCallback(context: Context) = PurchasesResponseListener { billingResult, purchaseHistoryRecordList ->
         log("getHistory : onPurchaseHistoryResponse : billingResult = $billingResult : purchaseHistoryRecordList = $purchaseHistoryRecordList")
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 
@@ -116,7 +145,8 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     }
 
     /*________________________ Shared Pref _______________________*/
-    private fun setProductStatus(status: Boolean) = sharedPreferences?.edit()?.putBoolean(MyConstants.IS_PREMIUM, status)?.apply()
+    private fun setProductStatus(status: Boolean) =
+        sharedPreferences?.edit()?.putBoolean(MyConstants.IS_PREMIUM, status)?.apply()
 
     /*________________________ History and products detail _______________________*/
 
@@ -130,7 +160,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     fun purchase(activity: Activity, productId: String) {
         log("purchase : productId = $productId")
 
-        val productsDetailCallback = ProductDetailsResponseListener  { billingResult, productList ->
+        val productsDetailCallback = ProductDetailsResponseListener { billingResult, productList ->
             log("purchase : onSkuDetailsResponse : billingResult = $billingResult : productList = $productList")
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productList != null && productList.isNotEmpty()) {
 
@@ -138,7 +168,9 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                     if (it.productId == productId) {
                         val productDetailsParams =
                             BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(it).build()
-                        val flowParams = BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(productDetailsParams)).build()
+                        val flowParams =
+                            BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(productDetailsParams))
+                                .build()
                         val responseCode = billingClient?.launchBillingFlow(activity, flowParams)?.responseCode
                         log("purchase : productId = $productId : responseCode = $responseCode")
                     }
@@ -171,7 +203,8 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
             Purchase.PurchaseState.PURCHASED -> {
                 if (isSignatureValid(purchase)) {
                     if (!purchase.isAcknowledged) {
-                        val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()
+                        val acknowledgePurchaseParams =
+                            AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()
                         billingClient?.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
                             log("handlePurchase : onAcknowledgePurchaseResponse : billingResult = $billingResult")
 
@@ -188,6 +221,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
                     }
                 }
             }
+
             Purchase.PurchaseState.PENDING -> toast(context, "Purchase PENDING")
             Purchase.PurchaseState.UNSPECIFIED_STATE -> toast(context, "Purchase UNSPECIFIED_STATE")
         }
@@ -257,15 +291,25 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
     }
 
     // call
-    fun isPurchased(): Boolean = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS) ?: MyConstants.IAP_DEFAULT_STATUS
+    fun isPurchased(): Boolean = sharedPreferences?.getBoolean(MyConstants.IS_PREMIUM, MyConstants.IAP_DEFAULT_STATUS)
+        ?: MyConstants.IAP_DEFAULT_STATUS
 
     fun getAllProductList(): PurchaseModel? {
         return when (type) {
             BillingClient.ProductType.INAPP -> {
-                if (sharedPreferences?.contains(MyConstants.IN_APP_PRODUCTS) == true) Utils.getObject(sharedPreferences, MyConstants.IN_APP_PRODUCTS, PurchaseModel::class.java) else null
+                if (sharedPreferences?.contains(MyConstants.IN_APP_PRODUCTS) == true) Utils.getObject(
+                    sharedPreferences,
+                    MyConstants.IN_APP_PRODUCTS,
+                    PurchaseModel::class.java
+                ) else null
             }
+
             else -> {
-                if (sharedPreferences?.contains(MyConstants.IN_APP_SUBS) == true) Utils.getObject(sharedPreferences, MyConstants.IN_APP_SUBS, PurchaseModel::class.java) else null
+                if (sharedPreferences?.contains(MyConstants.IN_APP_SUBS) == true) Utils.getObject(
+                    sharedPreferences,
+                    MyConstants.IN_APP_SUBS,
+                    PurchaseModel::class.java
+                ) else null
             }
         }
     }
