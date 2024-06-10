@@ -52,7 +52,7 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
         }
     }
 
-    private val skuDetailParams by lazy { QueryProductDetailsParams.newBuilder().setProductList(productList).build() }
+    private val skuDetailParams = QueryProductDetailsParams.newBuilder().setProductList(productList).build()
 
     private var billingClient: BillingClient? = null
 
