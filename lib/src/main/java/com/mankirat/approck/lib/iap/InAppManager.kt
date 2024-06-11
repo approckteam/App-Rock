@@ -166,10 +166,21 @@ class InAppManager(private val base64Key: String, private val productIds: ArrayL
 
                 productList.forEach {
                     if (it.productId == productId) {
-                        val productDetailsParams =
-                            BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(it).build()
+//                        val productDetailsParams =
+//                            BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(it).build()
+
+                        val productDetailsParamsList = listOf(
+                            it.subscriptionOfferDetails?.get(0)?.let { it1 ->
+                                it1.offerToken.let { it2 ->
+                                    BillingFlowParams.ProductDetailsParams.newBuilder()
+                                        .setProductDetails(it)
+                                        .setOfferToken(it2)
+                                        .build()
+                                }
+                            }
+                        )
                         val flowParams =
-                            BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(productDetailsParams))
+                            BillingFlowParams.newBuilder().setProductDetailsParamsList(productDetailsParamsList)
                                 .build()
                         val responseCode = billingClient?.launchBillingFlow(activity, flowParams)?.responseCode
                         log("purchase : productId = $productId : responseCode = $responseCode")
