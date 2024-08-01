@@ -54,7 +54,7 @@ dependencies {
 // ad-mob
     implementation 'com.google.android.gms:play-services-ads:22.0.0'
     // ad-mob-mediation
-//    implementation 'com.google.ads.mediation:adcolony:4.8.0.0'
+    implementation 'com.google.ads.mediation:adcolony:4.8.0.0'
     implementation 'com.google.ads.mediation:applovin:11.9.0.0'
     implementation 'com.google.ads.mediation:facebook:6.14.0.0'
     implementation 'com.facebook.android:audience-network-sdk:6.12.0'
